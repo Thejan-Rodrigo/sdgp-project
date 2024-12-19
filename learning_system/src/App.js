@@ -1,11 +1,11 @@
-import logo from './logo.svg';
+
 import './App.css';
+import Home from './components/homePage/Home'
 
 function App() {
   return (
     <div className="App">
-      <h1 className=' text-blue-700 font-bold bg-pink-200'>Test Text for check tailwindcss</h1>
-      <h1 className=' text-blue-700 font-bold bg-gray-500'>Test Text for check home-page branch</h1>
+      <Home/>
     </div>
   );
 }
