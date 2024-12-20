@@ -35,13 +35,13 @@ export default function home() {
                     <img src={Photo1} alt="hello1" class=" h-96 ml-40 rounded-lg"/>
                 </div>
                 <div class="mt-10">
-                    <TopicAndDescription topic="Hello">
-                        <span>Test Description is here to test the Topic and Description component that use in the home component. this component will be a shared component that use in the home component sevveral times</span>
+                    <TopicAndDescription topic="What is kindergarten?">
+                        <span class=" font-medium">Kindergarten is an educational division that is designed to accommodate children under the age of six. It is an addition to elementary school. After children enter primary school at the age of five or six, kindergarten instruction is completed.</span>
                     </TopicAndDescription>
                 </div>
                 <div class="mt-10">
-                    <TopicAndDescription topic="Hello">
-                        <span>Test Description is here to test the Topiv and Description component that use in the home component. this component will be a shared component that use in the home component sevveral times</span>
+                    <TopicAndDescription topic="Why Kindergarten Education is Important?">
+                        <span class=" font-medium">It has aided in enhancing kids' social and emotional abilities. Grow the brains of children, students' confidence and language proficiency can both be enhanced by it. For young children, kindergarten instruction must be crucial. </span>
                     </TopicAndDescription>
                 </div>
                 <div class="mt-10">
@@ -51,8 +51,8 @@ export default function home() {
                     <img src={Photo3} alt="hello3" class=" h-96 ml-20 rounded-lg" />
                 </div>
                 <div class="mt-10">
-                    <TopicAndDescription topic="Hello">
-                        <span>Test Description is here to test the Topiv and Description component that use in the home component. this component will be a shared component that use in the home component sevveral times</span>
+                    <TopicAndDescription topic="Teaching methods ">
+                        <span class=" font-medium">Kindergarten teaching methods are crucial because they lay the foundation for a child's future learning by providing a nurturing environment that fosters early development in key areas like social skills, communication, creativity, and basic academic concepts, setting the stage for a lifelong love of learning while addressing their unique developmental needs at this critical stage.</span>
                     </TopicAndDescription>
                 </div>
             </div>
