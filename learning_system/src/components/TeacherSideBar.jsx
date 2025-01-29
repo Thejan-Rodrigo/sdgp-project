@@ -1,11 +1,10 @@
 import React from 'react'
+import TeacherMassage from './meeting/TeacherMassage'
+import MeetingForm from './meeting/MeetingForm'
 
 export default function TeacherSideBar() {
     return (
         <div className=" py-28 px-5 bg-pink-200 w-auto h-auto">
-
-
-
             <div class="md:flex">
                 <ul class="flex-column space-y space-y-11 text-sm font-medium text-gray-500 dark:text-gray-400 md:me-4 mb-4 md:mb-0">
                     <li>
@@ -59,15 +58,7 @@ export default function TeacherSideBar() {
                         </a>
                     </li>
                 </ul>
-                <div class=" p-5 bg-yellow-100 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Profile Tab</h3>
-                    <p class="mb-2">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
-                    <p>The tab JavaScript swaps classes to control the content visibility and styling.</p>
-                </div>
             </div>
-
-
-
         </div>
     )
 }
