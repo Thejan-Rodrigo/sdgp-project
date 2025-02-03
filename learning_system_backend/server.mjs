@@ -20,7 +20,7 @@ app.use("/api/admin", adminRoutes);
 
 app.get("/test",(req,res)=>{
     console.log(req);
-    res.send("Hello world");
+    res.send("Hello  world");
     
 });
 
