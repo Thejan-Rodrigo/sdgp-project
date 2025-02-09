@@ -8,7 +8,7 @@ const Hero = () => {
         <div className="text-white max-w-2xl">
           <h1 className="text-5xl font-bold mb-6">Where Learning Meets Fun</h1>
           <p className="text-xl mb-8">Nurturing Young Minds for a Brighter Future</p>
-          <button className="bg-white text-primary px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-100 transition-colors">
+          <button className="bg-white text-blue-500 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-100 transition-colors">
             Explore Our Programs
           </button>
         </div>

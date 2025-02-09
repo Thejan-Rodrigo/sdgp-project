@@ -7,17 +7,20 @@ import Photo1 from '../../assets/Photo1.png'
 import Photo2 from '../../assets/Photo2.png'
 import Photo3 from '../../assets/Photo3.png'
 import Hero from './Hero'
+import Features from './Features'
 
 export default function home() {
     return (
-        <div class="bg-pink-300">
+        <div class="bg-white">
             <HomeNavBar />
 
             <Hero/>
 
+            <Features/>
+
             <div class="grid grid-cols-2 gap-4 content-start">
                 <div class="mt-10">
-                    <img src={Photo1} alt="hello1" class=" h-96 ml-40 rounded-lg"/>
+                    <img src={Photo1} alt="hello1" class=" h-96 ml-40 rounded-lg bg-gray-50"/>
                 </div>
                 <div class="mt-10">
                     <TopicAndDescription topic="What is kindergarten?">
@@ -30,10 +33,10 @@ export default function home() {
                     </TopicAndDescription>
                 </div>
                 <div class="mt-10">
-                    <img src={Photo2} alt="hello2" class=" h-96 ml-20 rounded-lg" />
+                    <img src={Photo2} alt="hello2" class=" h-96 ml-20 rounded-lg bg-gray-50" />
                 </div>
                 <div class="mt-10">
-                    <img src={Photo3} alt="hello3" class=" h-96 ml-20 rounded-lg" />
+                    <img src={Photo3} alt="hello3" class=" h-96 ml-20 rounded-lg bg-gray-50" />
                 </div>
                 <div class="mt-10">
                     <TopicAndDescription topic="Teaching methods ">
