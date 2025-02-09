@@ -1,13 +1,13 @@
+import Progress from "./components/progress/progress"
 
-import './App.css';
-import Home from './components/homePage/Home'
 
 function App() {
   return (
-    <div className="App">
-      <Home/>
+    <div className="min-h-screen bg-gray-50">
+      <Progress />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
+
