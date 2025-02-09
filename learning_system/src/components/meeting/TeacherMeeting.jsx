@@ -3,6 +3,7 @@ import CommenNavBar from '../CommenNavbBar'
 import TeacherSideBar from '../TeacherSideBar'
 import TeacherMassage from './TeacherMassage'
 import MeetingForm from './MeetingForm';
+import Sidebar from './Sidebar';
 
 export default function TeacherMeeting() {
     const [model, setModel] = useState(false);
@@ -21,27 +22,33 @@ export default function TeacherMeeting() {
     const data = [
         {
             "name": "Nethmi Himasara",
-            "descrip": "This is monthly meeting"
+            "descrip": "This is monthly meeting",
+            "time": "Today, 2:00 PM"
         },
         {
             "name": "Tarini Abesinhe",
-            "descrip": "Annual meeting to 'Kakulu sara'"
+            "descrip": "Annual meeting to 'Kakulu sara'",
+            "time": "Today, 2:00 PM"
         },
         {
             "name": "Kalina Dissanayake",
-            "descrip": "Only for G3 class"
+            "descrip": "Only for G3 class",
+            "time": "Today, 2:00 PM"
         },
         {
             "name": "Achira Manathunga",
-            "descrip": "All the Teachers"
+            "descrip": "All the Teachers",
+            "time": "Today, 2:00 PM"
         },
         {
             "name": "Thejani Balasuriya",
-            "descrip": "Weekly meeting"
+            "descrip": "Weekly meeting",
+            "time": "Today, 2:00 PM"
         },
         {
             "name": "Sarani Niranthara",
-            "descrip": "Daruwo godagamu workshop"
+            "descrip": "Daruwo godagamu workshop",
+            "time": "Today, 2:00 PM"
         }
     ]
 
@@ -52,18 +59,21 @@ export default function TeacherMeeting() {
 
     return (
         <div className="test">
-            <CommenNavBar />
 
-            <div className="side" class=" flex bg-pink-200">
-                <TeacherSideBar />
-                <div class=" p-7 bg-yellow-100 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full mt-28 overflow-y-scroll" style={{ height: 570 }}>
 
-                    <TeacherMassage name={data.at(0).name} descrip={data.at(0).descrip} />
-                    <TeacherMassage name={data.at(1).name} descrip={data.at(1).descrip} />
-                    <TeacherMassage name={data.at(2).name} descrip={data.at(2).descrip} />
-                    <TeacherMassage name={data.at(3).name} descrip={data.at(3).descrip} />
-                    <TeacherMassage name={data.at(4).name} descrip={data.at(4).descrip} />
-                    <TeacherMassage name={data.at(5).name} descrip={data.at(5).descrip} />
+            <div className="side" class=" flex bg-white">
+                <Sidebar />
+                <div class=" p-7 bg-gray-50 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full overflow-y-scroll" style={{ height: 700 }}>
+
+                    <h2 className="text-lg font-semibold mb-4 ml-10">Upcoming Meetings</h2>
+
+                    {data.map((meeting, index) => (
+                        <TeacherMassage 
+                        key={index} 
+                        name={meeting.name}
+                        descrip={meeting.descrip} 
+                        time={meeting.time}  />
+                    ))}
 
 
                     <button onClick={toggel} class=" bottom-0 fixed right-0 p-4 m-20 px-3 fixd  float-start w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-lg border border-gray-200 dark:border-gray-600 shadow-xs dark:hover:text-white dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
