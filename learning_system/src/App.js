@@ -12,7 +12,7 @@ import Test from './components/test/Test';
 function App() {
   return (
     <div className="App">
-      <TeacherMeeting/>
+      <Home/>
     </div>
   );
 }

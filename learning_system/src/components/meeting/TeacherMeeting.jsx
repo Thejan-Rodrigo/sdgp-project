@@ -6,7 +6,6 @@ import MeetingForm from './MeetingForm';
 
 export default function TeacherMeeting() {
     const [model, setModel] = useState(false);
-<<<<<<< HEAD
     const [showGenerate, setShowGenerate] = useState(true);
     const [showAddLink, setShowAddLink] = useState(false);
 
@@ -19,8 +18,6 @@ export default function TeacherMeeting() {
         setShowGenerate(false); // Hide Generate when Add Link is clicked
         setShowAddLink(true);
     };
-=======
->>>>>>> 1496f954749207a5b83d98eae26a13c40d8956a9
     const data = [
         {
             "name": "Nethmi Himasara",
@@ -76,7 +73,6 @@ export default function TeacherMeeting() {
                     </button>
                 </div>
                 {model && (
-<<<<<<< HEAD
                     <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm">
                         <div className="bg-white mt-32 rounded-lg h-auto w-auto mx-60 px-6 pb-4 relative">
                             {/* Top-right close button */}
@@ -235,49 +231,6 @@ export default function TeacherMeeting() {
                             )}
                         </div>
                     </div>
-
-
-=======
-                    <div class=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm">
-                        <div class="bg-white mt-32 rounded-lg h-auto w-auto mx-60 px-6 pb-4">
-                            <div class=" text-right">
-                                <button type="button" onClick={toggel} class=" mt-3 text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-2 py-1 text-center me-2 mb-2 h-7 w-10">
-                                    <svg className="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18 17.94 6M18 18 6.06 6" />
-                                    </svg>
-
-                                </button>
-                            </div>
-                            <form >
-                                <div class="relative z-0 w-full mb-5 group">
-                                    <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title of the meeting</label>
-                                    <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Reason for the meeting......." required></textarea>
-                                </div>
-
-
-                                <div class="relative max-w-sm">
-                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                        </svg>
-                                    </div>
-                                    <input id="datepicker-actions" datepicker datepicker-buttons datepicker-autoselect-today type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date" required />
-                                </div>
-
-                                <div class="relative z-0 w-full mb-5 group my-7">
-            
-                                        <div class=" w-40">
-                                            
-                                            <input type="time" id="time" class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-                                        </div>
-
-                                </div>
-
-                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-                            </form>
-                        </div>
-                    </div>
->>>>>>> 1496f954749207a5b83d98eae26a13c40d8956a9
                 )}
             </div>
         </div>
