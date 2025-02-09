@@ -1,3 +1,5 @@
+import Progress from "./components/progress/progress"
+
 import './App.css';
 import AddAdminPage from './components/addAdmin/AddAdminPage';
 import AddSchoolPage from './components/addSchool/AddSchoolPage';
@@ -20,4 +22,5 @@ function App() {
   );
 }
 
-export default App;
+export default App
+
