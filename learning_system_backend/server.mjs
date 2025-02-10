@@ -1,3 +1,5 @@
+import connectDB from './config/db.mjs'
+
 import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
@@ -7,6 +9,14 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+
+connectDB();
+
+app.get("/", (req, res) => {
+  res.send("MongoDB Connected with Mongoose!");
+});
+
 
 let children = [
     { id: "1", name: "John Doe", address: "123 Street", progress: "" },
