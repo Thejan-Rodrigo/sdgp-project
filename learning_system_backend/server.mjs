@@ -1,11 +1,21 @@
 import express from 'express';
 import { getAuthUrl, handleOAuthCallback, generateMeetingLink } from './api/router/meeting.mjs';
+import connectDB from './config/db.mjs'// Import database connection
+import meetingRoutes from "./api/router/meetingRoutes.mjs";
 
 // Create express server
 const server = express();
 
 // Middleware to parse JSON
 server.use(express.json());
+
+connectDB();
+
+server.get("/", (req, res) => {
+  res.send("MongoDB Connected with Mongoose!");
+});
+
+server.use("/api", meetingRoutes);
 
 // Route to initiate OAuth2 flow
 server.get('/auth', (req, res) => {
