@@ -22,7 +22,7 @@ export default function TeacherMeeting() {
     const data = [
         {
             "name": "Nethmi Himasara",
-            "descrip": "This is monthly meeting",
+            "descrip": "This is monthly meeting hdydbtcuxb ieb ctchd sis bctd hsvhs c ns cus sgb cyshshssyd stshbcgdjsbxvdgcyshsvd nchdsisnxh shshsgdtshsbdgcxfdvxgbgstd sgdtsvscsyshsnndjxnbd tshsgdb diaygd  dsadasd dsada gd sths dsgvc dtcha ctjs ddhsjc a aai aa ups snkkd ayw d s a a ar i want to how you do that me baby. how did you heart mend so easy mine still blead.",
             "time": "Today, 2:00 PM"
         },
         {

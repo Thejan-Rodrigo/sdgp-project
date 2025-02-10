@@ -14,6 +14,8 @@ import progressRoutes from "./routes/progressRoutes.js";
 // import { getStudentProfile, getStudentProgress } from "./controllers/studentController.js";
 // import { getAttendance } from "./controllers/studentAttendace.js"
 import { getAuthUrl, handleOAuthCallback, generateMeetingLink } from './api/router/meeting.mjs';
+import connectDB from './config/db.mjs'// Import database connection
+import meetingRoutes from "./api/router/meetingRoutes.mjs";
 
 
 dotenv.config();
@@ -54,6 +56,13 @@ app.use("/students", studentRoutes);
 // Routes
 app.use("/api/students", studentRoutes);
 app.use("/api/progress", progressRoutes);
+connectDB();
+
+server.get("/", (req, res) => {
+  res.send("MongoDB Connected with Mongoose!");
+});
+
+server.use("/api", meetingRoutes);
 
 // Route to initiate OAuth2 flow
 app.get('/auth', (req, res) => {
