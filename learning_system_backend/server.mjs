@@ -7,6 +7,8 @@ import errorHandler from "./middleware/errorMiddleware.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import schoolRoutes from "./routes/schoolRoutes.js";
 import { getAuthUrl, handleOAuthCallback, generateMeetingLink } from './api/router/meeting.mjs';
+import connectDB from './config/db.mjs'// Import database connection
+import meetingRoutes from "./api/router/meetingRoutes.mjs";
 
 
 dotenv.config();
@@ -26,6 +28,14 @@ app.get("/test",(req,res)=>{
     res.send("Hello world");
     
 });
+
+connectDB();
+
+server.get("/", (req, res) => {
+  res.send("MongoDB Connected with Mongoose!");
+});
+
+server.use("/api", meetingRoutes);
 
 // Route to initiate OAuth2 flow
 app.get('/auth', (req, res) => {
