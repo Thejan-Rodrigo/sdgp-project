@@ -34,10 +34,10 @@ export default function TeacherMassage(props) {
 
                 {/* Right side: Buttons */}
                 <div className="flex items-center gap-2">
-                    <button className="text-white w-10 h-7 border-2 border-green-500 rounded-lg font-extralight bg-green-400">
+                    <button onClick={() => window.open(props.link, "_blank")} className="text-white w-10 h-7 border-2 border-green-500 rounded-lg font-extralight bg-green-400">
                         Join
                     </button>
-                    <button className="text-white w-16 h-7 border-2 border-red-400 rounded-lg font-extralight bg-red-500">
+                    <button onClick={() => props.onDelete(props.id)} className="text-white w-16 h-7 border-2 border-red-400 rounded-lg font-extralight bg-red-500">
                         Remove
                     </button>
                 </div>
