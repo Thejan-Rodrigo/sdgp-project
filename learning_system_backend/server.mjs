@@ -2,12 +2,16 @@ import express from 'express';
 import { getAuthUrl, handleOAuthCallback, generateMeetingLink } from './api/router/meeting.mjs';
 import connectDB from './config/db.mjs'// Import database connection
 import meetingRoutes from "./api/router/meetingRoutes.mjs";
+import cors from "cors";
+
 
 // Create express server
 const server = express();
 
 // Middleware to parse JSON
 server.use(express.json());
+
+server.use(cors());
 
 connectDB();
 
@@ -48,6 +52,6 @@ server.get('/generateMeetingLink', async (req, res) => {
 });
 
 // Start server
-server.listen(3000, () => {
+server.listen(5000, () => {
   console.log('Server is running');
 });
