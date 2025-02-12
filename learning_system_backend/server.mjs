@@ -9,6 +9,8 @@ import schoolRoutes from "./routes/schoolRoutes.js";
 import { getAuthUrl, handleOAuthCallback, generateMeetingLink } from './api/router/meeting.mjs';
 import connectDB from './config/db.mjs'// Import database connection
 import meetingRoutes from "./api/router/meetingRoutes.mjs";
+import cors from "cors";
+
 
 
 dotenv.config();
@@ -28,6 +30,8 @@ app.get("/test",(req,res)=>{
     res.send("Hello world");
     
 });
+
+server.use(cors());
 
 connectDB();
 
