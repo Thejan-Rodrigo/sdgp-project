@@ -8,9 +8,11 @@ export const addMeeting = async (req, res) => {
     // Create a new meeting
     const meeting = new Meeting({ name, description, time, link });
 
+    console.log("Saving data")
     // Save to DB
     await meeting.save();
 
+    console.log("Data saved")
     // Return all meetings
     const allMeetings = await Meeting.find();
     res.status(201).json(allMeetings);
