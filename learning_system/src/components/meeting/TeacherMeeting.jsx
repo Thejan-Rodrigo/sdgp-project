@@ -1,14 +1,21 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import CommenNavBar from '../CommenNavbBar'
 import TeacherSideBar from '../TeacherSideBar'
 import TeacherMassage from './TeacherMassage'
 import MeetingForm from './MeetingForm';
 import Sidebar from './Sidebar';
+import axios from "axios";
 
 export default function TeacherMeeting() {
     const [model, setModel] = useState(false);
     const [showGenerate, setShowGenerate] = useState(true);
     const [showAddLink, setShowAddLink] = useState(false);
+    const [meetings, setMeetings] = useState([]);
+    const [title, setTitle] = useState("");
+    const [link, setLink] = useState("");
+    const [date, setDate] = useState("");
+    const [time, setTime] = useState("");
+    const [description, setDescription] = useState("");
 
     const handleGenerateClick = () => {
         setShowGenerate(true);
@@ -19,6 +26,58 @@ export default function TeacherMeeting() {
         setShowGenerate(false); // Hide Generate when Add Link is clicked
         setShowAddLink(true);
     };
+
+    useEffect(() => {
+        const fetchMeetings = async () => {
+            try {
+                const response = await axios.get("http://localhost:5000/api/meetings"); // Adjust backend URL if needed
+                setMeetings(response.data); // Update state with meetings data
+            } catch (error) {
+                console.error("Error fetching meetings:", error);
+            }
+        };
+
+        fetchMeetings();
+    }, []); // Empty dependency array ensures it runs only on page load
+
+    const handleSubmit = async (e) => {
+        e.preventDefault(); // Prevent the default form submission
+
+        // Construct the meeting object to send to the backend
+        const newMeeting = {
+            name: "Nethmi Himasara",
+            description: description,
+            time: `${date}T${time}:00.000Z`, // Combine date and time into a proper ISO format
+            link: link,
+        };
+
+        try {
+            console.log("Send the data to the backend")
+            // Send the data to the backend and fetch the updated list of meetings
+            const response = await axios.post("http://localhost:5000/api/addmeeting", newMeeting);
+            console.log("fetch the updated list of meetings")
+            console.log("Meeting Added:", response.data);
+
+            // Set the meetings state with the response data from the backend
+            setMeetings(response.data); // Assume the backend returns the updated list of meetings
+            console.log(" Set the meetings state")
+            toggel()
+        } catch (error) {
+            console.error("Error adding meeting:", error);
+        }
+    };
+
+    const handleDeleteMeeting = async (id) => {
+        try {
+            const response = await axios.delete(`http://localhost:5000/api/deletemeeting/${id}`);
+            setMeetings(response.data); // Update state with the new list of meetings
+        } catch (error) {
+            console.error("Error deleting meeting:", error);
+        }
+    };
+
+
+
     const data = [
         {
             "name": "Nethmi Himasara",
@@ -67,12 +126,16 @@ export default function TeacherMeeting() {
 
                     <h2 className="text-lg font-semibold mb-4 ml-10">Upcoming Meetings</h2>
 
-                    {data.map((meeting, index) => (
-                        <TeacherMassage 
-                        key={index} 
-                        name={meeting.name}
-                        descrip={meeting.descrip} 
-                        time={meeting.time}  />
+                    {meetings.map((meeting, index) => (
+                        <TeacherMassage
+                            key={meeting._id} // Use unique ID from MongoDB
+                            id={meeting._id} // Pass ID to the component
+                            name={meeting.name}
+                            descrip={meeting.description}
+                            time={meeting.time}
+                            link={meeting.link}
+                            onDelete={handleDeleteMeeting}
+                        />
                     ))}
 
 
@@ -198,7 +261,7 @@ export default function TeacherMeeting() {
 
                             {showAddLink && (
                                 <div>
-                                    <form>
+                                    <form onSubmit={handleSubmit}>
                                         <div className="relative z-0 w-full mb-5 group">
                                             <label
                                                 htmlFor="message"
@@ -209,8 +272,9 @@ export default function TeacherMeeting() {
                                             <textarea
                                                 id="message"
                                                 rows="4"
-                                                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                className="block p-2.5 w-full h-30 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Reason for the meeting......."
+                                                onChange={(e) => setDescription(e.target.value)}
                                                 required
                                             ></textarea>
                                         </div>
@@ -224,10 +288,48 @@ export default function TeacherMeeting() {
                                             <textarea
                                                 id="link"
                                                 rows="4"
-                                                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                className="block p-2.5 w-full h-11 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Enter the link......."
+                                                onChange={(e) => setLink(e.target.value)}
                                                 required
                                             ></textarea>
+                                        </div>
+
+                                        <div className="relative max-w-sm">
+                                            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                                <svg
+                                                    className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                                                    aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="currentColor"
+                                                    viewBox="0 0 20 20"
+                                                >
+                                                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                                </svg>
+                                            </div>
+                                            <input
+                                                id="datepicker-actions"
+                                                datepicker
+                                                datepicker-buttons
+                                                datepicker-autoselect-today
+                                                type="date"
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                placeholder="Select date"
+                                                onChange={(e) => setDate(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+
+                                        <div className="relative z-0 w-full mb-5 group my-7">
+                                            <div className="w-40">
+                                                <input
+                                                    type="time"
+                                                    id="time"
+                                                    className="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    onChange={(e) => setTime(e.target.value)}
+                                                    required
+                                                />
+                                            </div>
                                         </div>
 
                                         <button

@@ -16,6 +16,8 @@ import progressRoutes from "./routes/progressRoutes.js";
 import { getAuthUrl, handleOAuthCallback, generateMeetingLink } from './api/router/meeting.mjs';
 import connectDB from './config/db.mjs'// Import database connection
 import meetingRoutes from "./api/router/meetingRoutes.mjs";
+import cors from "cors";
+
 
 
 dotenv.config();
