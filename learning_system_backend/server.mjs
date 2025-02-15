@@ -1,11 +1,22 @@
 import express from 'express';
+import cors from "cors";
+import connectDB from "./config/db.js";
+import dotenv from "dotenv";
+import authRoutes from "./routes/authRoutes.js";
 
-const server = express();
+dotenv.config();
+connectDB();
 
-server.get("/test",(req,res)=>{
+const app = express();
+app.use(express.json());
+app.use(cors());
+
+app.use("/api/auth", authRoutes);
+
+app.get("/test",(req,res)=>{
     console.log(req);
     res.send("Hello world");
     
 });
 
-server.listen(3000,()=> console.log("server is running"));
+app.listen(5000,()=> console.log("server is running"));
