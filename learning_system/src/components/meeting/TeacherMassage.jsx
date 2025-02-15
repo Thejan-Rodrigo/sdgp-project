@@ -1,4 +1,5 @@
 import React from 'react'
+import { MdDateRange } from "react-icons/md"; // Calendar icon
 import { FaClock } from 'react-icons/fa';
 import { useState } from "react";
 
@@ -27,9 +28,18 @@ export default function TeacherMassage(props) {
             </div>
             <div className="flex justify-between items-center w-full">
                 {/* Left side: Time with icon */}
-                <div className="flex items-center gap-2">
-                    <FaClock />
-                    <span>{props.time}</span>
+                <div className="flex items-center gap-4">
+                    {/* Date with icon */}
+                    <div className="flex items-center gap-2">
+                        <MdDateRange />  {/* Small calendar icon */}
+                        <span>{new Date(props.time).toLocaleDateString("en-CA")}</span>  {/* YYYY/MM/DD */}
+                    </div>
+
+                    {/* Time with icon */}
+                    <div className="flex items-center gap-2">
+                        <FaClock />
+                        <span>{new Date(props.time).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}</span>
+                    </div>
                 </div>
 
                 {/* Right side: Buttons */}
