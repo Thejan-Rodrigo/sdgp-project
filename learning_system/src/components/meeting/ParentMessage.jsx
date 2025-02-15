@@ -1,25 +1,57 @@
 import React from 'react'
+import { MdDateRange } from "react-icons/md"; // Calendar icon
+import { FaClock } from 'react-icons/fa';
+import { useState } from "react";
 
 export default function ParentMessage(props) {
-  return (
-    <div class=" m-auto h-32 bg-white rounded-lg mb-10 p-3" style={{ width: 800 }}>
+
+    const [isExpanded, setIsExpanded] = useState(false);
+    const MAX_LENGTH = 100; // Adjust this limit
+
+    return (
+        <div class=" ml-8 h-auto bg-white rounded-lg mb-10 p-3" style={{ width: 800 }}>
             <div class="flex">
-                <button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-                    <span class="sr-only">Open user menu</span>
-                    <img class="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo" />
-                </button>
+
                 <h1 class="text-black font-semibold pl-4"> {props.name}</h1>
             </div>
-            <div class = "pt-1 font-normal">
-                <p>{props.descrip}</p>
+            <div class="pt-1 font-normal mb-5">
+
+                <p>{isExpanded || props.descrip.length <= MAX_LENGTH
+                    ? props.descrip
+                    : `${props.descrip.slice(0, MAX_LENGTH)}... `}
+                    {props.descrip.length > MAX_LENGTH && (
+                        <button
+                            onClick={() => setIsExpanded(!isExpanded)}
+                            className="text-blue-500 font-thin ml-1"
+                        >
+                            {isExpanded ? "Show Less" : "Show More.."}
+                        </button>
+                    )}</p>
             </div>
-            <div >
-            
-                <button class=" text-white float-right w-10 h-7 border-2 border-green-500 rounded-lg font-extralight bg-green-400">
-                    Join 
-                </button>
+            <div className="flex justify-between items-center w-full">
+                {/* Left side: Time with icon */}
+                <div className="flex items-center gap-4">
+                    {/* Date with icon */}
+                    <div className="flex items-center gap-2">
+                        <MdDateRange />  {/* Small calendar icon */}
+                        <span>{new Date(props.time).toLocaleDateString("en-CA")}</span>  {/* YYYY/MM/DD */}
+                    </div>
+
+                    {/* Time with icon */}
+                    <div className="flex items-center gap-2">
+                        <FaClock />
+                        <span>{new Date(props.time).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}</span>
+                    </div>
+                </div>
+
+                {/* Right side: Buttons */}
+                <div className="flex items-center gap-2">
+                    <button onClick={() => window.open(props.link, "_blank")} className="text-white w-14 h-7 border-2 border-green-500 rounded-lg font-extralight bg-green-400">
+                        Join
+                    </button>
+                </div>
             </div>
-            
+
         </div>
-  )
+    )
 }
