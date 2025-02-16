@@ -1,46 +1,84 @@
-import React, { useState } from 'react';
-import { FaUser, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
+import React, { useState } from "react";
+import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(""); // Error state
   const [formData, setFormData] = useState({
-    userId: '',
-    password: '',
-    rememberMe: false
+    email: "",
+    password: "",
+    rememberMe: false,
   });
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log('Login data:', formData);
+    setErrorMessage(""); // Reset error message before new login attempt
+
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Invalid email or password");
+      }
+
+      console.log("Login successful:", data);
+
+      // Save token to localStorage or state
+      localStorage.setItem("token", data.token);
+
+      // Redirect user after login (optional)
+      window.location.href = "/"; // Change to the actual route
+    } catch (error) {
+      console.error("Login error:", error.message);
+      setErrorMessage(error.message); // Set error message in state
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+
+      {/* Show error message if any */}
+      {errorMessage && (
+        <p className="text-red-500 text-sm text-center">{errorMessage}</p>
+      )}
+
+      <h2 className="text-xl font-bold">Login</h2>
+      
       <div className="space-y-2">
-        <label htmlFor="userId" className="block text-sm font-medium text-gray-700">
-          User ID
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          User Email
         </label>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <FaUser className="h-5 w-5 text-gray-400" />
           </div>
           <input
-            type="text"
-            id="userId"
-            name="userId"
-            value={formData.userId}
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
             onChange={handleChange}
             className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="Enter your ID"
+            placeholder="Enter your email"
             required
           />
         </div>

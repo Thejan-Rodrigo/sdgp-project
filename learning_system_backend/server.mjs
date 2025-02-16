@@ -3,6 +3,8 @@ import cors from "cors";
 import connectDB from "./config/db.js";
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
+import errorHandler from "./middleware/errorMiddleware.js";
+
 
 dotenv.config();
 connectDB();
@@ -18,5 +20,7 @@ app.get("/test",(req,res)=>{
     res.send("Hello world");
     
 });
+
+app.use(errorHandler); // Global error handler
 
 app.listen(5000,()=> console.log("server is running"));

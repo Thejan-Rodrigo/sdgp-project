@@ -2,6 +2,7 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import ApiError from "../utils/ApiError.js"; // Import error handling class
 
 dotenv.config();
 
@@ -17,12 +18,15 @@ const createUser = async ({ firstName, lastName, email, password, role, schoolId
 };
 
 const loginWithEmailAndPassword = async (email, password) => {
+  // Check if user exists
   const user = await User.findOne({ email });
-  if (!user) throw new Error("Invalid credentials");
+  if (!user) throw new ApiError(401, "Invalid email or password");
 
+  // Compare passwords
   const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) throw new Error("Invalid credentials");
+  if (!isMatch) throw new ApiError(401, "Invalid email or password");
 
+  // Update last login time
   user.lastLogin = new Date();
   await user.save();
 
