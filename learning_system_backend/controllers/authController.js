@@ -4,6 +4,8 @@ import { successResponse } from "../utils/responseHandler.js";
 import authService from "../services/authService.js";
 
 const authController = {
+
+  
   // Register user
   register: catchAsync(async (req, res) => {
     const { firstName, lastName, email, password, role, schoolId } = req.body;

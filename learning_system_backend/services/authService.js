@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+
 const createUser = async ({ firstName, lastName, email, password, role, schoolId }) => {
   const existingUser = await User.findOne({ email });
   if (existingUser) throw new Error("User already exists");

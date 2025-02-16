@@ -1,8 +1,10 @@
 import React from 'react'
 import imagLogo from '../../assets/LogoWhight.png'
 import Logo from './Logo'
+import { useNavigate } from "react-router-dom";
 
 export default function HomeNavBar() {
+  const navigate = useNavigate();
     return (
         <nav className="bg-white shadow-md">
       <div className="container mx-auto px-6 py-3">
@@ -14,7 +16,7 @@ export default function HomeNavBar() {
             <a href="#" className="text-gray-700 hover:text-primary">Parent</a>
             <a href="#" className="text-gray-700 hover:text-primary">About</a>
           </div>
-          <button className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors">
+          <button onClick={() => navigate("/login")} className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors">
             Login
           </button>
         </div>
