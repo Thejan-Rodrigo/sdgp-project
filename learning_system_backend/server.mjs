@@ -1,47 +1,38 @@
-import connectDB from './config/db.mjs'
+import express from "express"
+import mongoose from "mongoose"
+import cors from "cors"
+import studentRoutes from "./routes/studentRoutes.js"
+import { errorHandler } from "./middleware/errorHandler.js"
 
-import dotenv from 'dotenv';
-import express from 'express';
-import cors from 'cors';
+const app = express()
 
-dotenv.config();
+// Middleware
+app.use(cors())
+app.use(express.json())
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+// Routes
+app.use("/api/students", studentRoutes)
 
+// Error handling
+app.use(errorHandler)
 
-connectDB();
+// Database connection
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI)
+    console.log("MongoDB Connected Successfully!")
+  } catch (error) {
+    console.error("MongoDB Connection Failed:", error)
+    process.exit(1)
+  }
+}
 
-app.get("/", (req, res) => {
-  res.send("MongoDB Connected with Mongoose!");
-});
+connectDB()
 
+const PORT = process.env.PORT || 5000
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`)
+})
 
-let children = [
-    { id: "1", name: "John Doe", address: "123 Street", progress: "" },
-    { id: "2", name: "Jane Smith", address: "456 Avenue", progress: "" }
-];
+export default app
 
-app.get('/api/children', (req, res) => res.json(children));
-app.post('/api/children', (req, res) => {
-    const newChild = { id: Date.now().toString(), ...req.body };
-    children.push(newChild);
-    res.status(201).json(newChild);
-});
-
-app.put('/api/children/:id', (req, res) => {
-    const { id } = req.params;
-    const { progress } = req.body;
-    const child = children.find(c => c.id === id);
-
-    if (child) {
-        child.progress = progress;
-        res.json({ message: "Progress updated", child });
-    } else {
-        res.status(404).json({ message: "Child not found" });
-    }
-});
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
