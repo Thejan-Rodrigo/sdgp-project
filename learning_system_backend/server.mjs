@@ -1,8 +1,8 @@
-import connectDB from './config/db.mjs'
-
-import dotenv from 'dotenv';
-import express from 'express';
-import cors from "cors";
+import express from "express"
+import mongoose from "mongoose"
+import cors from "cors"
+import studentRoutes from "./routes/studentRoutes.js"
+import { errorHandler } from "./middleware/errorHandler.js"
 import connectDB from "./config/db.js";
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
@@ -31,19 +31,9 @@ app.get("/test",(req,res)=>{
 
 
 
+// Routes
+app.use("/api/students", studentRoutes)
 
-
-connectDB();
-
-app.get("/", (req, res) => {
-  res.send("MongoDB Connected with Mongoose!");
-});
-
-
-let children = [
-    { id: "1", name: "John Doe", address: "123 Street", progress: "" },
-    { id: "2", name: "Jane Smith", address: "456 Avenue", progress: "" }
-];
 
 app.get('/api/children', (req, res) => res.json(children));
 app.post('/api/children', (req, res) => {
