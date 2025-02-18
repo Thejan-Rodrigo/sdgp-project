@@ -1,6 +1,13 @@
 import express from 'express';
+import connectDB from './config/dtabase.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 
 const server = express();
+
+connectDB()
 
 server.get("/test",(req,res)=>{
     console.log(req);
@@ -8,4 +15,4 @@ server.get("/test",(req,res)=>{
     
 });
 
-server.listen(3000,()=> console.log("server is running"));
+server.listen(5000,()=> console.log("server is running"));
