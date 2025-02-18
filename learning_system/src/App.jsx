@@ -9,7 +9,7 @@ import Home from './components/homePage/Home'
 
 function App() {
   // You can change this to switch between different roles
-  const userRole = 'teacher'; // Options: 'teacher', 'student', 'admin', 'superadmin'
+  const userRole = 'student'; // Options: 'teacher', 'student', 'admin', 'superadmin'
 
   const renderDashboard = () => {
     switch (userRole) {
