@@ -8,6 +8,18 @@ export default function ParentMessage(props) {
     const [isExpanded, setIsExpanded] = useState(false);
     const MAX_LENGTH = 100; // Adjust this limit
 
+    const dateObj = new Date(props.time);
+
+    // Format the date in YYYY/MM/DD (UTC)
+    const utcDate = dateObj.toISOString().split("T")[0].replace(/-/g, "/");
+
+    // Format the time in 12-hour format with AM/PM (UTC)
+    const utcHours = dateObj.getUTCHours();
+    const utcMinutes = dateObj.getUTCMinutes();
+    const formattedUTCTime = `${(utcHours % 12 || 12).toString().padStart(2, "0")}:${utcMinutes
+        .toString()
+        .padStart(2, "0")} ${utcHours >= 12 ? "PM" : "AM"}`;
+
     return (
         <div class=" ml-8 h-auto bg-white rounded-lg mb-10 p-3" style={{ width: 800 }}>
             <div class="flex">
@@ -34,13 +46,13 @@ export default function ParentMessage(props) {
                     {/* Date with icon */}
                     <div className="flex items-center gap-2">
                         <MdDateRange />  {/* Small calendar icon */}
-                        <span>{new Date(props.time).toLocaleDateString("en-CA")}</span>  {/* YYYY/MM/DD */}
+                        <span>{utcDate}</span>  {/* YYYY/MM/DD */}
                     </div>
 
                     {/* Time with icon */}
                     <div className="flex items-center gap-2">
                         <FaClock />
-                        <span>{new Date(props.time).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}</span>
+                        <span>{formattedUTCTime}</span> {/* HH:MM AM/PM */}
                     </div>
                 </div>
 
