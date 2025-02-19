@@ -1,1 +1,23 @@
 2025-02-18 21:56:01 [32minfo[39m: [32mMongoDB Connected: kinderzone-shard-00-01.nt23j.mongodb.net[39m
+2025-02-18 22:01:41 [33mwarn[39m: [33mMongoDB disconnected[39m
+2025-02-18 22:01:52 [32minfo[39m: [32mMongoDB reconnected[39m
+2025-02-18 23:39:15 [33mwarn[39m: [33mMongoDB disconnected[39m
+2025-02-18 23:39:26 [32minfo[39m: [32mMongoDB reconnected[39m
+2025-02-18 23:39:48 [33mwarn[39m: [33mMongoDB disconnected[39m
+2025-02-18 23:39:59 [32minfo[39m: [32mMongoDB reconnected[39m
+2025-02-19 07:23:28 [32minfo[39m: [32mMongoDB reconnected[39m
+2025-02-19 07:23:29 [32minfo[39m: [32mMongoDB reconnected[39m
+2025-02-19 07:23:39 [33mwarn[39m: [33mMongoDB disconnected[39m
+2025-02-19 07:23:40 [32minfo[39m: [32mMongoDB reconnected[39m
+2025-02-19 07:34:11 [32minfo[39m: [32mMongoDB reconnected[39m
+2025-02-19 08:28:45 [33mwarn[39m: [33mMongoDB disconnected[39m
+2025-02-19 08:28:45 [32minfo[39m: [32mMongoDB reconnected[39m
+2025-02-19 08:29:25 [32minfo[39m: [32mMongoDB reconnected[39m
+2025-02-19 08:29:36 [33mwarn[39m: [33mMongoDB disconnected[39m
+2025-02-19 08:29:36 [32minfo[39m: [32mMongoDB reconnected[39m
+2025-02-19 08:37:07 [32minfo[39m: [32mMongoDB reconnected[39m
+2025-02-19 08:37:19 [33mwarn[39m: [33mMongoDB disconnected[39m
+2025-02-19 08:37:27 [32minfo[39m: [32mMongoDB reconnected[39m
+2025-02-19 10:28:42 [33mwarn[39m: [33mMongoDB disconnected[39m
+2025-02-19 10:46:02 [32minfo[39m: [32mMongoDB Connected: kinderzone-shard-00-02.nt23j.mongodb.net[39m
+2025-02-19 10:46:08 [33mwarn[39m: [33mMongoDB disconnected[39m
