@@ -165,7 +165,7 @@ function Progress() {
                   </div>
                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusStyle(student.status)}`}>
                     {student.status}
-                  </span>
+                  </span> 
                 </div>
               ))}
             </div>

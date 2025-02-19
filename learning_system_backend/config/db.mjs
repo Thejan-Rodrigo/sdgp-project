@@ -1,10 +1,8 @@
 import mongoose from 'mongoose'
 
-const mongoURI = "mongodb+srv://Kinder_zone_01:SDGPIIT2025@kinderzone.nt23j.mongodb.net/?retryWrites=true&w=majority&appName=KinderZone"; // Replace with your actual connection string
-
 const connectDB = async () => {
   try {
-    await mongoose.connect(mongoURI, {
+    await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

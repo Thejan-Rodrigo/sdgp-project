@@ -1,6 +1,7 @@
 import express from "express"
-import mongoose from "mongoose"
 import cors from "cors"
+import dotenv from "dotenv";
+import connectDB from "./config/db.mjs";
 import studentRoutes from "./routes/studentRoutes.js"
 import { errorHandler } from "./middleware/errorHandler.js"
 import connectDB from "./config/db.js";
@@ -30,6 +31,12 @@ app.get("/test",(req,res)=>{
 });
 
 
+dotenv.config();
+connectDB();
+
+// Middleware
+app.use(cors())
+app.use(express.json())
 
 // Routes
 app.use("/api/students", studentRoutes)
