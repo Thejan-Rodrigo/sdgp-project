@@ -8,19 +8,21 @@ import Photo2 from '../../assets/Photo2.png'
 import Photo3 from '../../assets/Photo3.png'
 import Hero from './Hero'
 import Features from './Features'
+import { useAuth } from "../../context/AuthContext";
 
-export default function home() {
+export default function Home() {
+    const { user } = useAuth();
     return (
         <div class="bg-white">
             <HomeNavBar />
 
-            <Hero/>
+            <Hero />
 
-            <Features/>
+            <Features />
 
             <div class="grid grid-cols-2 gap-4 content-start">
                 <div class="mt-10">
-                    <img src={Photo1} alt="hello1" class=" h-96 ml-40 rounded-lg bg-gray-50"/>
+                    <img src={Photo1} alt="hello1" class=" h-96 ml-40 rounded-lg bg-gray-50" />
                 </div>
                 <div class="mt-10">
                     <TopicAndDescription topic="What is kindergarten?">
@@ -44,6 +46,12 @@ export default function home() {
                     </TopicAndDescription>
                 </div>
             </div>
+
+            {user ? ( // ✅ Check if user exists
+                <h1>Welcome, {user.firstName} ({user.role})!</h1>
+            ) : (
+                <h1>Loading or not logged in...</h1>
+            )}
 
             <Footer></Footer>
 
