@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import { useAuth } from "../../context/AuthContext";
 
 const LoginForm = () => {
+  const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState(""); // Error state
   const [formData, setFormData] = useState({
@@ -35,18 +37,35 @@ const LoginForm = () => {
       });
 
       const data = await response.json();
+      console.log("Login response:", data);
+      
 
       if (!response.ok) {
         throw new Error(data.message || "Invalid email or password");
       }
+      
 
-      console.log("Login successful:", data);
+      if (data.success) {
+      
 
-      // Save token to localStorage or state
-      localStorage.setItem("token", data.token);
+        console.log("Login response: hello");
 
-      // Redirect user after login (optional)
-      window.location.href = "/"; // Change to the actual route
+        login(data); // Store user data in context
+        console.log("Login response: hello");
+
+        localStorage.setItem("token", data.token);
+
+        console.log("Login response: hello");
+
+        console.log("Login successful:", data.user);
+
+        // Redirect user after login (optional)
+        window.location.href = "/"; // Change to the actual route
+
+      } else {
+        console.error("Login failed:", response.data.message);
+      }
+
     } catch (error) {
       console.error("Login error:", error.message);
       setErrorMessage(error.message); // Set error message in state
@@ -62,7 +81,7 @@ const LoginForm = () => {
       )}
 
       <h2 className="text-xl font-bold">Login</h2>
-      
+
       <div className="space-y-2">
         <label htmlFor="email" className="block text-sm font-medium text-gray-700">
           User Email
