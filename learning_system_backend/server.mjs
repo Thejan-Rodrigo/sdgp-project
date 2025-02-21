@@ -11,9 +11,8 @@ import logRequest from './utils/logger.js'; // Adjust the path to where you defi
 import studentRoutes from "./routes/studentRoutes.js";
 import progressRoutes from "./routes/progressRoutes.js";
 import { getAuthUrl, handleOAuthCallback, generateMeetingLink } from './api/router/meeting.mjs';
-import connectDB from './config/db.mjs'// Import database connection
 import meetingRoutes from "./api/router/meetingRoutes.mjs";
-import cors from "cors";
+
 
 
 
@@ -35,17 +34,16 @@ app.get("/test",(req,res)=>{
     
 });
 
-
 // Routes
 app.use("/api/students", studentRoutes);
 app.use("/api/progress", progressRoutes);
 connectDB();
 
-server.get("/", (req, res) => {
+app.get("/", (req, res) => {
   res.send("MongoDB Connected with Mongoose!");
 });
 
-server.use("/api", meetingRoutes);
+app.use("/api", meetingRoutes);
 
 // Route to initiate OAuth2 flow
 app.get('/auth', (req, res) => {
