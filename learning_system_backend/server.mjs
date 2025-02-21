@@ -7,9 +7,8 @@ import errorHandler from "./middleware/errorMiddleware.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import schoolRoutes from "./routes/schoolRoutes.js";
 import { getAuthUrl, handleOAuthCallback, generateMeetingLink } from './api/router/meeting.mjs';
-import connectDB from './config/db.mjs'// Import database connection
 import meetingRoutes from "./api/router/meetingRoutes.mjs";
-import cors from "cors";
+
 
 
 
@@ -31,15 +30,15 @@ app.get("/test",(req,res)=>{
     
 });
 
-server.use(cors());
+app.use(cors());
 
 connectDB();
 
-server.get("/", (req, res) => {
+app.get("/", (req, res) => {
   res.send("MongoDB Connected with Mongoose!");
 });
 
-server.use("/api", meetingRoutes);
+app.use("/api", meetingRoutes);
 
 // Route to initiate OAuth2 flow
 app.get('/auth', (req, res) => {
