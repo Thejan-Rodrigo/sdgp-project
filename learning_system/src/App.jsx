@@ -1,9 +1,9 @@
 
 import './App.css';
-import AdminDashboard from './components/Announcement/adminAnnouncement/AdminDashboard';
-import StudentDashboard from './components/Announcement/studentAnnouncement/StudentDashboard';
-import SuperAdminDashboard from './components/Announcement/superAdminAnnouncement/SuperAdminDashboard';
-import TeacherDashboard from './components/Announcement/teacherAnnouncement/TeacherDashboard';
+import AdminDashboard from './components/Announcement/AdminAnnouncement/AdminDashboard.jsx';
+import StudentDashboard from './components/Announcement/StudentAnnouncement/StudentDashboard.jsx';
+import SuperAdminDashboard from './components/Announcement/SuperAdminAnnouncement/SuperAdminDashboard.jsx';
+import TeacherDashboard from './components/Announcement/teacherAnnouncement/TeacherDashboard.jsx';
 import Home from './components/homePage/Home'
 
 
