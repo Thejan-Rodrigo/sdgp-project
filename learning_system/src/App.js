@@ -12,6 +12,9 @@ import AboutUs from './components/homePage/AboutUs';
 import LoginPage from './components/loginPage/LoginPage';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import RegistrationPage from './components/registering/RegistrationPage';
+import TeacherMassage from './components/meeting/TeacherMassage';
+import TeacherMeeting from './components/meeting/TeacherMeeting';
+import ParentMeeting from './components/meeting/ParentMeeting';
 
 import StudentProfile from './components/studentProfilePage/studentProfilePage';
 import TeacherSProfile from './components/studentProfilePage/teacherSProfile';
@@ -37,6 +40,8 @@ const App = () => {
         <Route path="/studentprofile" element={<StudentProfile />}/>
         <Route path="/teacherSProfile" element={<TeacherSProfile />}/>
         <Route path="/adminSProfile" element={<AdminSProfile />}/>
+        <Route path="/teachermeeting" element={<TeacherMeeting/>}/>
+        <Route path="/parentmeeting" element={<ParentMeeting/>}/>
       </Routes>
     </Router>
   );
