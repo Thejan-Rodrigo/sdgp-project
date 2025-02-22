@@ -1,8 +1,8 @@
 import express from "express";
-import announcementController from "../../controllers/announcement/announcementController";
-import auth from "../../middleware/auth.middleware";
-import validate from "../../middleware/validate.middleware";
-import announcementValidation from "../../validations/announcement.validation";
+import announcementController from "../controllers/announcementController.js";
+import auth from "../middleware/authMiddlewere.js";
+import validate from "../middleware/validate.middleware.js";
+import announcementValidation from "../validations/announcement.validation.js";
 
 const router = express.Router();
 
