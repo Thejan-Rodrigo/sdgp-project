@@ -1,9 +1,9 @@
-import catchAsync from "../../utils/catchAsync.js";
-import ApiError from "../../utils/ApiError.js";
-import { successResponse } from "../../utils/responseHandler.js";
-import announcementService from "../../services/announcement/announcementService.js";
-import { statusCodes } from "../../config/constants.js";
-import logger from "../../config/logger.js";
+import catchAsync from "../utils/catchAsync.js";
+import ApiError from "../utils/ApiError.js";
+import { successResponse } from "../utils/responceHandeller.js";
+import announcementService from "../services/announcementService.js";
+import { statusCodes } from "../config/constants.js";
+import logger from "../config/logger.js";
 import mongoose from "mongoose";
 
 const announcementController = {
