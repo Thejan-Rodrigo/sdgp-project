@@ -3,13 +3,14 @@ import './App.css';
 import AdminDashboard from './components/Announcement/AdminAnnouncement/AdminDashboard.jsx';
 import StudentDashboard from './components/Announcement/StudentAnnouncement/StudentDashboard.jsx';
 import SuperAdminDashboard from './components/Announcement/SuperAdminAnnouncement/SuperAdminDashboard.jsx';
-import TeacherDashboard from './components/Announcement/teacherAnnouncement/TeacherDashboard.jsx';
+import TeacherDashboard from './components/Announcement/teacherAnnouncement/TeacherDashboard';
 import Home from './components/homePage/Home'
-
+import LoginPage from './components/loginPage/LoginPage';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 
 function App() {
   // You can change this to switch between different roles
-  const userRole = 'student'; // Options: 'teacher', 'student', 'admin', 'superadmin'
+  /*const userRole = 'student'; // Options: 'teacher', 'student', 'admin', 'superadmin'
 
   const renderDashboard = () => {
     switch (userRole) {
@@ -24,12 +25,18 @@ function App() {
       default:
         return <StudentDashboard />;
     }
-  };
+    //{renderDashboard()}
+  };*/
 
   return (
-    <>
-      {renderDashboard()}
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/teacherannouncement" element={<TeacherDashboard/>}/>
+        <Route path= "/parentannouncement" element={<StudentDashboard/>}/>
+      </Routes>
+    </Router>
   );
 }
 

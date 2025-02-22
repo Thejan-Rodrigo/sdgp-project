@@ -18,12 +18,15 @@ app.use("/api/auth", authRoutes);
 
 app.use("/api/admin", adminRoutes);
 
+
+app.use("/api/auth", authRoutes);
+
+app.use('/api/v1', announcementRoute);
+
 app.get("/test",(req,res)=>{
     console.log(req);
     res.send("Hello  world");
     
 });
-
 app.use(errorHandler); // Global error handler
-
 app.listen(5000,()=> console.log("server is running"));

@@ -1,6 +1,6 @@
 import catchAsync from "../utils/catchAsync.js";
 import ApiError from "../utils/ApiError.js";
-import { successResponse } from "../utils/responseHandler.js";
+import { successResponse } from "../utils/responceHandeller.js";
 import authService from "../services/authService.js";
 
 const authController = {
