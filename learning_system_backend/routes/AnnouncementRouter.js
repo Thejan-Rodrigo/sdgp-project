@@ -7,10 +7,10 @@ import announcementValidation from "../validations/announcement.validation.js";
 const router = express.Router();
 
 // All authenticated users can view and mark announcements as read
-router.use(auth());
+//router.use(auth());
 router.get(
   "/",
-  validate(announcementValidation.getAnnouncements),
+  //validate(announcementValidation.getAnnouncements),
   announcementController.getAnnouncements
 );
 // router.get(

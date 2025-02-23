@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { announcementStatus, targetAudience } from "../config/constants.js";
+import status from "../config/constants.js";
 
 const announcementSchema = new Schema(
   {
@@ -29,14 +29,14 @@ const announcementSchema = new Schema(
     targetAudience: [
       {
         type: String,
-        enum: Object.values(targetAudience),
+        enum: Object.values(status.targetAudience),
         required: [true, "Target audience is required"],
       },
     ],
     status: {
       type: String,
-      enum: Object.values(announcementStatus),
-      default: announcementStatus.DRAFT,
+      enum: Object.values(status.announcementStatus),
+      default: status.announcementStatus.DRAFT,
     },
     publishedAt: {
       type: Date,

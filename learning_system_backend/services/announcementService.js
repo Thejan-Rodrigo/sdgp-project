@@ -1,11 +1,12 @@
 import { Types } from "mongoose";
-import Announcement from "../../models/Announcement.js";
-import AnnouncementRead from "../../models/AnnouncementRead.js";
-import ApiError from "../../utils/ApiError.js";
-import { statusCodes } from "../../config/constants.js";
-import logger from "../../config/logger.js";
+import Announcement from "../models/Announcement.js";
+import AnnouncementRead from "../models/AnnouncementRead.js";
+import ApiError from "../utils/ApiError.js";
+import status from "../config/constants.js";
+import logger from "../config/logger.js";
 
 const announcementService = {
+  
   // Create new announcement
   async createAnnouncement(announcementData) {
     try {
@@ -17,7 +18,7 @@ const announcementService = {
       return announcement;
     } catch (error) {
       logger.error("Error creating announcement:", error);
-      throw new ApiError(statusCodes.INTERNAL_SERVER, "Error creating announcement");
+      throw new ApiError(status.statusCodes.INTERNAL_SERVER, "Error creating announcement");
     }
   },
 
@@ -65,7 +66,7 @@ const announcementService = {
       };
     } catch (error) {
       logger.error("Error getting announcements:", error);
-      throw new ApiError(statusCodes.INTERNAL_SERVER, "Error retrieving announcements");
+      throw new ApiError(status.statusCodes.INTERNAL_SERVER, "Error retrieving announcements");
     }
   },
 
@@ -73,13 +74,13 @@ const announcementService = {
   async getAnnouncementById(id, schoolId) {
     try {
       if (!Types.ObjectId.isValid(id)) {
-        throw new ApiError(statusCodes.BAD_REQUEST, "Invalid announcement ID");
+        throw new ApiError(status.statusCodes.BAD_REQUEST, "Invalid announcement ID");
       }
 
       const announcement = await Announcement.findOne({ _id: id, schoolId }).populate("authorId", "firstName lastName");
 
       if (!announcement) {
-        throw new ApiError(statusCodes.NOT_FOUND, "Announcement not found");
+        throw new ApiError(status.statusCodes.NOT_FOUND, "Announcement not found");
       }
 
       const readCount = await AnnouncementRead.countDocuments({ announcementId: id, schoolId });
@@ -91,7 +92,7 @@ const announcementService = {
     } catch (error) {
       logger.error(`Error getting announcement ${id}:`, error);
       if (error instanceof ApiError) throw error;
-      throw new ApiError(statusCodes.INTERNAL_SERVER, "Error retrieving announcement");
+      throw new ApiError(status.statusCodes.INTERNAL_SERVER, "Error retrieving announcement");
     }
   },
 
@@ -99,7 +100,7 @@ const announcementService = {
   async updateAnnouncement(id, schoolId, updateData) {
     try {
       if (!Types.ObjectId.isValid(id)) {
-        throw new ApiError(statusCodes.BAD_REQUEST, "Invalid announcement ID");
+        throw new ApiError(status.statusCodes.BAD_REQUEST, "Invalid announcement ID");
       }
 
       const announcement = await Announcement.findOneAndUpdate(
@@ -109,7 +110,7 @@ const announcementService = {
       ).populate("authorId", "firstName lastName");
 
       if (!announcement) {
-        throw new ApiError(statusCodes.NOT_FOUND, "Announcement not found");
+        throw new ApiError(status.statusCodes.NOT_FOUND, "Announcement not found");
       }
 
       logger.info(`Announcement ${id} updated successfully`);
@@ -117,7 +118,7 @@ const announcementService = {
     } catch (error) {
       logger.error(`Error updating announcement ${id}:`, error);
       if (error instanceof ApiError) throw error;
-      throw new ApiError(statusCodes.INTERNAL_SERVER, "Error updating announcement");
+      throw new ApiError(status.statusCodes.INTERNAL_SERVER, "Error updating announcement");
     }
   },
 
@@ -125,13 +126,13 @@ const announcementService = {
   async deleteAnnouncement(id, schoolId) {
     try {
       if (!Types.ObjectId.isValid(id)) {
-        throw new ApiError(statusCodes.BAD_REQUEST, "Invalid announcement ID");
+        throw new ApiError(status.statusCodes.BAD_REQUEST, "Invalid announcement ID");
       }
 
       const announcement = await Announcement.findOneAndDelete({ _id: id, schoolId });
 
       if (!announcement) {
-        throw new ApiError(statusCodes.NOT_FOUND, "Announcement not found");
+        throw new ApiError(status.statusCodes.NOT_FOUND, "Announcement not found");
       }
 
       await AnnouncementRead.deleteMany({ announcementId: id });
@@ -141,7 +142,7 @@ const announcementService = {
     } catch (error) {
       logger.error(`Error deleting announcement ${id}:`, error);
       if (error instanceof ApiError) throw error;
-      throw new ApiError(statusCodes.INTERNAL_SERVER, "Error deleting announcement");
+      throw new ApiError(status.statusCodes.INTERNAL_SERVER, "Error deleting announcement");
     }
   },
 
@@ -149,13 +150,13 @@ const announcementService = {
   async markAsRead({ announcementId, schoolId, userId }) {
     try {
       if (!Types.ObjectId.isValid(announcementId)) {
-        throw new ApiError(statusCodes.BAD_REQUEST, "Invalid announcement ID");
+        throw new ApiError(status.statusCodes.BAD_REQUEST, "Invalid announcement ID");
       }
 
       const announcement = await Announcement.findOne({ _id: announcementId, schoolId });
 
       if (!announcement) {
-        throw new ApiError(statusCodes.NOT_FOUND, "Announcement not found");
+        throw new ApiError(status.statusCodes.NOT_FOUND, "Announcement not found");
       }
 
       const readStatus = await AnnouncementRead.findOneAndUpdate(
@@ -169,7 +170,7 @@ const announcementService = {
     } catch (error) {
       logger.error(`Error marking announcement ${announcementId} as read:`, error);
       if (error instanceof ApiError) throw error;
-      throw new ApiError(statusCodes.INTERNAL_SERVER, "Error marking announcement as read");
+      throw new ApiError(status.statusCodes.INTERNAL_SERVER, "Error marking announcement as read");
     }
   },
 
@@ -177,13 +178,13 @@ const announcementService = {
   async getReadStatus({ announcementId, schoolId }) {
     try {
       if (!Types.ObjectId.isValid(announcementId)) {
-        throw new ApiError(statusCodes.BAD_REQUEST, "Invalid announcement ID");
+        throw new ApiError(status.statusCodes.BAD_REQUEST, "Invalid announcement ID");
       }
 
       const announcement = await Announcement.findOne({ _id: announcementId, schoolId });
 
       if (!announcement) {
-        throw new ApiError(statusCodes.NOT_FOUND, "Announcement not found");
+        throw new ApiError(status.statusCodes.NOT_FOUND, "Announcement not found");
       }
 
       const readReceipts = await AnnouncementRead.find({ announcementId, schoolId })
@@ -200,7 +201,7 @@ const announcementService = {
     } catch (error) {
       logger.error(`Error getting read status for announcement ${announcementId}:`, error);
       if (error instanceof ApiError) throw error;
-      throw new ApiError(statusCodes.INTERNAL_SERVER, "Error getting read status");
+      throw new ApiError(status.statusCodes.INTERNAL_SERVER, "Error getting read status");
     }
   },
 };

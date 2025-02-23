@@ -2,7 +2,7 @@ import catchAsync from "../utils/catchAsync.js";
 import ApiError from "../utils/ApiError.js";
 import { successResponse } from "../utils/responceHandeller.js";
 import announcementService from "../services/announcementService.js";
-import { statusCodes } from "../config/constants.js";
+import status from "../config/constants.js";
 import logger from "../config/logger.js";
 import mongoose from "mongoose";
 
@@ -12,7 +12,7 @@ const announcementController = {
     try {
       const { title, content, targetAudience } = req.body;
       if (!title || !content || !targetAudience) {
-        throw new ApiError(statusCodes.BAD_REQUEST, "Missing required fields");
+        throw new ApiError(status.statusCodes.BAD_REQUEST, "Missing required fields");
       }
 
       const announcement = await announcementService.createAnnouncement({
@@ -25,7 +25,7 @@ const announcementController = {
         res,
         { announcement },
         "Announcement created successfully",
-        statusCodes.CREATED
+        status.statusCodes.CREATED
       );
     } catch (error) {
       logger.error("Error creating announcement:", error);
@@ -36,6 +36,7 @@ const announcementController = {
   // Get all announcements
   getAnnouncements: catchAsync(async (req, res) => {
     try {
+      console.log("hello");
       const {
         page = 1,
         limit = 10,
@@ -68,7 +69,7 @@ const announcementController = {
 
       if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new ApiError(
-          statusCodes.BAD_REQUEST,
+          status.statusCodes.BAD_REQUEST,
           "Invalid announcement ID format"
         );
       }
@@ -79,7 +80,7 @@ const announcementController = {
       );
 
       if (!announcement) {
-        throw new ApiError(statusCodes.NOT_FOUND, "Announcement not found");
+        throw new ApiError(status.statusCodes.NOT_FOUND, "Announcement not found");
       }
 
       return successResponse(res, { announcement });
@@ -95,7 +96,7 @@ const announcementController = {
       const { id } = req.params;
       if (!id) {
         throw new ApiError(
-          statusCodes.BAD_REQUEST,
+          status.statusCodes.BAD_REQUEST,
           "Announcement ID is required"
         );
       }
@@ -105,7 +106,7 @@ const announcementController = {
         req.user.schoolId
       );
       if (!exists) {
-        throw new ApiError(statusCodes.NOT_FOUND, "Announcement not found");
+        throw new ApiError(status.statusCodes.NOT_FOUND, "Announcement not found");
       }
 
       const announcement = await announcementService.updateAnnouncement(
@@ -131,7 +132,7 @@ const announcementController = {
       const { id } = req.params;
       if (!id) {
         throw new ApiError(
-          statusCodes.BAD_REQUEST,
+          status.statusCodes.BAD_REQUEST,
           "Announcement ID is required"
         );
       }
@@ -141,7 +142,7 @@ const announcementController = {
         req.user.schoolId
       );
       if (!exists) {
-        throw new ApiError(statusCodes.NOT_FOUND, "Announcement not found");
+        throw new ApiError(status.statusCodes.NOT_FOUND, "Announcement not found");
       }
 
       await announcementService.deleteAnnouncement(id, req.user.schoolId);
@@ -158,7 +159,7 @@ const announcementController = {
       const { id } = req.params;
       if (!id) {
         throw new ApiError(
-          statusCodes.BAD_REQUEST,
+          status.statusCodes.BAD_REQUEST,
           "Announcement ID is required"
         );
       }
@@ -168,7 +169,7 @@ const announcementController = {
         req.user.schoolId
       );
       if (!exists) {
-        throw new ApiError(statusCodes.NOT_FOUND, "Announcement not found");
+        throw new ApiError(status.statusCodes.NOT_FOUND, "Announcement not found");
       }
 
       await announcementService.markAsRead({
@@ -190,7 +191,7 @@ const announcementController = {
       const { id } = req.params;
       if (!id) {
         throw new ApiError(
-          statusCodes.BAD_REQUEST,
+          status.statusCodes.BAD_REQUEST,
           "Announcement ID is required"
         );
       }
@@ -200,7 +201,7 @@ const announcementController = {
         req.user.schoolId
       );
       if (!exists) {
-        throw new ApiError(statusCodes.NOT_FOUND, "Announcement not found");
+        throw new ApiError(status.statusCodes.NOT_FOUND, "Announcement not found");
       }
 
       const status = await announcementService.getReadStatus({
@@ -221,10 +222,10 @@ const announcementController = {
       const { startDate, endDate } = req.query;
 
       if (startDate && !Date.parse(startDate)) {
-        throw new ApiError(statusCodes.BAD_REQUEST, "Invalid start date");
+        throw new ApiError(status.statusCodes.BAD_REQUEST, "Invalid start date");
       }
       if (endDate && !Date.parse(endDate)) {
-        throw new ApiError(statusCodes.BAD_REQUEST, "Invalid end date");
+        throw new ApiError(status.statusCodes.BAD_REQUEST, "Invalid end date");
       }
 
       const stats = await announcementService.getAnnouncementStats(

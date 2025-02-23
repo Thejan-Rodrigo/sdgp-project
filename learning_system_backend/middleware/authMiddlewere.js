@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
-import ApiError from '../utils/ApiError';
-import { statusCodes } from '../config/constants';
-import User from '../models/User';
+import ApiError from '../utils/ApiError.js';
+import status from "../config/constants.js";
+import User from '../models/User.js';
 
 const auth = (...requiredRights) => {
   return async (req, res, next) => {
@@ -10,7 +10,7 @@ const auth = (...requiredRights) => {
       const token = req.headers.authorization?.split(' ')[1];
       
       if (!token) {
-        throw new ApiError(statusCodes.UNAUTHORIZED, 'Please authenticate');
+        throw new ApiError(status.statusCodes.UNAUTHORIZED, 'Please authenticate');
       }
 
       // Verify token
@@ -23,17 +23,17 @@ const auth = (...requiredRights) => {
       });
 
       if (!user) {
-        throw new ApiError(statusCodes.UNAUTHORIZED, 'User not found');
+        throw new ApiError(status.statusCodes.UNAUTHORIZED, 'User not found');
       }
 
       // Check if password has been changed after token was issued
       if (user.changedPasswordAfter && user.changedPasswordAfter(decoded.iat)) {
-        throw new ApiError(statusCodes.UNAUTHORIZED, 'Password recently changed. Please login again');
+        throw new ApiError(status.statusCodes.UNAUTHORIZED, 'Password recently changed. Please login again');
       }
 
       // Check user rights
       if (requiredRights.length && !requiredRights.includes(user.role)) {
-        throw new ApiError(statusCodes.FORBIDDEN, 'Insufficient permissions');
+        throw new ApiError(status.statusCodes.FORBIDDEN, 'Insufficient permissions');
       }
 
       // Attach user to request
@@ -41,9 +41,9 @@ const auth = (...requiredRights) => {
       next();
     } catch (error) {
       if (error.name === 'JsonWebTokenError') {
-        next(new ApiError(statusCodes.UNAUTHORIZED, 'Invalid token'));
+        next(new ApiError(status.statusCodes.UNAUTHORIZED, 'Invalid token'));
       } else if (error.name === 'TokenExpiredError') {
-        next(new ApiError(statusCodes.UNAUTHORIZED, 'Token expired'));
+        next(new ApiError(status.statusCodes.UNAUTHORIZED, 'Token expired'));
       } else {
         next(error);
       }

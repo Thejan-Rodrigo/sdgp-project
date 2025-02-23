@@ -1,6 +1,6 @@
 import { validationResult } from 'express-validator';
 import ApiError from '../utils/ApiError.js';
-import { statusCodes } from '../config/constants.js';
+import status from "../config/constants.js";
 
 const validate = (validations) => {
   return async (req, res, next) => {
@@ -17,7 +17,7 @@ const validate = (validations) => {
       message: err.msg
     }));
 
-    next(new ApiError(statusCodes.BAD_REQUEST, 'Validation Error', true, null, extractedErrors));
+    next(new ApiError(status.statusCodes.BAD_REQUEST, 'Validation Error', true, null, extractedErrors));
   };
 };
 

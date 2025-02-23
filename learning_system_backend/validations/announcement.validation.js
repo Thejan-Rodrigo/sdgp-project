@@ -1,6 +1,6 @@
 import { body, param, query } from "express-validator";
 import mongoose from "mongoose";
-import { announcementStatus, targetAudience } from "../config/constants.js";
+import status from "../config/constants.js";
 
 const announcementValidation = {
   // Create announcement validation
@@ -23,7 +23,7 @@ const announcementValidation = {
       .isArray()
       .withMessage("Target audience must be an array")
       .custom((value) => {
-        if (!value.every((audience) => Object.values(targetAudience).includes(audience))) {
+        if (!value.every((audience) => Object.values(status.targetAudience).includes(audience))) {
           throw new Error("Invalid target audience");
         }
         return true;
@@ -31,7 +31,7 @@ const announcementValidation = {
 
     body("status")
       .optional()
-      .isIn(Object.values(announcementStatus))
+      .isIn(Object.values(status.announcementStatus))
       .withMessage("Invalid status"),
   ],
 
@@ -51,12 +51,12 @@ const announcementValidation = {
 
     query("status")
       .optional()
-      .isIn(Object.values(announcementStatus))
+      .isIn(Object.values(status.announcementStatus))
       .withMessage("Invalid status"),
 
     query("targetAudience")
       .optional()
-      .isIn(Object.values(targetAudience))
+      .isIn(Object.values(status.targetAudience))
       .withMessage("Invalid target audience"),
 
     query("search")
@@ -122,7 +122,7 @@ const announcementValidation = {
       .isArray()
       .withMessage("Target audience must be an array")
       .custom((value) => {
-        if (!value.every((audience) => Object.values(targetAudience).includes(audience))) {
+        if (!value.every((audience) => Object.values(status.targetAudience).includes(audience))) {
           throw new Error("Invalid target audience");
         }
         return true;
@@ -130,7 +130,7 @@ const announcementValidation = {
 
     body("status")
       .optional()
-      .isIn(Object.values(announcementStatus))
+      .isIn(Object.values(status.announcementStatus))
       .withMessage("Invalid status"),
   ],
 
