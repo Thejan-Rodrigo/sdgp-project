@@ -13,26 +13,41 @@ export default function HomeNavBar() {
         <div className="flex items-center justify-between">
           <Logo />
           <div className="hidden md:flex space-x-8">
-            <a href="#" className="text-gray-700 hover:text-primary">Home</a>
-            <a href="#" className="text-gray-700 hover:text-primary">Teachers</a>
-            <a href="#" className="text-gray-700 hover:text-primary">Parent</a>
-            <a href="#" className="text-gray-700 hover:text-primary">About</a>
+            <button
+              onClick={() => navigate("/")}
+              className="text-gray-700 hover:text-primary focus:outline-none"
+            >
+              Home
+            </button>
+            <button className="text-gray-700 hover:text-primary focus:outline-none">
+              Teachers
+            </button>
+            <button className="text-gray-700 hover:text-primary focus:outline-none">
+              Parent
+            </button>
+            <button
+              onClick={() => navigate("/aboutus")}
+              className="text-gray-700 hover:text-primary focus:outline-none"
+            >
+              About
+            </button>
           </div>
+
 
           {/* Conditional rendering for Login/Logout button */}
           {user ? (
-            <button 
+            <button
               onClick={() => {
                 logout();
                 navigate("/login"); // Redirect to login after logout
-              }} 
+              }}
               className="bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 transition-colors"
             >
               Logout
             </button>
           ) : (
-            <button 
-              onClick={() => navigate("/login")} 
+            <button
+              onClick={() => navigate("/login")}
               className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors"
             >
               Login

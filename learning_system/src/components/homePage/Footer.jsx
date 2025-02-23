@@ -1,8 +1,10 @@
 import React from 'react'
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import Logo from './Logo';
+import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
+  const navigate = useNavigate();
   return (
     <div>
 
@@ -18,7 +20,7 @@ export default function Footer() {
               <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
               <ul className="space-y-2">
                 <li><a href="#" className="text-gray-400 hover:text-white">Programs</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white">About Us</a></li>
+                <li><a onClick={() => navigate("/aboutus")} className="text-gray-400 hover:text-white">About Us</a></li>
                 <li><a href="#" className="text-gray-400 hover:text-white">Contact</a></li>
                 <li><a href="#" className="text-gray-400 hover:text-white">Enrollment</a></li>
               </ul>
@@ -33,7 +35,7 @@ export default function Footer() {
               <div className="flex space-x-4">
                 <a href="#" className="text-gray-400 hover:text-white"><FaFacebook /></a>
                 <a href="#" className="text-gray-400 hover:text-white"><FaTwitter /></a>
-                <a href="#" className="text-gray-400 hover:text-white"><FaInstagram /></a>
+                <a href="https://www.instagram.com/kinderzone_sl/" className="text-gray-400 hover:text-white"><FaInstagram /></a>
                 <a href="#" className="text-gray-400 hover:text-white"><FaLinkedin /></a>
               </div>
             </div>
