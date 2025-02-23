@@ -4,8 +4,6 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.mjs";
 import studentRoutes from "./routes/studentRoutes.js"
 import { errorHandler } from "./middleware/errorHandler.js"
-import connectDB from "./config/db.js";
-import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
 import errorHandler from "./middleware/errorMiddleware.js";
 import adminRoutes from "./routes/adminRoutes.js";
@@ -30,13 +28,6 @@ app.get("/test",(req,res)=>{
     
 });
 
-
-dotenv.config();
-connectDB();
-
-// Middleware
-app.use(cors())
-app.use(express.json())
 
 // Routes
 app.use("/api/students", studentRoutes)
