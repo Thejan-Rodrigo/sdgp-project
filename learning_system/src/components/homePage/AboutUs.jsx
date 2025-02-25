@@ -51,7 +51,7 @@ const AboutUs = () => {
       age: "21",
       role: "Developer",
       description:
-        "Leading our educational initiatives with over 10 years of experience in early childhood development.",
+        "Full-stack developer passionate about building scalable and efficient solutions for kindergarten education.",
       image: thejanImage,
       linkedin: "thejan-pandula-01a661337",
     },
@@ -60,7 +60,7 @@ const AboutUs = () => {
       age: "25",
       role: "Developer",
       description:
-        "Passionate about creating engaging learning experiences through innovative teaching methods.",
+        "Backend specialist ensuring seamless data management and system reliability for our platform.",
       image: kalinImage,
       linkedin: "kalindissanayake",
     },
@@ -69,38 +69,39 @@ const AboutUs = () => {
       age: "18",
       role: "Team Leader",
       description:
-        "Dedicated to designing comprehensive educational programs that inspire young minds.",
+        "Leading the team with a vision for revolutionizing early childhood education through technology and collaboration.",
       image: tariniImage,
       linkedin: "tarini-apara-87a028294",
     },
     {
-      name: "Achira Manathuga",
+      name: "Achira Manathunga",
       age: "22",
       role: "Developer",
       description:
-        "Specializing in understanding and supporting children's emotional and social development.",
+        "Front-end developer focused on creating intuitive and engaging user interfaces for teachers and parents.",
       image: achiraImage,
       linkedin: "",
     },
     {
-      name: "Rashmitha Perera",
+      name: "Rashmitha Weerasinhe",
       age: "23",
       role: "Developer",
       description:
-        "Bringing creativity and artistic expression into our daily learning activities.",
+        "Software engineer committed to enhancing the learning experience through innovative features and AI integration.",
       image: rashmithaImage,
       linkedin: "",
     },
     {
-      name: "Praveena Karunanayake",
+      name: "Praveena Rathnayake",
       age: "22",
       role: "UI/UX Designer",
       description:
-        "Promoting healthy development through active play and structured physical activities.",
+        "Crafting seamless and visually appealing user experiences to make learning more interactive and accessible.",
       image: praveenaImage,
       linkedin: "",
     },
   ];
+
 
   return (
     <div>
@@ -120,20 +121,6 @@ const AboutUs = () => {
             {teamMembers.map((member, index) => (
               <TeamMember key={index} {...member} />
             ))}
-          </div>
-
-          {/* Optional Section for Hiring */}
-          <div className="mt-16 text-center">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">
-              Join Our Team
-            </h3>
-            <p className="text-gray-600 mb-6">
-              We're always looking for passionate educators to join our growing
-              family.
-            </p>
-            <button className="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition-colors">
-              View Open Positions
-            </button>
           </div>
         </div>
       </section>
