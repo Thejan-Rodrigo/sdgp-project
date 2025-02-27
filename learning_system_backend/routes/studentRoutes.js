@@ -1,12 +1,10 @@
-import express from "express"
-import { getAllStudents, getStudentById, addProgressNote, createStudent } from "../controllers/studentController.js"
+const express = require('express');
+const studentController = require('../controllers/studentController');
 
-const router = express.Router()
+const router = express.Router();
 
-router.get("/", getAllStudents)
-router.get("/:id", getStudentById)
-router.post("/", createStudent)
-router.post("/:id/progress", addProgressNote)
+router.get('/students', studentController.getStudents);
+router.get('/students/:studentId/progress', studentController.getProgressHistory);
+router.post('/students/:studentId/progress', studentController.addProgressNote);
 
-export default router
-
+module.exports = router;

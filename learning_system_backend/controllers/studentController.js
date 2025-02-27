@@ -1,36 +1,31 @@
-import { studentService } from "../services/studentService.js";
-import ApiError from "../utils/ApiError.js"; // Corrected default import
-import catchAsync from "../utils/catchAsync.js"; // Corrected default import
+const studentService = require('../services/studentService');
 
-export const getAllStudents = catchAsync(async (req, res) => {
-  const { class: className, search } = req.query;
-  const students = await studentService.getAllStudents(className, search);
-  res.json(students);
-});
-
-export const getStudentById = catchAsync(async (req, res) => {
-  const student = await studentService.getStudentById(req.params.id);
-  res.json(student);
-});
-
-export const addProgressNote = catchAsync(async (req, res) => {
-  const { note, status } = req.body;
-
-  if (!note || !status) {
-    throw new ApiError(400, "Note and status are required");
+exports.getStudents = async (req, res, next) => {
+  try {
+    const students = await studentService.getStudents();
+    res.status(200).json(students);
+  } catch (err) {
+    next(err);
   }
+};
 
-  const student = await studentService.addProgressNote(req.params.id, note, status);
-  res.json(student);
-});
-
-export const createStudent = catchAsync(async (req, res) => {
-  const { name, class: className } = req.body;
-
-  if (!name || !className) {
-    throw new ApiError(400, "Name and class are required");
+exports.getProgressHistory = async (req, res, next) => {
+  try {
+    const { studentId } = req.params;
+    const progressHistory = await studentService.getProgressHistory(studentId);
+    res.status(200).json(progressHistory);
+  } catch (err) {
+    next(err);
   }
+};
 
-  const student = await studentService.createStudent(name, className);
-  res.status(201).json(student);
-});
+exports.addProgressNote = async (req, res, next) => {
+  try {
+    const { studentId } = req.params;
+    const { note } = req.body;
+    const updatedStudent = await studentService.addProgressNote(studentId, note);
+    res.status(200).json(updatedStudent);
+  } catch (err) {
+    next(err);
+  }
+};

@@ -1,44 +1,17 @@
-import mongoose from "mongoose"
-
-const progressEntrySchema = new mongoose.Schema({
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-  note: {
-    type: String,
-    required: true,
-  },
-  status: {
-    type: String,
-    enum: ["On Track", "Needs Attention", "Improving", "Outstanding", "Positive"],
-    required: true,
-  },
-})
+const mongoose = require('mongoose');
 
 const studentSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  class: {
-    type: String,
-    required: true,
-  },
-  lastUpdated: {
-    type: Date,
-    default: Date.now,
-  },
-  currentStatus: {
-    type: String,
-    enum: ["On Track", "Needs Attention", "Improving", "Outstanding"],
-    default: "On Track",
-  },
-  progressHistory: [progressEntrySchema],
-})
+  name: { type: String, required: true },
+  image: { type: String },
+  status: { type: String, required: true },
+  lastUpdate: { type: String, required: true },
+  progressHistory: [
+    {
+      date: { type: String, required: true },
+      type: { type: String, required: true },
+      message: { type: String, required: true },
+    },
+  ],
+});
 
-// Add text index for search functionality
-studentSchema.index({ name: "text" })
-
-export default mongoose.model("Student", studentSchema)
-
+module.exports = mongoose.model('Student', studentSchema);

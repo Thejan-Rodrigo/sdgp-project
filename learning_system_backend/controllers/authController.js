@@ -1,6 +1,6 @@
-import catchAsync from "../utils/catchAsync.js";
-import ApiError from "../utils/ApiError.js";
-import { successResponse } from "../utils/responseHandler.js";
+import { catchAsync } from "../utils/catchAsync.js"; // Use curly braces for named export
+import { ApiError } from "../utils/ApiError.js"; // Use curly braces for named export
+import { successResponse } from "../utils/responseHandler.js"; // Use curly braces for named export
 import authService from "../services/authService.js";
 import logger from "../utils/logger.js";
 

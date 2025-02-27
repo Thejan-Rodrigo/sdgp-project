@@ -1,48 +1,19 @@
-import Student from "../models/student.js";
-import ApiError from "../utils/ApiError.js"; // Corrected default import
+const Student = require('../models/student');
 
-export const studentService = {
-  async getAllStudents(className, search) {
-    const query = {};
+exports.getStudents = async () => {
+  return await Student.find();
+};
 
-    if (className) {
-      query.class = className;
-    }
+exports.getProgressHistory = async (studentId) => {
+  const student = await Student.findById(studentId);
+  return student ? student.progressHistory : [];
+};
 
-    if (search) {
-      query.$text = { $search: search };
-    }
-
-    return Student.find(query)
-      .select("name class currentStatus lastUpdated")
-      .sort("-lastUpdated");
-  },
-
-  async getStudentById(id) {
-    const student = await Student.findById(id);
-    if (!student) {
-      throw new ApiError(404, "Student not found");
-    }
-    return student;
-  },
-
-  async addProgressNote(id, note, status) {
-    const student = await Student.findById(id);
-    if (!student) {
-      throw new ApiError(404, "Student not found");
-    }
-
-    student.progressHistory.push({ note, status });
-    student.currentStatus = status;
-    student.lastUpdated = new Date();
-
-    return student.save();
-  },
-
-  async createStudent(name, className) {
-    return Student.create({
-      name,
-      class: className,
-    });
-  },
+exports.addProgressNote = async (studentId, note) => {
+  const student = await Student.findById(studentId);
+  if (student) {
+    student.progressHistory.push(note);
+    await student.save();
+  }
+  return student;
 };

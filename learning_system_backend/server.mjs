@@ -3,11 +3,12 @@ import cors from "cors"
 import dotenv from "dotenv";
 import connectDB from "./config/db.mjs";
 import studentRoutes from "./routes/studentRoutes.js"
-import { errorHandler } from "./middleware/errorHandler.js"
 import authRoutes from "./routes/authRoutes.js";
-import errorHandler from "./middleware/errorMiddleware.js";
+// import errorHandler from "./middleware/errorMiddleware.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import schoolRoutes from "./routes/schoolRoutes.js";
+import { errorHandler } from "./middleware/errorHandler.js"; // Use curly braces for named export
+
 
 
 dotenv.config();
@@ -30,29 +31,7 @@ app.get("/test",(req,res)=>{
 
 
 // Routes
-app.use("/api/students", studentRoutes)
-
-
-app.get('/api/children', (req, res) => res.json(children));
-app.post('/api/children', (req, res) => {
-    const newChild = { id: Date.now().toString(), ...req.body };
-    children.push(newChild);
-    res.status(201).json(newChild);
-});
-
-app.put('/api/children/:id', (req, res) => {
-    const { id } = req.params;
-    const { progress } = req.body;
-    const child = children.find(c => c.id === id);
-
-    if (child) {
-        child.progress = progress;
-        res.json({ message: "Progress updated", child });
-    } else {
-        res.status(404).json({ message: "Child not found" });
-    }
-});
-
+app.use('/api', studentRoutes);
 
 app.use(errorHandler); // Global error handler
 
