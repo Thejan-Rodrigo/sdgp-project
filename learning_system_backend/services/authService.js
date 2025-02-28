@@ -23,6 +23,79 @@ const createUser = async ({ firstName, lastName, email, password, role, schoolId
   return user;
 };
 
+const createTeacher = async ({ firstName, lastName, dateOfBirth, email, phone, address, password, schoolId }) => {
+  const existingUser = await User.findOne({ email });
+  if (existingUser) throw new Error("User already exists");
+
+  const teacher = new User({ 
+    role: "teacher", 
+    firstName, 
+    lastName, 
+    dateOfBirth, 
+    email, 
+    phone, 
+    address, 
+    password,  // ✅ Include password
+    schoolId   // ✅ Include schoolId
+  });
+
+  await teacher.save();
+  return teacher;
+};
+
+
+/*const createStudentAndParent = async ({ studentFirstName, studentLastName, dateOfBirth, phone, address, parentFirstName, parentLastName, parentEmail }) => {
+  const existingParent = await User.findOne({ email: parentEmail });
+  if (existingParent) throw new Error("Parent already exists");
+
+  const student = new Student({ firstName: studentFirstName, lastName: studentLastName, dateOfBirth, phone, address });
+  await student.save();
+
+  const parent = new User({ role: "parent", firstName: parentFirstName, lastName: parentLastName, email: parentEmail, phone, address, student: student._id });
+  await parent.save();
+
+  return { student, parent };
+};*/
+
+export const createStudentAndParent = async ({
+  studentFirstName, studentLastName, dateOfBirth, phone, address, 
+  parentFirstName, parentLastName, parentEmail
+}) => {
+  // Check if parent already exists
+  const existingParent = await User.findOne({ email: parentEmail });
+  if (existingParent) throw new Error("Parent already registered with this email");
+
+  // Create Student
+  const student = new User({
+    role: 'student',
+    firstName: studentFirstName,
+    lastName: studentLastName,
+    dateOfBirth,
+    phone,
+    address,
+  });
+  await student.save();
+
+  // Create Parent
+  const parent = new User({
+    role: 'parent',
+    firstName: parentFirstName,
+    lastName: parentLastName,
+    email: parentEmail,
+    phone,
+    address,
+    student: student._id, // link to student
+    studentFirstName: studentFirstName,
+    studentLastName: studentLastName,
+    parentFirstName: parentFirstName,
+    parentLastName: parentLastName,
+    parentEmail: parentEmail,
+  });
+  await parent.save();
+
+  return { student, parent };
+};
+
 
 const loginWithEmailAndPassword = async (email, password) => {
   //console.log(user.password)
@@ -55,4 +128,4 @@ const generateAuthToken = (user) => {
   return token;
 };
 
-export default { createUser, loginWithEmailAndPassword, generateAuthToken };
+export default { createUser, loginWithEmailAndPassword, generateAuthToken, createTeacher };

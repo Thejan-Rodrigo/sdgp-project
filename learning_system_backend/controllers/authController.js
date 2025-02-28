@@ -11,12 +11,26 @@ const authController = {
     const { firstName, lastName, email, password, role, schoolId } = req.body;
 
     // Ensure super admin does not have a schoolId
-    if (role === "superadmin" && schoolId) {
-      throw new ApiError(400, "Super admin should not be assigned to a school");
-    }
 
-    const user = await authService.createUser({ firstName, lastName, email, password, role, schoolId });
-    const token = authService.generateAuthToken(user);
+    let user, token;
+
+    if (role === "teacher") {
+      user = await authService.createTeacher(req.body);
+      token = authService.generateAuthToken(user);
+    } else if (role === "student") {
+      const { student, parent } = await authService.createStudentAndParent(req.body);
+      token = authService.generateAuthToken(parent); // Parents log in
+      return successResponse(res, { student, parent, token }, "Registration successful", 201);
+    } else if (role ==="superadmin"){
+      if (role === "superadmin" && schoolId) {
+        throw new ApiError(400, "Super admin should not be assigned to a school");
+      }
+  
+      const user = await authService.createUser({ firstName, lastName, email, password, role, schoolId });
+      const token = authService.generateAuthToken(user);
+    } else {
+      throw new Error("Invalid role");
+    }
 
     successResponse(res, { user, token }, "Registration successful", 201);
   }),
