@@ -1,15 +1,15 @@
-const Student = require('../models/student');
+import Student from '../models/student.js';
 
-exports.getStudents = async () => {
+export const getStudents = async () => {
   return await Student.find();
 };
 
-exports.getProgressHistory = async (studentId) => {
+export const getProgressHistory = async (studentId) => {
   const student = await Student.findById(studentId);
   return student ? student.progressHistory : [];
 };
 
-exports.addProgressNote = async (studentId, note) => {
+export const addProgressNote = async (studentId, note) => {
   const student = await Student.findById(studentId);
   if (student) {
     student.progressHistory.push(note);

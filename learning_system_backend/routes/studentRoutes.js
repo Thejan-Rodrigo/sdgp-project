@@ -1,10 +1,10 @@
-const express = require('express');
-const studentController = require('../controllers/studentController');
+import express from 'express';
+import { getStudentsx, getProgressHistoryx, addProgressNotex } from '../controllers/studentController.js';
 
 const router = express.Router();
 
-router.get('/students', studentController.getStudents);
-router.get('/students/:studentId/progress', studentController.getProgressHistory);
-router.post('/students/:studentId/progress', studentController.addProgressNote);
+router.get('/students', getStudentsx);
+router.get('/students/:studentId/progress', getProgressHistoryx);
+router.post('/students/:studentId/progress', addProgressNotex);
 
-module.exports = router;
+export default router;

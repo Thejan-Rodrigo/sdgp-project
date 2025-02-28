@@ -11,6 +11,7 @@ import { errorHandler } from "./middleware/errorHandler.js"; // Use curly braces
 
 
 
+
 dotenv.config();
 connectDB();
 
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/student",studentRoutes);
 
 app.use("/api/admin", adminRoutes);
 app.use("/api/schools", schoolRoutes);

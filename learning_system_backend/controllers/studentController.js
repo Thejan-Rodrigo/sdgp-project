@@ -1,29 +1,29 @@
-const studentService = require('../services/studentService');
+import {getStudents,getProgressHistory, addProgressNote} from '../services/studentService.js';
 
-exports.getStudents = async (req, res, next) => {
+export const getStudentsx = async (req, res, next) => {
   try {
-    const students = await studentService.getStudents();
+    const students = await getStudents();
     res.status(200).json(students);
   } catch (err) {
     next(err);
   }
 };
 
-exports.getProgressHistory = async (req, res, next) => {
+export const getProgressHistoryx = async (req, res, next) => {
   try {
     const { studentId } = req.params;
-    const progressHistory = await studentService.getProgressHistory(studentId);
+    const progressHistory = await getProgressHistory(studentId);
     res.status(200).json(progressHistory);
   } catch (err) {
     next(err);
   }
 };
 
-exports.addProgressNote = async (req, res, next) => {
+export const addProgressNotex = async (req, res, next) => {
   try {
     const { studentId } = req.params;
     const { note } = req.body;
-    const updatedStudent = await studentService.addProgressNote(studentId, note);
+    const updatedStudent = await addProgressNote(studentId, note);
     res.status(200).json(updatedStudent);
   } catch (err) {
     next(err);
