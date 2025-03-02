@@ -6,16 +6,16 @@ const TeacherSidebar = () => {
     <div className="w-64 h-screen bg-white border-r">
       <div className="p-4">
         <div className="flex items-center gap-2 mb-8">
-          <img src="/eduteach-logo.png" alt="EduTeach" className="h-8" />
-          <span className="text-xl font-bold text-primary">EduTeach</span>
+          <img src="/eduteach-logo.png" alt="KinderZone" className="h-8" />
+          <span className="text-xl font-bold text-primary">KinderZone</span>
         </div>
 
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-4">
             <img src="/profile.jpg" alt="Profile" className="w-12 h-12 rounded-full" />
             <div>
-              <h3 className="font-semibold">Sarah Wilson</h3>
-              <p className="text-sm text-gray-500">Mathematics Teacher</p>
+              <h3 className="font-semibold">Kalin Kavishka</h3>
+              <p className="text-sm text-gray-500">Primary Teacher</p>
             </div>
           </div>
         </div>
