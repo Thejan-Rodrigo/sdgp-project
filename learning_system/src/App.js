@@ -26,6 +26,7 @@ import Lessons from './components/lessons/Lessons';
 import AddLesson from  './components/addLesson/AddLesson';
 import Attendance from './components/attendence/Attendance';
 import ParentChat from './components/q&a/ParentSide/ParentChat';
+import TeacherChat from './components/TeacherSide/TeacherChat'
 
 // ProtectedRoute component
 const ProtectedRoute = ({ allowedRoles, element }) => {
@@ -173,6 +174,7 @@ const App = () => {
         <Route path="/addLearningPage" element={<AddLearningPage />} />
         <Route path="/addadmin" element={<AddAdminPage />}/>
         <Route path="/parentq&a" element={<ParentChat/>}/>
+        <Route path="/Teacherq&a" element={<TeacherChat/>}/>
       </Routes>
     </Router>
   );
