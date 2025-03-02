@@ -22,6 +22,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/auth", authRoutes);
 
 app.use('/api/v1', announcementRoute);
+app.use('/api/v1/announcements', announcementRoute);
 
 app.get("/test",(req,res)=>{
     console.log(req);
