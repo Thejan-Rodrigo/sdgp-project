@@ -6,12 +6,14 @@ import authRoutes from "./routes/authRoutes.js";
 // import errorHandler from "./middleware/errorMiddleware.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import announcementRoute from "./routes/AnnouncementRouter.js"
-
 import schoolRoutes from "./routes/schoolRoutes.js";
 import { errorHandler } from "./middleware/errorHandler.js"; // Use curly braces for named export
 import logRequest from './utils/logger.js'; // Adjust the path to where you defined logRequest
 import studentRoutes from "./routes/studentRoutes.js";
 import progressRoutes from "./routes/progressRoutes.js";
+import { getStudentProfile, getStudentAttendance, getStudentProgress } from "./controllers/studentController.js";
+
+
 
 
 dotenv.config();
@@ -36,6 +38,18 @@ app.get("/test",(req,res)=>{
     res.send("Hello  world");
     
 });
+app.get("/", (req, res) => {
+  res.send("Hello, World!");
+});
+
+app.get("/", (req, res) => {
+  res.send("MongoDB Connected with Mongoose!");
+});
+
+// Routes
+app.get("/students/:id", getStudentProfile);
+app.get("/students/:id/attendance", getStudentAttendance);
+app.get("/students/:id/progress", getStudentProgress);
 
 
 // Routes
