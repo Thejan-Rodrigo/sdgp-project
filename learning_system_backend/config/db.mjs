@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const mongoURI = "mongodb+srv://Kinder_zone_01:SDGPIIT2025@kinderzone.nt23j.mongodb.net/?retryWrites=true&w=majority&appName=KinderZone"; // Replace with your actual connection string
+const mongoURI = "mongodb+srv://Kinder_zone_01:SDGPIIT2025@kinderzone.nt23j.mongodb.net/?retryWrites=true&w=majority&appName=KinderZone"; 
 
 const connectDB = async () => {
   try {
