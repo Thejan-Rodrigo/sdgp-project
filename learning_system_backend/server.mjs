@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
 import errorHandler from "./middleware/errorMiddleware.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import schoolRoutes from "./routes/schoolRoutes.js";
 
 
 dotenv.config();
@@ -17,6 +18,7 @@ app.use(cors());
 app.use("/api/auth", authRoutes);
 
 app.use("/api/admin", adminRoutes);
+app.use("/api/schools", schoolRoutes);
 
 app.get("/test",(req,res)=>{
     console.log(req);

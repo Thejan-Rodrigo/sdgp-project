@@ -11,11 +11,17 @@ const createUser = async ({ firstName, lastName, email, password, role, schoolId
   const existingUser = await User.findOne({ email });
   if (existingUser) throw new Error("User already exists");
 
-  const user = new User({ firstName, lastName, email, password, role, schoolId });
+  // Ensure that only non-super admins have a schoolId
+  if (role !== "superadmin" && !schoolId) {
+    throw new Error("School ID is required for non-superadmin roles");
+  }
+
+  const user = new User({ firstName, lastName, email, password, role, schoolId: role === "superadmin" ? null : schoolId });
   await user.save();
-  
+
   return user;
 };
+
 
 const loginWithEmailAndPassword = async (email, password) => {
   //console.log(user.password)
@@ -23,6 +29,9 @@ const loginWithEmailAndPassword = async (email, password) => {
   // Check if user exists
   const user = await User.findOne({ email });
   if (!user) throw new ApiError(401, "Invalid email or password");
+
+  console.log(password);
+  console.log(user.password);
 
 
   // Compare passwords

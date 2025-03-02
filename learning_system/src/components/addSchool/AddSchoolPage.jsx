@@ -41,7 +41,7 @@ const AddSchoolPage = () => {
     <div className="flex min-h-screen bg-gray-50">
       <Sidebar />
       <main className="flex-1 p-8">
-        <Header />
+        
         <form onSubmit={handleSubmit}>
           <div className="bg-white p-6 rounded-lg shadow-sm mb-6">
             <SchoolInformationForm formData={formData} handleChange={handleChange} />
