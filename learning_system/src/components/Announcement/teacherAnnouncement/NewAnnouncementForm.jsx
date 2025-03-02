@@ -34,23 +34,10 @@ const NewAnnouncementForm = () => {
         </div>
         <div className="flex justify-between items-center">
           <div className="flex gap-4">
-            <button
-              type="button"
-              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg"
-            >
-              <FaPaperclip />
-              <span>Attach</span>
-            </button>
-            <button
-              type="button"
-              className="px-4 py-2 text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200"
-            >
-              All Classes
-            </button>
           </div>
           <button
             type="submit"
-            className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-blue-700"
+            className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
           >
             Post Announcement
           </button>
