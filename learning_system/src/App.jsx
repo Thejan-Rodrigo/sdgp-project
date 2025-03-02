@@ -3,10 +3,10 @@ import './App.css';
 import AdminDashboard from './components/Announcement/AdminAnnouncement/AdminDashboard.jsx';
 import StudentDashboard from './components/Announcement/StudentAnnouncement/StudentDashboard.jsx';
 import SuperAdminDashboard from './components/Announcement/SuperAdminAnnouncement/SuperAdminDashboard.jsx';
-import TeacherDashboard from './components/Announcement/teacherAnnouncement/TeacherDashboard';
-import Home from './components/homePage/Home'
-import LoginPage from './components/loginPage/LoginPage';
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import TeacherDashboard from './components/Announcement/teacherAnnouncement/TeacherDashboard.jsx';
+import Home from './components/homePage/Home.jsx';
+import LoginPage from './components/loginPage/LoginPage.jsx';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   // You can change this to switch between different roles
@@ -31,8 +31,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<Home/>} />
+        <Route path="/login" element={<LoginPage/>} />
         <Route path="/teacherannouncement" element={<TeacherDashboard/>}/>
         <Route path= "/parentannouncement" element={<StudentDashboard/>}/>
       </Routes>

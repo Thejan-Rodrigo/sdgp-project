@@ -11,6 +11,7 @@ const router = express.Router();
 router.get(
   "/",
   //validate(announcementValidation.getAnnouncements),
+  auth(),
   announcementController.getAnnouncements
 );
 // router.get(
@@ -21,9 +22,10 @@ router.get(
 router.post(
   "/:id/read",
   validate(announcementValidation.markAsRead),
+  auth(),
   announcementController.markAsRead
 );
-router.get("/read-status/:id", announcementController.getReadStatus);
+router.get("/:id/read-status",auth(), announcementController.getReadStatus);
 
 router.get(
   '/:id',

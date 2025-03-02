@@ -6,7 +6,7 @@ const announcementSchema = new Schema(
     schoolId: {
       type: Schema.Types.ObjectId,
       ref: "School",
-      required: [true, "School ID is required"],
+      required: [false, "School ID is required"],
     },
     title: {
       type: String,
