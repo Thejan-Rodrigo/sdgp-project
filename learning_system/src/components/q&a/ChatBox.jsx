@@ -6,7 +6,7 @@ const socket = io("http://localhost:3000"); // Replace with your backend server 
 export default function ChatBox() {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState("");
-
+    // need roles to emplement chatbox
     useEffect(() => {
         socket.on("message", (message) => {
             setMessages((prevMessages) => [...prevMessages, message]);
