@@ -8,6 +8,10 @@ import authRoutes from "./routes/authRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import schoolRoutes from "./routes/schoolRoutes.js";
 import { errorHandler } from "./middleware/errorHandler.js"; // Use curly braces for named export
+import logRequest from './utils/logger.js'; // Adjust the path to where you defined logRequest
+
+
+
 
 
 
@@ -19,8 +23,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use("/api/auth", authRoutes);
-app.use("/api/student",studentRoutes);
+
 
 app.use("/api/admin", adminRoutes);
 app.use("/api/schools", schoolRoutes);
@@ -33,7 +36,9 @@ app.get("/test",(req,res)=>{
 
 
 // Routes
-app.use('/api', studentRoutes);
+app.use(express.json());
+app.use(logRequest);
+app.use("/api", studentRoutes);
 
 app.use(errorHandler); // Global error handler
 

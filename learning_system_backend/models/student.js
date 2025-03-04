@@ -1,19 +1,9 @@
-import mongoose from 'mongoose';
+// models/Student.mjs
+import mongoose from "mongoose";
 
-const studentSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  image: { type: String },
-  status: { type: String, required: true },
-  lastUpdate: { type: String, required: true },
-  progressHistory: [
-    {
-      date: { type: String, required: true },
-      type: { type: String, required: true },
-      message: { type: String, required: true },
-    },
-  ],
+const StudentSchema = new mongoose.Schema({
+    name: String,
+    classId: String,
 });
 
-const Student = mongoose.model('Student', studentSchema);
-
-export default Student;
+export default mongoose.model("Student", StudentSchema);
