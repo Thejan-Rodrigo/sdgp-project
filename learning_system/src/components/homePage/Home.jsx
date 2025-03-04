@@ -47,7 +47,7 @@ export default function Home() {
                 </div>
             </div>
 
-            {user ? ( // ✅ Check if user exists
+            {user ? (
                 <h1>Welcome, {user.firstName} ({user.role})!</h1>
             ) : (
                 <h1>Loading or not logged in...</h1>

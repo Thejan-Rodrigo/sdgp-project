@@ -11,7 +11,8 @@ const createUser = async ({ firstName, lastName, email, password, role, schoolId
   const existingUser = await User.findOne({ email });
   if (existingUser) throw new Error("User already exists");
 
-  const user = new User({ firstName, lastName, email, password, role, schoolId });
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const user = new User({ firstName, lastName, email, password: hashedPassword, role, schoolId });
   await user.save();
   
   return user;

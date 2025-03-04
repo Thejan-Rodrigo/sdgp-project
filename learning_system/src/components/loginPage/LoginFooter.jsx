@@ -6,7 +6,7 @@ const LoginFooter = () => {
     <div className="mt-8 text-center">
       <p className="text-sm text-gray-600">
         New to Kinder Zone?{' '}
-        <a href="#" className="text-blue-600 hover:text-blue-500 font-medium">
+        <a href="/register" className="text-blue-600 hover:text-blue-500 font-medium">
           Register here
         </a>
       </p>
