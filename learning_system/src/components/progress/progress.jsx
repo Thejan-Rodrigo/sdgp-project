@@ -3,27 +3,25 @@
 import { useState, useEffect } from "react";
 
 function Progress() {
-  const [selectedClass, setSelectedClass] = useState("Class 10-A");
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [progressHistory, setProgressHistory] = useState([]);
   const [newNote, setNewNote] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
-  // Fetch students when the class changes
+  // Fetch all students
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await fetch(`/api/students/${selectedClass}`);
+        const response = await fetch("/api/students");
         const data = await response.json();
         setStudents(data);
-        setSelectedStudent(null); // Reset selected student when class changes
-        setProgressHistory([]); // Clear progress history
       } catch (error) {
         console.error("Error fetching students:", error);
       }
     };
     fetchStudents();
-  }, [selectedClass]);
+  }, []);
 
   // Fetch progress history when a student is selected
   useEffect(() => {
@@ -70,38 +68,20 @@ function Progress() {
           <span className="text-2xl">🎓</span>
           <span className="font-semibold">EduTeach</span>
         </div>
-
-        <nav className="flex-1 p-4">
-          {["📢 Announcement", "📅 Meeting", "👥 Attendance", "📚 Lessons", "📈 Progress", "❓ Q&A"].map((item) => (
-            <a
-              key={item}
-              href="#"
-              className={`flex items-center gap-2 px-3 py-2 text-sm rounded-md ${
-                item.includes("Progress") ? "bg-blue-50 text-blue-600" : "text-gray-600 hover:bg-gray-100"
-              }`}
-            >
-              {item}
-            </a>
-          ))}
-        </nav>
       </div>
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         <header className="bg-white border-b">
           <div className="flex items-center justify-between px-6 h-14">
-            <div className="flex items-center gap-4">
-              <h1 className="text-xl font-semibold">Student Progress</h1>
-              <select
-                className="border rounded-md px-3 py-1"
-                value={selectedClass}
-                onChange={(e) => setSelectedClass(e.target.value)}
-              >
-                <option value="Class 10-A">Class 10-A</option>
-                <option value="Class 10-B">Class 10-B</option>
-                <option value="Class 10-C">Class 10-C</option>
-              </select>
-            </div>
+            <h1 className="text-xl font-semibold">Student Progress</h1>
+            <input
+              type="text"
+              className="border rounded-md px-3 py-1"
+              placeholder="Search student..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
         </header>
 
@@ -110,18 +90,20 @@ function Progress() {
           <div className="w-[300px] border-r p-4">
             <h2 className="text-lg font-semibold">Students</h2>
             <div className="overflow-auto h-[calc(100vh-11rem)]">
-              {students.map((student) => (
-                <div
-                  key={student._id}
-                  className={`flex items-center gap-3 p-3 border-b cursor-pointer hover:bg-gray-100 ${
-                    selectedStudent?._id === student._id ? "bg-blue-100" : ""
-                  }`}
-                  onClick={() => setSelectedStudent(student)}
-                >
-                  <img src="https://via.placeholder.com/40" alt="Student avatar" className="h-10 w-10 rounded-full" />
-                  <span>{student.name}</span>
-                </div>
-              ))}
+              {students
+                .filter((student) => student.name.toLowerCase().includes(searchTerm.toLowerCase()))
+                .map((student) => (
+                  <div
+                    key={student._id}
+                    className={`flex items-center gap-3 p-3 border-b cursor-pointer hover:bg-gray-100 ${
+                      selectedStudent?._id === student._id ? "bg-blue-100" : ""
+                    }`}
+                    onClick={() => setSelectedStudent(student)}
+                  >
+                    <img src="https://via.placeholder.com/40" alt="Student avatar" className="h-10 w-10 rounded-full" />
+                    <span>{student.name}</span>
+                  </div>
+                ))}
             </div>
           </div>
 
