@@ -18,9 +18,12 @@ const createUser = async ({ firstName, lastName, email, password, role, schoolId
 };
 
 const loginWithEmailAndPassword = async (email, password) => {
+  //console.log(user.password)
+  console.log(password)
   // Check if user exists
   const user = await User.findOne({ email });
   if (!user) throw new ApiError(401, "Invalid email or password");
+
 
   // Compare passwords
   const isMatch = await bcrypt.compare(password, user.password);
