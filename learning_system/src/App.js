@@ -26,7 +26,7 @@ import Lessons from './components/lessons/Lessons';
 import AddLesson from  './components/addLesson/AddLesson';
 import Attendance from './components/attendence/Attendance';
 import ParentChat from './components/q&a/ParentSide/ParentChat';
-import TeacherChat from './components/TeacherSide/TeacherChat'
+import TeacherChat from './components/q&a/TeacherSide/TeacherChat'
 
 // ProtectedRoute component
 const ProtectedRoute = ({ allowedRoles, element }) => {
