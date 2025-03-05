@@ -21,7 +21,6 @@ export const addProgressNote = async (req, res) => {
         res.status(500).json({ message: "Error saving progress note" });
     }
 };
-
 export const getProgressHistory = async (req, res) => {
     try {
         const progressHistory = await Progress.find({ studentId: req.params.studentId }).sort({ createdAt: -1 });
