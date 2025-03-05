@@ -1,5 +1,5 @@
 import React from 'react';
-import Sidebar from '../q&a/Sidebar';
+import Sidebar from '../Sidebar';
 import ChatArea from './ChatAreaT';
 
 const ParentChat = () => {

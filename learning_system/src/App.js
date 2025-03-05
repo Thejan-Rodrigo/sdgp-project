@@ -4,7 +4,7 @@ import Home from './components/homePage/Home'
 import LoginPage from './components/loginPage/LoginPage';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ParentChat from './components/q&a/ParentSide/ParentChat';
-import TeacherChat from './components/TeacherSide/TeacherChat'
+import TeacherChat from './components/q&a/TeacherSide/TeacherChat'
 
 function App() {
   return (
