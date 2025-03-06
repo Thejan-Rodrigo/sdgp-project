@@ -1,10 +1,8 @@
-// routes/progressRoutes.mjs
 import express from "express";
-import { getStudentsByClass, addProgressNote, getProgressHistory } from "../controllers/studentController.js";
+import { getStudents } from "../controllers/studentController.js";
 
 const router = express.Router();
-router.get("/students/:classId", getStudentsByClass);
-router.post("/progress", addProgressNote);
-router.get("/progress/:studentId", getProgressHistory);
+
+router.get("/", getStudents);
 
 export default router;

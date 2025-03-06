@@ -1,9 +1,8 @@
-// models/Student.mjs
 import mongoose from "mongoose";
 
-const StudentSchema = new mongoose.Schema({
-    name: String,
-    classId: String,
+const studentSchema = new mongoose.Schema({
+  name: { type: String, required: true },
 });
 
-export default mongoose.model("Student", StudentSchema);
+const Student = mongoose.model("Student", studentSchema);
+export default Student;

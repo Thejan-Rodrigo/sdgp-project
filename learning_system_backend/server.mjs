@@ -2,18 +2,14 @@ import express from "express"
 import cors from "cors"
 import dotenv from "dotenv";
 import connectDB from "./config/db.mjs";
-import studentRoutes from "./routes/studentRoutes.js"
 import authRoutes from "./routes/authRoutes.js";
 // import errorHandler from "./middleware/errorMiddleware.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import schoolRoutes from "./routes/schoolRoutes.js";
 import { errorHandler } from "./middleware/errorHandler.js"; // Use curly braces for named export
 import logRequest from './utils/logger.js'; // Adjust the path to where you defined logRequest
-
-
-
-
-
+import studentRoutes from "./routes/studentRoutes.js";
+import progressRoutes from "./routes/progressRoutes.js";
 
 
 dotenv.config();
@@ -36,9 +32,10 @@ app.get("/test",(req,res)=>{
 
 
 // Routes
-app.use(express.json());
-app.use(logRequest);
-app.use("/api", studentRoutes);
+app.use("/api/students", studentRoutes);
+app.use("/api/progress", progressRoutes);
+
+
 
 app.use(errorHandler); // Global error handler
 
