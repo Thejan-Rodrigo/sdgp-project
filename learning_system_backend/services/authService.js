@@ -51,9 +51,20 @@ const createStudentAndParent = async ({
   studentFirstName, studentLastName, dateOfBirth, phone, address, 
   parentFirstName, parentLastName, parentEmail, password, schoolId
 }) => {
+  console.log(dateOfBirth);
   const existingParent = await User.findOne({ email: parentEmail });
   if (existingParent) throw new Error("Parent already registered with this email");
 
+  console.log("-------");
+  console.log(studentFirstName);
+  console.log(studentLastName);
+  console.log(password);
+  console.log(phone);
+  console.log(parentFirstName);
+  console.log(parentLastName);
+  console.log(parentEmail);
+  console.log(schoolId);
+  console.log("-------");
   // Hash password before saving
   const hashedPassword = await bcrypt.hash(password, 10);
 

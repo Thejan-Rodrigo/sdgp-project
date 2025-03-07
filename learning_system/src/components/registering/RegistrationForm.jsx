@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt, FaCalendar } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt, FaCalendar, FaLock, FaEyeSlash, FaEye } from 'react-icons/fa';
 
 const RegistrationForm = () => {
   const [role, setRole] = useState('student');
+  const [showPassword, setShowPassword] = useState(false);
+  const [schoolId, setSchoolId] = useState('67ac6107daffb78924247923');
 
   // Form Data for Student
   const [studentData, setStudentData] = useState({
@@ -14,6 +16,7 @@ const RegistrationForm = () => {
     parentLastName: '',
     parentEmail: '',
     phone: '',
+    password: '',
     address: ''
   });
 
@@ -24,6 +27,7 @@ const RegistrationForm = () => {
     dateOfBirth: '',
     email: '',
     phone: '',
+    password: '',
     address: ''
   });
 
@@ -50,11 +54,12 @@ const RegistrationForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(studentData)
       let response;
       if (role === 'student') {
-        response = await axios.post('http://localhost:5000/api/register/student', { role, ...studentData });
+        response = await axios.post('http://localhost:5000/api/auth/register', { role, schoolId, ...studentData });
       } else {
-        response = await axios.post('http://localhost:5000/api/register/teacher', { role, ...teacherData });
+        response = await axios.post('http://localhost:5000/api/auth/register', { role, schoolId, ...teacherData });
       }
       console.log('✅ Registration successful:', response.data);
       alert('Registration successful!');
@@ -205,6 +210,38 @@ const RegistrationForm = () => {
                 required
               />
             </div>
+
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                Password <span className="text-red-500">*</span>
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FaLock className="text-gray-400" />
+                </div>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  value={studentData.password}
+                  onChange={handleStudentChange}
+                  className="block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter password"
+                  required
+                />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <FaEyeSlash className="h-5 w-5 text-gray-400" />
+                  ) : (
+                    <FaEye className="h-5 w-5 text-gray-400" />
+                  )}
+                </button>
+              </div>
+            </div>
           </div>
         </>
       )}
@@ -258,14 +295,14 @@ const RegistrationForm = () => {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
               <input
-                  type="text"
-                  name="phone"  // ✅ Corrected name
-                  value={teacherData.phone}
-                  onChange={handleTeacherChange}
-                  placeholder="Enter Phone Number Here"
-                  className="block w-full p-2 border border-gray-300 rounded-lg"
-                  required
-                />
+                type="text"
+                name="phone"  // ✅ Corrected name
+                value={teacherData.phone}
+                onChange={handleTeacherChange}
+                placeholder="Enter Phone Number Here"
+                className="block w-full p-2 border border-gray-300 rounded-lg"
+                required
+              />
             </div>
 
             <div>
@@ -279,6 +316,37 @@ const RegistrationForm = () => {
                 className="block w-full p-2 border border-gray-300 rounded-lg"
                 required
               />
+            </div>
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                Password <span className="text-red-500">*</span>
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FaLock className="text-gray-400" />
+                </div>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  value={teacherData.password}
+                  onChange={handleTeacherChange}
+                  className="block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter password"
+                  required
+                />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <FaEyeSlash className="h-5 w-5 text-gray-400" />
+                  ) : (
+                    <FaEye className="h-5 w-5 text-gray-400" />
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         </>

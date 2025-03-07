@@ -12,6 +12,8 @@ const authController = {
 
     // Ensure super admin does not have a schoolId
 
+    console.log(req.body.role);
+
     let user, token;
 
     if (role === "teacher") {
