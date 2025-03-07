@@ -18,6 +18,7 @@ const SchoolInformationForm = ({ formData, handleChange }) => {
             onChange={handleChange}
             className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter school name"
+            required
           />
         </div>
 
@@ -33,6 +34,7 @@ const SchoolInformationForm = ({ formData, handleChange }) => {
             onChange={handleChange}
             className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter school address"
+            required
           />
         </div>
 
@@ -49,6 +51,7 @@ const SchoolInformationForm = ({ formData, handleChange }) => {
               onChange={handleChange}
               className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter district"
+              required
             />
           </div>
           <div>
@@ -63,6 +66,7 @@ const SchoolInformationForm = ({ formData, handleChange }) => {
               onChange={handleChange}
               className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter province"
+              required
             />
           </div>
         </div>

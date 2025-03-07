@@ -23,6 +23,7 @@ const AdministratorForm = ({ formData, handleChange }) => {
               onChange={handleChange}
               className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter first name"
+              required
             />
           </div>
           <div>
@@ -37,6 +38,7 @@ const AdministratorForm = ({ formData, handleChange }) => {
               onChange={handleChange}
               className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter last name"
+              required
             />
           </div>
         </div>
@@ -53,6 +55,7 @@ const AdministratorForm = ({ formData, handleChange }) => {
               value={formData.dateOfBirth}
               onChange={handleChange}
               className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
             />
           </div>
           <div>
@@ -61,12 +64,13 @@ const AdministratorForm = ({ formData, handleChange }) => {
             </label>
             <input
               type="tel"
-              id="phoneNumber"
-              name="phoneNumber"
-              value={formData.phoneNumber}
+              id="phone"
+              name="phone"
+              value={formData.phone}
               onChange={handleChange}
               className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter phone number"
+              required
             />
           </div>
         </div>
@@ -77,12 +81,13 @@ const AdministratorForm = ({ formData, handleChange }) => {
           </label>
           <input
             type="email"
-            id="emailAddress"
-            name="emailAddress"
-            value={formData.emailAddress}
+            id="email"
+            name="email"
+            value={formData.email}
             onChange={handleChange}
             className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter email address"
+            required
           />
         </div>
 
@@ -98,6 +103,7 @@ const AdministratorForm = ({ formData, handleChange }) => {
             rows="3"
             className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter address"
+            required
           ></textarea>
         </div>
 
@@ -115,6 +121,7 @@ const AdministratorForm = ({ formData, handleChange }) => {
                 onChange={handleChange}
                 className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter password"
+                required
               />
               <button
                 type="button"
@@ -138,10 +145,10 @@ const AdministratorForm = ({ formData, handleChange }) => {
                 type={showConfirmPassword ? "text" : "password"}
                 id="confirmPassword"
                 name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
+                
                 className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Confirm password"
+                required
               />
               <button
                 type="button"

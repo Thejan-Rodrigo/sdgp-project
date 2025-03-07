@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import Header from './Header';
+import { useAuth } from '../../context/AuthContext'; // Import the useAuth hook
 import SchoolInformationForm from './SchoolInformationForm';
 import AdministratorForm from './AdministratorForm';
 
 const AddSchoolPage = () => {
+  const { user } = useAuth(); // Get the user (which includes the token) from the context
   const [formData, setFormData] = useState({
     // School Information
     schoolName: '',
@@ -16,11 +18,10 @@ const AddSchoolPage = () => {
     firstName: '',
     lastName: '',
     dateOfBirth: '',
-    phoneNumber: '',
-    emailAddress: '',
+    phone: '',
+    email: '',
     address: '',
-    password: '',
-    confirmPassword: ''
+    password: ''
   });
 
   const handleChange = (e) => {
@@ -31,10 +32,44 @@ const AddSchoolPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form data submitted:', formData);
-    // Here you would typically send the data to your backend
+
+    if (!user?.token) {
+      console.error('No token found. User is not authenticated.');
+      // You can redirect the user to the login page or show an error message
+      return;
+    }
+
+    // Add the role to the formData
+    const requestBody = {
+      ...formData,
+      role: user.role, // Include the role from the user object
+    };
+
+    try {
+      console.log(user.token);
+      console.log(requestBody); // Log the request body to verify it includes the role
+      const response = await fetch('http://localhost:5000/api/schools/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`, // Include the token in the Authorization header
+        },
+        body: JSON.stringify(requestBody), // Send the updated request body
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const result = await response.json();
+      console.log('Success:', result);
+      // You can add additional logic here, such as showing a success message or redirecting the user
+    } catch (error) {
+      console.error('Error:', error);
+      // You can add additional logic here, such as showing an error message to the user
+    }
   };
 
   return (
