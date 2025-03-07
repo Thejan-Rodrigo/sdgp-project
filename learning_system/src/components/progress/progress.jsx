@@ -15,7 +15,7 @@ function Progress() {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/students"); // Explicit URL
+        const response = await fetch("http://localhost:3000/api/students"); // Explicit URL
         console.log("Response object:", response); // Check the raw response
 
         if (!response.ok) throw new Error("Failed to fetch students");
@@ -44,7 +44,7 @@ function Progress() {
       try {
         console.log("Fetching progress...");
         setLoading(true);
-        const response = await fetch(`http://localhost:5000/api/progress/${selectedStudent._id}`);
+        const response = await fetch(`http://localhost:3000/api/progress/${selectedStudent._id}`);
     
         console.log("Received response");
     
@@ -76,7 +76,7 @@ function Progress() {
 
     try {
       console.log("helow1");
-      const response = await fetch("http://localhost:5000/api/progress", {
+      const response = await fetch("http://localhost:3000/api/progress", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
