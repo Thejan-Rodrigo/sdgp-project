@@ -23,7 +23,6 @@ function Progress() {
         const data = await response.json();
         console.log("Fetched students data:", data); // Debugging
         setStudents(data);
-        console.log(students);
       } catch (error) {
         console.error("Error fetching students:", error);
         setError(error.message);
@@ -37,25 +36,21 @@ function Progress() {
 
   // Fetch progress history when a student is selected
   useEffect(() => {
-    console.log("hellow");
     if (!selectedStudent) return;
 
     const fetchProgressHistory = async () => {
       try {
-        console.log("Fetching progress...");
         setLoading(true);
         const response = await fetch(`http://localhost:5000/api/progress/${selectedStudent._id}`);
-    
-        console.log("Received response");
-    
+
         if (!response.ok) throw new Error("Failed to fetch progress history");
-    
+
         // Check if response is JSON
         const contentType = response.headers.get("content-type");
         if (!contentType || !contentType.includes("application/json")) {
           throw new Error("Server returned non-JSON response");
         }
-    
+
         const data = await response.json();
         console.log("Progress history:", data);
         setProgressHistory(data);
@@ -75,7 +70,6 @@ function Progress() {
     if (!selectedStudent || !newNote.trim()) return;
 
     try {
-      console.log("helow1");
       const response = await fetch("http://localhost:5000/api/progress", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -84,7 +78,7 @@ function Progress() {
           notes: newNote,
         }),
       });
-      console.log("helow2");
+
       if (!response.ok) throw new Error("Failed to add progress note");
 
       const newProgress = await response.json();
@@ -94,6 +88,12 @@ function Progress() {
       setError(error.message);
     }
   };
+
+  // Filter students based on search term
+  const filteredStudents = students.filter((student) => {
+    const fullName = `${student.firstName} ${student.lastName}`.toLowerCase();
+    return fullName.includes(searchTerm.toLowerCase());
+  });
 
   return (
     <div className="flex h-screen">
@@ -126,35 +126,23 @@ function Progress() {
             <h2 className="text-lg font-semibold">Students</h2>
             {loading ? (
               <p className="text-gray-500">Loading students...</p>
-            ) : students.length === 0 ? (
+            ) : filteredStudents.length === 0 ? (
               <p className="text-gray-500">No students found.</p>
             ) : (
               <div className="overflow-auto h-[calc(100vh-11rem)]">
-                {/* .filter((student) =>
-                      student?.name
-                        ?.toLowerCase()
-                        .includes(searchTerm.toLowerCase())
-                    ) */}
-                {students?.length > 0 ? (
-                  students.map((student) => (
-                    <div
-                      key={student._id}
-                      className={`flex items-center gap-3 p-3 border-b cursor-pointer hover:bg-gray-100 ${
-                        selectedStudent?._id === student._id
-                          ? "bg-blue-100"
-                          : ""
-                      }`}
-                      onClick={() => setSelectedStudent(student)}
-                    >
-                      <span>
-                        {`${student.firstName} ${student.lastName}` ||
-                          "Unknown Student"}
-                      </span>
-                    </div>
-                  ))
-                ) : (
-                  <p>Loading students...</p>
-                )}
+                {filteredStudents.map((student) => (
+                  <div
+                    key={student._id}
+                    className={`flex items-center gap-3 p-3 border-b cursor-pointer hover:bg-gray-100 ${
+                      selectedStudent?._id === student._id ? "bg-blue-100" : ""
+                    }`}
+                    onClick={() => setSelectedStudent(student)}
+                  >
+                    <span>
+                      {`${student.firstName} ${student.lastName}` ||"Unknown Student"}
+                    </span>
+                  </div>
+                ))}
               </div>
             )}
           </div>
