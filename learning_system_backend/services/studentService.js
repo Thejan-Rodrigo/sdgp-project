@@ -1,4 +1,7 @@
+// services/studentService.js
 import Student from "../models/studentModel.js";
+import Attendance from "../models/attendanceModel.js";
+import Progress from "../models/progressModel.js";
 
 // Fetch all students
 export const getAllStudents = async () => {

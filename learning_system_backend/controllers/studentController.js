@@ -16,14 +16,10 @@ export const getStudents = async (req, res) => {
 
 export const getStudentProfile = async (req, res) => {
   try {
-    const student = await getStudentById(req.params.studentId);
-    if (!student) {
-      return res.status(404).json({ message: "Student not found" });
-    }
-    // Return only required fields
-    const { name, studentId, address, attendance, progress } = student;
-    res.json({ name, studentId, address, attendance, progress });
+    const { studentId } = req.params;
+    const data = await getStudentData(studentId);
+    res.json(data);
   } catch (error) {
-    res.status(500).json({ message: "Server Error", error });
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
