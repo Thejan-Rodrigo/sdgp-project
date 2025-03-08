@@ -6,13 +6,19 @@ const userSchema = new mongoose.Schema(
     schoolId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "School",
-      required: true,
+      required: function () {
+        return this.role !== "superadmin"; // School ID is required unless the role is superadmin
+      },
     },
     firstName: { type: String, required: true, trim: true },
     lastName: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true, lowercase: true },
     password: { type: String, required: true },
-    role: { type: String, enum: ["admin", "teacher", "parent", "student"], required: true },
+    role: { 
+      type: String, 
+      enum: ["superadmin", "admin", "teacher", "parent", "student"], 
+      required: true 
+    },
     isActive: { type: Boolean, default: true },
     lastLogin: { type: Date },
   },

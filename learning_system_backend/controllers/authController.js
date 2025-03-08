@@ -5,15 +5,22 @@ import authService from "../services/authService.js";
 
 const authController = {
 
-  
+
   // Register user
   register: catchAsync(async (req, res) => {
     const { firstName, lastName, email, password, role, schoolId } = req.body;
+
+    // Ensure super admin does not have a schoolId
+    if (role === "superadmin" && schoolId) {
+      throw new ApiError(400, "Super admin should not be assigned to a school");
+    }
+
     const user = await authService.createUser({ firstName, lastName, email, password, role, schoolId });
     const token = authService.generateAuthToken(user);
 
     successResponse(res, { user, token }, "Registration successful", 201);
   }),
+
 
   // Login user
   login: catchAsync(async (req, res) => {
