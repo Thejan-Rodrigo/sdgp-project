@@ -1,44 +1,60 @@
 import React, { useState, useEffect } from "react";
 
-const StudentProfile = () => {
-  const [student, setStudent] = useState(null);
+const StudentProfile = ({ studentId }) => {
+  const [student, setStudent] = useState(true);
   const [attendance, setAttendance] = useState([]);
   const [progress, setProgress] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchStudentData = async () => {
-      setLoading(true);
       try {
-        const studentRes = await fetch("http://localhost:5000/students"); // Assuming this returns a single student
+        // Fetch Student Details
+        const studentRes = await fetch(`http://localhost:5000/students/${studentId}`);
         const studentData = await studentRes.json();
         setStudent(studentData);
 
-        const attendanceRes = await fetch(`http://localhost:5000/students/${studentData.id}/attendance`);
+        // Fetch Attendance
+        const attendanceRes = await fetch(`http://localhost:5000/attendance/${studentId}`);
         const attendanceData = await attendanceRes.json();
         setAttendance(attendanceData);
 
-        const progressRes = await fetch(`http://localhost:5000/students/${studentData.id}/progress`);
+        // Fetch Progress
+        const progressRes = await fetch(`http://localhost:5000/progress/${studentId}`);
         const progressData = await progressRes.json();
         setProgress(progressData);
-
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
         setLoading(false);
       }
     };
 
     fetchStudentData();
-  }, []);
+  }, [studentId]);
 
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Left Sidebar */}
-      <div className="w-64 bg-white border-r p-4">
-        <h1 className="text-xl font-semibold flex items-center gap-2">
-          <span className="text-blue-600">📚</span> EduTeach
-        </h1>
+      <div className="w-64 bg-white border-r">
+        <div className="p-4 border-b">
+          <h1 className="text-xl font-semibold flex items-center gap-2">
+            <span className="text-blue-600">📚</span> EduTeach
+          </h1>
+        </div>
+        <div className="p-2">
+          <div className="flex items-center gap-3 p-2 rounded-lg">
+            <img
+              src="https://via.placeholder.com/40"
+              alt="Profile"
+              className="w-8 h-8 rounded-full"
+            />
+            <div>
+              <div className="font-medium">{student?.name || "Loading..."}</div>
+              <div className="text-sm text-gray-500">Student ID: {student?.studentId || "..."}</div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Main Content */}
@@ -48,53 +64,59 @@ const StudentProfile = () => {
         </header>
 
         <main className="p-6">
+          {/* Profile Info */}
           {loading ? (
             <p>Loading student details...</p>
-          ) : student ? (
-            <>
-              {/* Profile Info */}
-              <div className="bg-white rounded-lg p-6 mb-6">
-                <h3 className="text-2xl font-semibold">{student.name}</h3>
-                <p><strong>Address:</strong> {student.address}</p>
-                <p><strong>Student ID:</strong> {student.studentId}</p>
-                <p><strong>Role:</strong> {student.role}</p>
-              </div>
-
-              {/* Attendance */}
-              <div className="bg-white rounded-lg p-6 mb-6">
-                <h4 className="text-lg font-medium mb-4">Attendance Overview</h4>
-                {attendance.length > 0 ? (
-                  <div className="grid md:grid-cols-3 gap-6">
-                    {attendance.map((month) => (
-                      <div key={month.month}>
-                        <span>{month.month}</span> - <span>{month.percentage}%</span>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p>No attendance records found.</p>
-                )}
-              </div>
-
-              {/* Progress Reports */}
-              <div className="bg-white rounded-lg p-6">
-                <h4 className="text-lg font-medium mb-4">Progress Messages</h4>
-                {progress.length > 0 ? (
-                  <div className="space-y-4">
-                    {progress.map((item, index) => (
-                      <div key={index}>
-                        <p><strong>{item.subject}</strong> - {item.remarks}</p>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p>No progress records found.</p>
-                )}
-              </div>
-            </>
           ) : (
-            <p>No student data available.</p>
+            <div className="bg-white rounded-lg p-6 mb-6">
+              <h3 className="text-2xl font-semibold mb-4">{student.name}</h3>
+              <p><strong>Student ID:</strong> {student.studentId}</p>
+              <p><strong>Address:</strong> {student.address}</p>
+            </div>
           )}
+
+          {/* Attendance */}
+          <div className="bg-white rounded-lg p-6 mb-6">
+            <h4 className="text-lg font-medium mb-4">Attendance Overview</h4>
+            {attendance.length > 0 ? (
+              attendance.map((month) => (
+                <div key={month.month} className="mb-4">
+                  <div className="flex justify-between">
+                    <span>{month.month}</span>
+                    <span>{month.percentage}%</span>
+                  </div>
+                  <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="h-full bg-green-500 rounded-full" style={{ width: `${month.percentage}%` }} />
+                  </div>
+                  <p className="text-sm text-gray-500">
+                    Present: {month.presentDays} / {month.totalDays} days
+                  </p>
+                </div>
+              ))
+            ) : (
+              <p>No attendance records found.</p>
+            )}
+          </div>
+
+          {/* Progress Reports */}
+          <div className="bg-white rounded-lg p-6">
+            <h4 className="text-lg font-medium mb-4">Progress Messages</h4>
+            {progress.length > 0 ? (
+              progress.map((item, index) => (
+                <div key={index} className="flex gap-4 pb-4 border-b last:border-0">
+                  <div className="w-12 h-12 rounded-full bg-gray-100 flex-shrink-0" />
+                  <div>
+                    <h5 className="font-medium">{item.teacher}</h5>
+                    <p className="text-sm text-gray-500">{item.subject}</p>
+                    <p className="text-sm text-gray-500">{new Date(item.date).toLocaleDateString()}</p>
+                    <p className="mt-2 text-gray-600">{item.remarks}</p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>No progress records found.</p>
+            )}
+          </div>
         </main>
       </div>
     </div>
