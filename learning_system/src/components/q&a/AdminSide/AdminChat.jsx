@@ -1,12 +1,12 @@
 import React from 'react';
 import Sidebar from '../Sidebar';
-import ChatArea from './ChatArea';
+import ChatAreaA from './ChatAreaA';
 
 const AdminChat = () => {
   return (
     <div className="flex min-h-screen bg-gray-50">
       <Sidebar />
-      <ChatArea />
+      <ChatAreaA />
     </div>
   );
 };

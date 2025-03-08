@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 import axios from "axios"; // Import Axios for API calls
-import ChatHeader from "./ChatHeaderT";
-import ChatInput from "./ChatInputT";
-import Message from "./MessageT";
+import ChatHeader from "./ChatHeaderA";
+import ChatInput from "./ChatInputA";
+import Message from "./MessageA";
 
 const socket = io("http://localhost:5000");
 
 const ChatArea = () => {
   const [messages, setMessages] = useState([]);
-  const sender = "Admin"; // Replace with dynamic user
-  const receiver = "SuperAdmin"; // Replace dynamically
+  const sender = "SuperAdmin"; // Replace with dynamic user
+  const receiver = "Admin"; // Replace dynamically
 
   // Fetch chat history from backend
   useEffect(() => {
