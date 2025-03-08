@@ -47,9 +47,7 @@ app.get("/", (req, res) => {
 });
 
 // Routes
-app.get("/students/:id", getStudentProfile);
-app.get("/students/:id/attendance", getStudentAttendance);
-app.get("/students/:id/progress", getStudentProgress);
+app.use("/students", studentRoutes);
 
 
 // Routes

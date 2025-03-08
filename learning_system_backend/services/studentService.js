@@ -1,6 +1,4 @@
-import Student from "../models/student.js";
-import Attendance from "../models/attendance.js";
-import Progress from "../models/progress.js";
+import Student from "../models/studentModel.js";
 
 // Fetch all students
 export const getAllStudents = async () => {
@@ -20,4 +18,7 @@ export const fetchStudentAttendance = async (studentId) => {
 // Fetch Student Progress
 export const fetchStudentProgress = async (studentId) => {
   return await Progress.find({ studentId });
+}
+export const getStudentById = async (studentId) => {
+  return await Student.findOne({ studentId });
 };

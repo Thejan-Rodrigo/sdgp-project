@@ -1,5 +1,7 @@
 import { getAllStudents } from "../services/studentService.js";
 import { fetchStudentProfile, fetchStudentAttendance, fetchStudentProgress } from "../services/studentService.js";
+// Get Student Profile
+import { getStudentById } from "../services/studentService.js";
 
 export const getStudents = async (req, res) => {
   try {
@@ -10,33 +12,18 @@ export const getStudents = async (req, res) => {
   }
 }
 
-// Get Student Profile
+
+
 export const getStudentProfile = async (req, res) => {
   try {
-    const student = await fetchStudentProfile(req.params.id);
-    if (!student) return res.status(404).json({ message: "Student not found" });
-    res.json(student);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-
-// Get Student Attendance
-export const getStudentAttendance = async (req, res) => {
-  try {
-    const attendance = await fetchStudentAttendance(req.params.id);
-    res.json(attendance);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-
-// Get Student Progress
-export const getStudentProgress = async (req, res) => {
-  try {
-    const progress = await fetchStudentProgress(req.params.id);
-    res.json(progress);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const student = await getStudentById(req.params.studentId);
+    if (!student) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+    // Return only required fields
+    const { name, studentId, address, attendance, progress } = student;
+    res.json({ name, studentId, address, attendance, progress });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error });
   }
 };
