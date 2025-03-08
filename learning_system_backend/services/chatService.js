@@ -3,6 +3,7 @@ import Message from "../models/Message.js"
 const saveMessage = async (data) => {
   try {
     const message = new Message(data);
+    console.log("hello")
     await message.save();
     return message;
   } catch (error) {
