@@ -1,9 +1,9 @@
+// routes/studentRoutes.js
 import express from "express";
-import { getStudentProfile } from "../controllers/studentController.js";
+import { getStudentDetails } from "../controllers/studentController.js";
 
 const router = express.Router();
 
-// GET student profile by student ID
-router.get("/:studentId", getStudentProfile);
+router.get("/:studentId", getStudentDetails);
 
 export default router;
