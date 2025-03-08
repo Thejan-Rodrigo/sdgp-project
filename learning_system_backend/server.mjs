@@ -32,7 +32,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-
+// Routes
 
 app.use("/api/admin", adminRoutes);
 app.use("/api/schools", schoolRoutes);
@@ -53,27 +53,35 @@ const io = new Server(server, {
 
 app.use("/api/chat", chatRoutes);
 
+const server = http.createServer(app); // ✅ Fix: Ensure WebSocket is on same server
+
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000", // Change to match frontend
+    methods: ["GET", "POST"],
+  },
+});
+
 io.on("connection", (socket) => {
-    console.log("User connected:", socket.id);
-  
-    socket.on("message", async (data) => {
-      try {
-        const savedMessage = await ChatService.saveMessage(data);
-        io.emit("message", savedMessage); // Broadcast to all users
-      } catch (error) {
-        console.error("Message saving error:", error);
-      }
-    });
-  
-    socket.on("disconnect", () => {
-      console.log("User disconnected:", socket.id);
-    });
+  console.log("User connected:", socket.id);
+
+  socket.on("message", async (data) => {
+    try {
+      const savedMessage = await ChatService.saveMessage(data);
+      io.emit("message", savedMessage); // Broadcast to all users
+    } catch (error) {
+      console.error("Message saving error:", error);
+    }
   });
 
+  socket.on("disconnect", () => {
+    console.log("User disconnected:", socket.id);
+  });
+});
+
+// Test endpoint
 app.get("/test", (req, res) => {
-    console.log(req);
-    res.send("Hello  world");
-    
+  res.send("Hello world");
 });
 app.get("/", (req, res) => {
 res.send("Hello, World!");
@@ -135,4 +143,4 @@ app.use('/api/lessons', lessonsRoutes);
 app.use(errorHandler); // Global error handler
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+server.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`)); // ✅ FIXED

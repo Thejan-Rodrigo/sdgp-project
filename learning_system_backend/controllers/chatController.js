@@ -2,6 +2,7 @@ import ChatService from "../services/chatService.js"
 
 const sendMessage = async (req, res) => {
   try {
+    console.log(req.body)
     const message = await ChatService.saveMessage(req.body);
     res.status(201).json(message);
   } catch (error) {
