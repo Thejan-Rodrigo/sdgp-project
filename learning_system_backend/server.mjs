@@ -5,7 +5,7 @@ import adminRoutes from "./routes/adminRoutes.js";
 import connectDB from './config/db.mjs'
 import dotenv from 'dotenv';
 import cors from "cors"; // 
-import { getStudentProfile, getStudentAttendance, getStudentProgress } from "./controllers/studentController.js";
+import studentRoutes from "./routes/studentRoutes.js";
 
 
 
@@ -35,9 +35,7 @@ app.get("/", (req, res) => {
 });
 
 // Routes
-app.get("/students/:id", getStudentProfile);
-app.get("/students/:id/attendance", getStudentAttendance);
-app.get("/students/:id/progress", getStudentProgress);
+app.use("/students", studentRoutes);
 
 app.use(errorHandler); // Global error handler
 
