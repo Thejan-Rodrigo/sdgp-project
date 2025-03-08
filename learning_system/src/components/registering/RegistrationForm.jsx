@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Alert from "./Alert"; // Import the Alert component
 import { FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt, FaCalendar, FaLock, FaEyeSlash, FaEye } from 'react-icons/fa';
 
 const RegistrationForm = () => {
   const [role, setRole] = useState('student');
+  const [cusalert, setCusAlert] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [schoolId, setSchoolId] = useState('67ac6107daffb78924247923');
 
@@ -62,10 +64,42 @@ const RegistrationForm = () => {
         response = await axios.post('http://localhost:5000/api/auth/register', { role, schoolId, ...teacherData });
       }
       console.log('✅ Registration successful:', response.data);
+      //const result = await response.json();
+      //console.log('Success:', result);
+  
+      // Clear the form fields after successful submission
+      setStudentData({
+        schoolName: '',
+        schoolAddress: '',
+        district: '',
+        province: '',
+        firstName: '',
+        lastName: '',
+        dateOfBirth: '',
+        phone: '',
+        email: '',
+        address: '',
+        password: '',
+      });
+
+      setTeacherData({
+        schoolName: '',
+        schoolAddress: '',
+        district: '',
+        province: '',
+        firstName: '',
+        lastName: '',
+        dateOfBirth: '',
+        phone: '',
+        email: '',
+        address: '',
+        password: '',
+      });
       alert('Registration successful!');
     } catch (error) {
       console.error('❌ Registration failed:', error.response?.data || error.message);
-      alert('Registration failed! Check the console for more details.');
+      setCusAlert({ type: "error", message: "Failed to create school. Please try again." });
+      //alert('Registration failed! Check the console for more details.');
     }
   };
 
@@ -99,6 +133,15 @@ const RegistrationForm = () => {
           </label>
         </div>
       </div>
+
+      {/* Display the alert */}
+      {cusalert && (
+        <Alert
+          type={cusalert.type}
+          message={cusalert.message}
+          onClose={() => setCusAlert(null)} // Close the alert
+        />
+      )}
 
       {/* Student Registration Form */}
       {role === 'student' && (
