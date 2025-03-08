@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
 import errorHandler from "./middleware/errorMiddleware.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import announcementRoute from "./routes/AnnouncementRouter.js"
 
 
 
