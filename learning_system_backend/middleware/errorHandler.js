@@ -1,4 +1,4 @@
-import { ApiError } from "../utils/ApiError.js"; // Use curly braces for named export 
+import ApiError from "../utils/ApiError.js";
 
  
 export const errorHandler = (err, req, res, next) => {
