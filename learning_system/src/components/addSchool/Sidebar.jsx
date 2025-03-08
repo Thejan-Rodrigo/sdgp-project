@@ -1,7 +1,9 @@
 import React from 'react';
+import { useAuth } from "../../context/AuthContext";
 import { FaGraduationCap, FaTachometerAlt, FaBell, FaSchool, FaUserCog, FaUserGraduate, FaQuestionCircle, FaHeadphones } from 'react-icons/fa';
 
 const Sidebar = () => {
+  const { user } = useAuth();
   const menuItems = [
     { icon: <FaGraduationCap />, text: 'EduAdmin', isHeader: true },
     { icon: <FaTachometerAlt />, text: 'Dashboard' },
@@ -21,8 +23,12 @@ const Sidebar = () => {
             <img src="https://via.placeholder.com/40" alt="Profile" className="rounded-full" />
           </div>
           <div>
-            <h3 className="font-semibold">John Anderson</h3>
-            <p className="text-sm text-gray-500">Super Administrator</p>
+
+          {user ? ( // ✅ Check if user exists
+                <><h3 className="font-semibold">{`${user.firstName} ${user.lastName}`}</h3><p className="text-sm text-gray-500">{user.role}</p></>
+            ) : (
+                <h1>User not loged in</h1>
+            )}
           </div>
         </div>
         <nav>
