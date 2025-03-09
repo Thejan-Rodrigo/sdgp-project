@@ -24,6 +24,19 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true } // Automatically adds createdAt & updatedAt
 );
+/*const userSchema = new mongoose.Schema({
+  schoolId: { type: mongoose.Schema.Types.ObjectId, ref: "School", required: true },
+  firstName: { type: String, required: true, trim: true },
+  lastName: { type: String, required: true, trim: true },
+  email: { type: String, required: true, unique: true, lowercase: true },
+  password: { type: String, required: function () { return this.role !== "student"; } }, // Students don't need passwords
+  role: { type: String, enum: ["admin", "teacher", "parent"], required: true },
+  isActive: { type: Boolean, default: true },
+  lastLogin: { type: Date },
+
+  // Parent-specific field (stores the student's ID)
+  student: { type: mongoose.Schema.Types.ObjectId, ref: "Student" } // ✅ Only for parents
+}, { timestamps: true });*/
 
 // Hash password before saving
 userSchema.pre("save", async function (next) {

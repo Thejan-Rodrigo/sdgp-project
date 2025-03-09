@@ -4,6 +4,7 @@ import AddSchoolPage from './components/addSchool/AddSchoolPage';
 import Home from './components/homePage/Home'
 import LoginPage from './components/loginPage/LoginPage';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import RegistrationPage from './components/registering/RegistrationPage';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/addadmin" element={<AddAdminPage />}/>
         <Route path="/addSchool" element={<AddSchoolPage />}/>
+        <Route path="/registering" element={<RegistrationPage/>}/>
       </Routes>
     </Router>
   );
