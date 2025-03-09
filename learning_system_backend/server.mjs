@@ -13,9 +13,6 @@ import studentRoutes from "./routes/studentRoutes.js";
 import progressRoutes from "./routes/progressRoutes.js";
 import { getStudentProfile, getStudentAttendance, getStudentProgress } from "./controllers/studentController.js";
 
-
-
-
 dotenv.config();
 connectDB();
 
@@ -39,14 +36,13 @@ app.get("/test",(req,res)=>{
     
 });
 app.get("/", (req, res) => {
-  res.send("Hello, World!");
+res.send("Hello, World!");
 });
 
 app.get("/", (req, res) => {
-  res.send("MongoDB Connected with Mongoose!");
+res.send("MongoDB Connected with Mongoose!");
 });
 
-// Routes
 app.use("/students", studentRoutes);
 
 

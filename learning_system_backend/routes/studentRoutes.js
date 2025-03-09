@@ -1,4 +1,3 @@
-// routes/studentRoutes.js
 import express from "express";
 import { getStudents } from "../controllers/studentController.js";
 import { getStudentProfile } from "../controllers/studentController.js";
