@@ -7,7 +7,7 @@ const RegistrationForm = () => {
   const [role, setRole] = useState('student');
   const [cusalert, setCusAlert] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
-  const [schoolId, setSchoolId] = useState('67ac6107daffb78924247923');
+  const [schoolId, setSchoolId] = useState('67cc5370e98552e9b5a6e097');
 
   // Form Data for Student
   const [studentData, setStudentData] = useState({

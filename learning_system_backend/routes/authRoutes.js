@@ -1,13 +1,13 @@
 import express from "express";
 import authController from "../controllers/authController.js";
 
-// Access the login method from the imported authController
-const { login, register } = authController;
+// Access the methods from the imported authController
+const { login, register, getUsersBySchoolId } = authController;
 
 const router = express.Router();
 
 router.post("/register", register);
-// Login Route
 router.post("/login", login);
+router.get("/users/:schoolId", getUsersBySchoolId); // New route
 
 export default router;
