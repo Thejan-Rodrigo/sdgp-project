@@ -28,7 +28,21 @@ const adminController = {
       next(error); // Pass error to the middleware for handling
     }
   }),
-};
 
+  getAdminsBySchoolId: catchAsync(async (req, res, next) => {
+    try {
+      const { schoolId } = req.params; // Extract schoolId from the URL parameters
+      logger.debug(`[adminController] Fetching admins for schoolId: ${schoolId}`);
+
+      // Call service to get admins by school ID
+      const admins = await adminService.getAdminsBySchoolId(schoolId);
+
+      successResponse(res, { admins }, "Admins fetched successfully");
+    } catch (error) {
+      logger.error("[adminController] Error fetching admins:", error);
+      next(error); // Pass error to the middleware for handling
+    }
+  }),
+};
 
 export default adminController;
