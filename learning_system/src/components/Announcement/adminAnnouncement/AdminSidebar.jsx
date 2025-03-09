@@ -1,20 +1,20 @@
 import React from 'react';
-import { FaBullhorn, FaUserShield, FaSchool, FaUsers, FaChartBar, FaCog } from 'react-icons/fa';
+import { FaBullhorn, FaUserPlus, FaUserGraduate, FaQuestionCircle, FaSignOutAlt } from 'react-icons/fa';
 
 const AdminSidebar = () => {
   return (
-    <div className="w-64 h-screen bg-white border-r">
+    <div className="w-64 h-screen bg-white border-r flex flex-col justify-between">
       <div className="p-4">
         <div className="flex items-center gap-2 mb-8">
-          <img src="/eduteach-logo.png" alt="EduTeach" className="h-8" />
-          <span className="text-xl font-bold text-primary">EduTeach</span>
+          <img src="/eduteach-logo.png" alt="KinderZone" className="h-8" />
+          <span className="text-xl font-bold text-primary">KinderZone</span>
         </div>
 
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-4">
             <img src="/profile.jpg" alt="Profile" className="w-12 h-12 rounded-full" />
             <div>
-              <h3 className="font-semibold">Admin Name</h3>
+              <h3 className="font-semibold">Admin Kalin</h3>
               <p className="text-sm text-gray-500">Branch Administrator</p>
             </div>
           </div>
@@ -30,36 +30,32 @@ const AdminSidebar = () => {
             </li>
             <li>
               <a href="#" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-                <FaUserShield className="text-lg" />
-                <span>Staff Management</span>
+                <FaUserPlus className="text-lg" />
+                <span>Register</span>
               </a>
             </li>
             <li>
               <a href="#" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-                <FaSchool className="text-lg" />
-                <span>Branch Details</span>
+                <FaUserGraduate className="text-lg" />
+                <span>Student Profiles</span>
               </a>
             </li>
             <li>
               <a href="#" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-                <FaUsers className="text-lg" />
-                <span>Students</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-                <FaChartBar className="text-lg" />
-                <span>Reports</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-                <FaCog className="text-lg" />
-                <span>Settings</span>
+                <FaQuestionCircle className="text-lg" />
+                <span>Q&A Management</span>
               </a>
             </li>
           </ul>
         </nav>
+      </div>
+
+      {/* Logout Button */}
+      <div className="p-4 border-t">
+        <a href="#" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
+          <FaSignOutAlt className="text-lg" />
+          <span>Logout</span>
+        </a>
       </div>
     </div>
   );

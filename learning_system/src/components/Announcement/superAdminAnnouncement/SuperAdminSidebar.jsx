@@ -21,7 +21,7 @@ const Sidebar = () => {
             <img src="https://via.placeholder.com/40" alt="Profile" className="rounded-full" />
           </div>
           <div>
-            <h3 className="font-semibold">John Anderson</h3>
+            <h3 className="font-semibold">Kalin Dissanayaka</h3>
             <p className="text-sm text-gray-500">Super Administrator</p>
           </div>
         </div>

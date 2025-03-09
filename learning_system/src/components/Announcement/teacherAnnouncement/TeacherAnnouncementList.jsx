@@ -7,21 +7,21 @@ const announcements = [
     content: "Please be prepared for the upcoming mathematics test covering chapters 5-7. Review all practice problems and homework assignments.",
     timeAgo: "2 hours ago",
     views: 45,
-    classInfo: "Class 10-A"
+    postedBy: "shashini teacher"
   },
   {
     title: "Parent-Teacher Meeting Schedule",
     content: "The parent-teacher meeting is scheduled for next Friday. Please inform your parents about the timing and venue.",
     timeAgo: "1 day ago",
     views: 128,
-    classInfo: "All Classes"
+    postedBy: "thejan sir"
   },
   {
     title: "Extra Mathematics Practice Session",
     content: "There will be an extra practice session this Saturday for students who need additional help with Algebra.",
     timeAgo: "2 days ago",
     views: 89,
-    classInfo: "Class 10-A"
+    postedBy: "Admin"
   }
 ];
 

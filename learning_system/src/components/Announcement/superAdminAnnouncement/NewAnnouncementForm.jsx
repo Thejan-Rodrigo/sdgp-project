@@ -7,12 +7,13 @@ const NewAnnouncementForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Handle form submission
     console.log({ title, content });
   };
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm border mb-6">
-      <h2 className="text-xl font-semibold mb-4">New System Announcement</h2>
+      <h2 className="text-xl font-semibold mb-4">New Announcement</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <input
@@ -33,23 +34,10 @@ const NewAnnouncementForm = () => {
         </div>
         <div className="flex justify-between items-center">
           <div className="flex gap-4">
-            <button
-              type="button"
-              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg"
-            >
-              <FaPaperclip />
-              <span>Attach</span>
-            </button>
-            <button
-              type="button"
-              className="px-4 py-2 text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200"
-            >
-              Global
-            </button>
           </div>
           <button
             type="submit"
-            className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-blue-700"
+            className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
           >
             Post Announcement
           </button>

@@ -4,11 +4,11 @@ import { FaPaperclip } from 'react-icons/fa';
 const NewAnnouncementForm = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [selectedBranch, setSelectedBranch] = useState('all');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ title, content, selectedBranch });
+    // Handle form submission
+    console.log({ title, content });
   };
 
   return (
@@ -34,27 +34,10 @@ const NewAnnouncementForm = () => {
         </div>
         <div className="flex justify-between items-center">
           <div className="flex gap-4">
-            <button
-              type="button"
-              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg"
-            >
-              <FaPaperclip />
-              <span>Attach</span>
-            </button>
-            <select
-              value={selectedBranch}
-              onChange={(e) => setSelectedBranch(e.target.value)}
-              className="px-4 py-2 text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 focus:outline-none"
-            >
-              <option value="all">All Branches</option>
-              <option value="branch1">Branch 1</option>
-              <option value="branch2">Branch 2</option>
-              <option value="branch3">Branch 3</option>
-            </select>
           </div>
           <button
             type="submit"
-            className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-blue-700"
+            className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
           >
             Post Announcement
           </button>
