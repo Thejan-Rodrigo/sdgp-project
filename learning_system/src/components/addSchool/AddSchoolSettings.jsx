@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../context/AuthContext'; // Import useAuth to access the token
-import { FaTrash } from 'react-icons/fa'; // Import the bin icon
+import { useAuth } from '../../context/AuthContext';
+import { FaTrash } from 'react-icons/fa';
+import CustomAlert from './CustomAlert'; // Import the custom alert component
 
 export default function AddSchoolSettings() {
-  const { user } = useAuth(); // Get the user (which includes the token) from the context
-  const [schools, setSchools] = useState([]); // State to store the list of schools
-  const [loading, setLoading] = useState(true); // State to manage loading state
-  const [error, setError] = useState(null); // State to handle errors
+  const { user } = useAuth();
+  const [schools, setSchools] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [alert, setAlert] = useState(null); // State to manage the alert
 
   // Fetch schools when the component mounts
   useEffect(() => {
@@ -20,7 +22,7 @@ export default function AddSchoolSettings() {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${user.token}`, // Include the token in the Authorization header
+            Authorization: `Bearer ${user.token}`,
           },
         });
 
@@ -30,20 +32,20 @@ export default function AddSchoolSettings() {
 
         const result = await response.json();
         if (result.success) {
-          setSchools(result.data.schools); // Set the schools data in state
+          setSchools(result.data.schools);
         } else {
           throw new Error(result.message || 'Failed to fetch schools');
         }
       } catch (error) {
         console.error('Error fetching schools:', error);
-        setError(error.message); // Set the error message
+        setError(error.message);
       } finally {
-        setLoading(false); // Set loading to false after the request is complete
+        setLoading(false);
       }
     };
 
     fetchSchools();
-  }, [user?.token]); // Re-run the effect if the token changes
+  }, [user?.token]);
 
   // Function to handle school deletion
   const handleDeleteSchool = async (schoolId) => {
@@ -56,7 +58,7 @@ export default function AddSchoolSettings() {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${user.token}`, // Include the token in the Authorization header
+          Authorization: `Bearer ${user.token}`,
         },
       });
 
@@ -66,10 +68,20 @@ export default function AddSchoolSettings() {
 
       // Remove the deleted school from the list
       setSchools((prevSchools) => prevSchools.filter((school) => school._id !== schoolId));
-      console.log('School deleted successfully');
+
+      // Show a success alert
+      setAlert({ message: 'School deleted successfully', type: 'success' });
     } catch (error) {
       console.error('Error deleting school:', error);
+
+      // Show an error alert
+      setAlert({ message: 'Failed to delete school', type: 'error' });
     }
+  };
+
+  // Close the alert
+  const closeAlert = () => {
+    setAlert(null);
   };
 
   // Display loading state
@@ -86,6 +98,13 @@ export default function AddSchoolSettings() {
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm">
       <h2 className="text-xl font-semibold mb-4">School List</h2>
+      {alert && (
+        <CustomAlert
+          message={alert.message}
+          type={alert.type}
+          onClose={closeAlert} // Pass the closeAlert function
+        />
+      )}
       {schools.length > 0 ? (
         <ul className="space-y-4">
           {schools.map((school) => (
@@ -106,11 +125,11 @@ export default function AddSchoolSettings() {
                     <p>Updated: {new Date(school.updatedAt).toLocaleDateString()}</p>
                   </div>
                   <button
-                    onClick={() => handleDeleteSchool(school._id)} // Call handleDeleteSchool with the school ID
+                    onClick={() => handleDeleteSchool(school._id)}
                     className="p-2 text-red-600 hover:bg-red-50 rounded-full transition-colors"
                     title="Delete School"
                   >
-                    <FaTrash className="text-lg" /> {/* Bin icon */}
+                    <FaTrash className="text-lg" />
                   </button>
                 </div>
               </div>
