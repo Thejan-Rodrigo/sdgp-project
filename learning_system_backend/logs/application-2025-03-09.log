@@ -119,3 +119,65 @@
 [2025-03-09 18:44:16] [[32minfo[39m] [32m[schoolService] Not admin found and creating a new school[39m
 [2025-03-09 18:45:55] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
 [2025-03-09 18:45:56] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
+[2025-03-09 19:21:27] [[32minfo[39m] [32m[schoolController] Data came[39m
+[2025-03-09 19:21:27] [[32minfo[39m] [32m[schoolService] Not admin found and creating a new school[39m
+[2025-03-09 19:22:30] [[32minfo[39m] [32m[schoolController] Data came[39m
+[2025-03-09 19:22:30] [[32minfo[39m] [32m[schoolService] Not admin found and creating a new school[39m
+[2025-03-09 19:26:35] [[32minfo[39m] [32m[schoolController] Data came[39m
+[2025-03-09 19:26:35] [[32minfo[39m] [32m[schoolService] Not admin found and creating a new school[39m
+[2025-03-09 19:32:43] [[32minfo[39m] [32m[schoolController] Data came[39m
+[2025-03-09 19:32:43] [[32minfo[39m] [32m[schoolService] Not admin found and creating a new school[39m
+[2025-03-09 19:33:13] [[32minfo[39m] [32m[schoolController] Data came[39m
+[2025-03-09 19:33:14] [[32minfo[39m] [32m[schoolService] Not admin found and creating a new school[39m
+[2025-03-09 19:33:51] [[32minfo[39m] [32m[schoolController] Data came[39m
+[2025-03-09 19:33:51] [[32minfo[39m] [32m[schoolService] Not admin found and creating a new school[39m
+[2025-03-09 19:43:18] [[32minfo[39m] [32m[schoolController] Data came[39m
+[2025-03-09 19:43:18] [[32minfo[39m] [32m[schoolService] Not admin found and creating a new school[39m
+[2025-03-09 19:43:57] [[32minfo[39m] [32m[schoolController] Data came[39m
+[2025-03-09 19:43:57] [[32minfo[39m] [32m[schoolService] Not admin found and creating a new school[39m
+[2025-03-09 19:51:05] [[32minfo[39m] [32m[schoolController] Data came[39m
+[2025-03-09 19:51:05] [[32minfo[39m] [32m[schoolService] Not admin found and creating a new school[39m
+[2025-03-09 19:51:05] [[32minfo[39m] [32m[schoolService] New school created and saved in database[39m
+[2025-03-09 19:51:06] [[32minfo[39m] [32m[schoolService] New admin created and saved in database[39m
+[2025-03-09 19:51:06] [[32minfo[39m] [32m[schoolController] School and admin created successfully[39m
+[2025-03-09 19:52:05] [[32minfo[39m] [32m[schoolController] Data came[39m
+[2025-03-09 19:52:05] [[32minfo[39m] [32m[schoolService] Not admin found and creating a new school[39m
+[2025-03-09 19:52:05] [[32minfo[39m] [32m[schoolService] New school created and saved in database[39m
+[2025-03-09 19:52:05] [[32minfo[39m] [32m[schoolService] New admin created and saved in database[39m
+[2025-03-09 19:52:05] [[32minfo[39m] [32m[schoolController] School and admin created successfully[39m
+[2025-03-09 20:01:29] [[32minfo[39m] [32m[schoolController] Deleting school with ID: 67cda3d13c6695caac6ae4fd[39m
+[2025-03-09 20:01:30] [[32minfo[39m] [32m[schoolService] All users associated with school ID: 67cda3d13c6695caac6ae4fd deleted successfully[39m
+[2025-03-09 20:01:30] [[32minfo[39m] [32m[schoolService] School with ID: 67cda3d13c6695caac6ae4fd deleted successfully[39m
+[2025-03-09 20:01:30] [[32minfo[39m] [32m[schoolController] School with ID: 67cda3d13c6695caac6ae4fd deleted successfully[39m
+[2025-03-09 20:08:14] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
+[2025-03-09 20:08:14] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
+[2025-03-09 20:08:15] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
+[2025-03-09 20:08:15] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
+[2025-03-09 20:08:19] [[32minfo[39m] [32m[schoolController] Deleting school with ID: 67cda40d3c6695caac6ae503[39m
+[2025-03-09 20:08:19] [[32minfo[39m] [32m[schoolService] All users associated with school ID: 67cda40d3c6695caac6ae503 deleted successfully[39m
+[2025-03-09 20:08:20] [[32minfo[39m] [32m[schoolService] School with ID: 67cda40d3c6695caac6ae503 deleted successfully[39m
+[2025-03-09 20:08:20] [[32minfo[39m] [32m[schoolController] School with ID: 67cda40d3c6695caac6ae503 deleted successfully[39m
+[2025-03-09 20:09:58] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
+[2025-03-09 20:09:59] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
+[2025-03-09 20:09:59] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
+[2025-03-09 20:09:59] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
+[2025-03-09 20:10:14] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
+[2025-03-09 20:10:14] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
+[2025-03-09 20:10:14] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
+[2025-03-09 20:10:14] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
+[2025-03-09 20:13:20] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
+[2025-03-09 20:13:20] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
+[2025-03-09 20:13:20] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
+[2025-03-09 20:13:20] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
+[2025-03-09 20:15:25] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
+[2025-03-09 20:15:25] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
+[2025-03-09 20:15:25] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
+[2025-03-09 20:15:25] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
+[2025-03-09 20:15:46] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
+[2025-03-09 20:15:46] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
+[2025-03-09 20:15:46] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
+[2025-03-09 20:15:46] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
+[2025-03-09 20:15:48] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
+[2025-03-09 20:15:48] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
+[2025-03-09 20:15:48] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
+[2025-03-09 20:15:48] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m

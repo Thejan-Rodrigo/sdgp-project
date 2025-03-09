@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../context/AuthContext'; // Import useAuth to access the user token
+import { useAuth } from '../../context/AuthContext'; // Import useAuth to access the token
+import { FaTrash } from 'react-icons/fa'; // Import the bin icon
 
 export default function AddSchoolSettings() {
   const { user } = useAuth(); // Get the user (which includes the token) from the context
@@ -44,6 +45,33 @@ export default function AddSchoolSettings() {
     fetchSchools();
   }, [user?.token]); // Re-run the effect if the token changes
 
+  // Function to handle school deletion
+  const handleDeleteSchool = async (schoolId) => {
+    try {
+      if (!user?.token) {
+        throw new Error('No token found. User is not authenticated.');
+      }
+
+      const response = await fetch(`http://localhost:5000/api/schools/${schoolId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`, // Include the token in the Authorization header
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      // Remove the deleted school from the list
+      setSchools((prevSchools) => prevSchools.filter((school) => school._id !== schoolId));
+      console.log('School deleted successfully');
+    } catch (error) {
+      console.error('Error deleting school:', error);
+    }
+  };
+
   // Display loading state
   if (loading) {
     return <div>Loading schools...</div>;
@@ -72,9 +100,18 @@ export default function AddSchoolSettings() {
                     Status: {school.isActive ? 'Active' : 'Inactive'}
                   </p>
                 </div>
-                <div className="text-sm text-gray-500">
-                  <p>Created: {new Date(school.createdAt).toLocaleDateString()}</p>
-                  <p>Updated: {new Date(school.updatedAt).toLocaleDateString()}</p>
+                <div className="flex items-center gap-4">
+                  <div className="text-sm text-gray-500">
+                    <p>Created: {new Date(school.createdAt).toLocaleDateString()}</p>
+                    <p>Updated: {new Date(school.updatedAt).toLocaleDateString()}</p>
+                  </div>
+                  <button
+                    onClick={() => handleDeleteSchool(school._id)} // Call handleDeleteSchool with the school ID
+                    className="p-2 text-red-600 hover:bg-red-50 rounded-full transition-colors"
+                    title="Delete School"
+                  >
+                    <FaTrash className="text-lg" /> {/* Bin icon */}
+                  </button>
                 </div>
               </div>
             </li>
