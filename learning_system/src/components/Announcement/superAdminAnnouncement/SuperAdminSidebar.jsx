@@ -1,68 +1,53 @@
 import React from 'react';
-import { FaBullhorn, FaBuilding, FaUserTie, FaChartLine, FaCog, FaGlobe } from 'react-icons/fa';
+import { FaGraduationCap, FaTachometerAlt, FaBell, FaSchool, FaUserCog, FaUserGraduate, FaQuestionCircle, FaHeadphones, FaSignOutAlt } from 'react-icons/fa';
 
-const SuperAdminSidebar = () => {
+const Sidebar = () => {
+  const menuItems = [
+    { icon: <FaGraduationCap />, text: 'KinderZone', isHeader: true },
+    { icon: <FaBell />, text: 'Announcements' },
+    { icon: <FaTachometerAlt />, text: 'Dashboard' },
+    { icon: <FaSchool />, text: 'Add School' },
+    { icon: <FaUserCog />, text: 'Add Admin', isActive: true },
+    { icon: <FaUserGraduate />, text: 'Student Profiles' },
+    { icon: <FaQuestionCircle />, text: 'Q&A Management' },
+    { icon: <FaHeadphones />, text: 'Help & Support' },
+  ];
+
   return (
-    <div className="w-64 h-screen bg-white border-r">
-      <div className="p-4">
-        <div className="flex items-center gap-2 mb-8">
-          <img src="/eduteach-logo.png" alt="EduTeach" className="h-8" />
-          <span className="text-xl font-bold text-primary">EduTeach</span>
-        </div>
-
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <img src="/profile.jpg" alt="Profile" className="w-12 h-12 rounded-full" />
-            <div>
-              <h3 className="font-semibold">Super Admin</h3>
-              <p className="text-sm text-gray-500">System Administrator</p>
-            </div>
+    <div className="w-64 bg-white shadow-lg h-screen flex flex-col">
+      <div className="p-4 flex-grow">
+        <div className="flex items-center gap-3 mb-8">
+          <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+            <img src="https://via.placeholder.com/40" alt="Profile" className="rounded-full" />
+          </div>
+          <div>
+            <h3 className="font-semibold">John Anderson</h3>
+            <p className="text-sm text-gray-500">Super Administrator</p>
           </div>
         </div>
-
         <nav>
-          <ul className="space-y-2">
-            <li>
-              <a href="#" className="flex items-center gap-3 px-4 py-2 text-primary bg-blue-50 rounded-lg">
-                <FaBullhorn className="text-lg" />
-                <span>Announcements</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-                <FaBuilding className="text-lg" />
-                <span>Branch Management</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-                <FaUserTie className="text-lg" />
-                <span>Admin Management</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-                <FaChartLine className="text-lg" />
-                <span>Analytics</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-                <FaGlobe className="text-lg" />
-                <span>Global Settings</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-                <FaCog className="text-lg" />
-                <span>System Config</span>
-              </a>
-            </li>
-          </ul>
+          {menuItems.map((item, index) => (
+            <div
+              key={index}
+              className={`flex items-center gap-3 p-3 rounded-lg mb-2 ${
+                item.isHeader ? 'text-blue-600 font-bold text-lg' :
+                item.isActive ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'
+              }`}
+            >
+              {item.icon}
+              <span>{item.text}</span>
+            </div>
+          ))}
         </nav>
+      </div>
+      <div className="p-4 border-t border-gray-200">
+        <div className="flex items-center gap-3 p-3 rounded-lg text-gray-700 hover:bg-gray-100 cursor-pointer">
+          <FaSignOutAlt />
+          <span>Logout</span>
+        </div>
       </div>
     </div>
   );
 };
 
-export default SuperAdminSidebar;
+export default Sidebar;
