@@ -1,7 +1,7 @@
 import React from 'react';
-import { FaBell, FaCog } from 'react-icons/fa';
+import { FaBell, FaCog, FaPlus } from 'react-icons/fa'; // Import FaPlus for the plus icon
 
-const Header = ({ onSettingsClick }) => { // Accept the onSettingsClick prop
+const Header = ({ onSettingsClick, isSettingsView }) => { // Accept isSettingsView prop
   return (
     <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
       <div className="flex items-center gap-2">
@@ -17,7 +17,11 @@ const Header = ({ onSettingsClick }) => { // Accept the onSettingsClick prop
             onClick={onSettingsClick} // Add onClick handler for the settings button
             className="p-2 rounded-full hover:bg-gray-100"
           >
-            <FaCog className="text-gray-600" />
+            {isSettingsView ? ( // Conditionally render the icon
+              <FaPlus className="text-gray-600" /> // Show plus icon in settings view
+            ) : (
+              <FaCog className="text-gray-600" /> // Show settings icon in forms view
+            )}
           </button>
         </div>
       </div>

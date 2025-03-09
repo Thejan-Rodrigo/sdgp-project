@@ -4,7 +4,7 @@ import Header from './Header';
 import { useAuth } from '../../context/AuthContext';
 import SchoolInformationForm from './SchoolInformationForm';
 import AdministratorForm from './AdministratorForm';
-import AddSchoolSettings from './AddSchoolSettings'; // Import the settings component
+import AddSchoolSettings from './AddSchoolSettings';
 
 const AddSchoolPage = () => {
   const { user } = useAuth();
@@ -66,16 +66,18 @@ const AddSchoolPage = () => {
     }
   };
 
-  // Function to toggle settings visibility
   const toggleSettings = () => {
-    setShowSettings(prev => !prev);
+    setShowSettings(prev => !prev); // Toggle the settings view
   };
 
   return (
     <div className="flex min-h-screen bg-gray-50">
       <Sidebar />
       <main className="flex-1 p-8">
-        <Header onSettingsClick={toggleSettings} /> {/* Pass the toggle function to Header */}
+        <Header
+          onSettingsClick={toggleSettings} // Pass the toggle function
+          isSettingsView={showSettings} // Pass the current view state
+        />
         
         {showSettings ? (
           <AddSchoolSettings /> // Render the settings component if showSettings is true

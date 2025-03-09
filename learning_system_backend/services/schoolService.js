@@ -63,7 +63,7 @@ const getAllSchools = async () => {
   return schools;
 };
 
-// Function to delete a school by ID
+// Function to delete a school by ID and all associated users
 const deleteSchoolById = async (schoolId) => {
   // Check if the school exists
   const school = await School.findById(schoolId);
@@ -72,13 +72,13 @@ const deleteSchoolById = async (schoolId) => {
     throw new ApiError(404, "School not found");
   }
 
+  // Delete all users associated with the school (admins, parents, students)
+  await User.deleteMany({ schoolId });
+  logger.info(`[schoolService] All users associated with school ID: ${schoolId} deleted successfully`);
+
   // Delete the school
   await School.findByIdAndDelete(schoolId);
   logger.info(`[schoolService] School with ID: ${schoolId} deleted successfully`);
-
-  // Optionally, delete the associated admin user(s)
-  await User.deleteMany({ schoolId });
-  logger.info(`[schoolService] Associated admin users for school ID: ${schoolId} deleted successfully`);
 };
 
 export default { createSchoolWithAdmin, getAllSchools, deleteSchoolById };
