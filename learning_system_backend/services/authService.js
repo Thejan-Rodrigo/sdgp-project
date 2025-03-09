@@ -200,11 +200,24 @@ const getUsersBySchoolId = async (schoolId) => {
   return users;
 };
 
+const deleteTeacherById = async (teacherId) => {
+  // Find the teacher by ID
+  const teacher = await User.findOne({ _id: teacherId, role: "teacher" });
+
+  if (!teacher) {
+    throw new ApiError(404, "Teacher not found");
+  }
+
+  // Delete the teacher
+  await User.deleteOne({ _id: teacherId });
+};
+
 export default {
   createUser,
   loginWithEmailAndPassword,
   generateAuthToken,
   createTeacher,
   createStudentAndParent,
-  getUsersBySchoolId, // Add the new method
+  getUsersBySchoolId,
+  deleteTeacherById, // Add the new method
 };

@@ -60,6 +60,18 @@ const authController = {
     const users = await authService.getUsersBySchoolId(schoolId);
     successResponse(res, { users }, "Users retrieved successfully");
   }),
+
+  // Delete teacher by ID
+  deleteTeacherById: catchAsync(async (req, res) => {
+    const { teacherId } = req.params;
+
+    if (!teacherId) {
+      throw new ApiError(400, "Teacher ID is required");
+    }
+
+    await authService.deleteTeacherById(teacherId);
+    successResponse(res, null, "Teacher deleted successfully", 204);
+  }),
 };
 
 export default authController;
