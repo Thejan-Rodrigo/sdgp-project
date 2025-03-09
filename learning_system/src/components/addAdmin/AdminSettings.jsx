@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext'; // Import the useAuth hook
+import { FaTrash } from 'react-icons/fa'; // Import the bin icon
 
 export default function AdminSettings() {
   const { user } = useAuth(); // Get the user (which includes the token) from the context
@@ -83,6 +84,28 @@ export default function AdminSettings() {
     }
   }, [selectedSchool, user.token]); // Add user.token as a dependency
 
+  // Handle delete admin
+  const handleDeleteAdmin = async (adminId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/admin/${adminId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${user.token}`, // Include the token in the header
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete admin');
+      }
+
+      // Refresh the admin list after deletion
+      const updatedAdmins = admins.filter((admin) => admin._id !== adminId);
+      setAdmins(updatedAdmins);
+    } catch (error) {
+      setError(error.message); // Set error state if the request fails
+    }
+  };
+
   // Handle dropdown change
   const handleSchoolChange = (event) => {
     setSelectedSchool(event.target.value); // Update the selected school ID
@@ -141,7 +164,16 @@ export default function AdminSettings() {
                         </p>
                         <p className="text-sm text-gray-600">{admin.email}</p>
                       </div>
-                      <span className="text-sm text-gray-500">Role: {admin.role}</span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-gray-500">Role: {admin.role}</span>
+                        {/* Delete Button */}
+                        <button
+                          onClick={() => handleDeleteAdmin(admin._id)}
+                          className="p-2 text-red-500 hover:text-red-700 focus:outline-none"
+                        >
+                          <FaTrash className="w-4 h-4" /> {/* Bin icon */}
+                        </button>
+                      </div>
                     </div>
                   </li>
                 ))}

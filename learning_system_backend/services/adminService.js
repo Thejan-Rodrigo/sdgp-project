@@ -42,6 +42,21 @@ const adminService = {
     logger.info(`[getAdminsBySchoolId] Admins fetched successfully`);
     return admins;
   },
+
+  deleteAdminById: async (adminId) => {
+    logger.info(`[deleteAdminById] Deleting admin with ID: ${adminId}`);
+
+    // Find and delete the admin by ID
+    const admin = await User.findByIdAndDelete(adminId);
+
+    if (!admin) {
+      logger.info(`[deleteAdminById] Admin not found with ID: ${adminId}`);
+      throw new ApiError(404, "Admin not found");
+    }
+
+    logger.info(`[deleteAdminById] Admin deleted successfully`);
+    return admin;
+  },
 };
 
 export default adminService;
