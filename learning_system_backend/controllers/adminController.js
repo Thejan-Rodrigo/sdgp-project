@@ -43,6 +43,21 @@ const adminController = {
       next(error); // Pass error to the middleware for handling
     }
   }),
+
+  deleteAdminById: catchAsync(async (req, res, next) => {
+    try {
+      const { adminId } = req.params; // Extract adminId from the URL parameters
+      logger.debug(`[adminController] Deleting admin with ID: ${adminId}`);
+
+      // Call service to delete the admin by ID
+      await adminService.deleteAdminById(adminId);
+
+      successResponse(res, null, "Admin deleted successfully");
+    } catch (error) {
+      logger.error("[adminController] Error deleting admin:", error);
+      next(error); // Pass error to the middleware for handling
+    }
+  }),
 };
 
 export default adminController;
