@@ -4,11 +4,8 @@ import errorHandler from "./middleware/errorMiddleware.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import connectDB from './config/db.mjs'
 import dotenv from 'dotenv';
-import cors from "cors"; // 
+import cors from "cors";
 import studentRoutes from "./routes/studentRoutes.js";
-
-
-
 
 dotenv.config();
 connectDB();
@@ -18,25 +15,24 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api/auth", authRoutes);
-
 app.use("/api/admin", adminRoutes);
 
 app.get("/test",(req,res)=>{
-    console.log(req);
-    res.send("Hello world");
-    
+  console.log(req);
+  res.send("Hello world");
+  
 });
 app.get("/", (req, res) => {
-  res.send("Hello, World!");
+res.send("Hello, World!");
 });
 
 app.get("/", (req, res) => {
-  res.send("MongoDB Connected with Mongoose!");
+res.send("MongoDB Connected with Mongoose!");
 });
 
-// Routes
 app.use("/students", studentRoutes);
 
-app.use(errorHandler); // Global error handler
+// Global error handler
+app.use(errorHandler);
 
-app.listen(5000,()=> console.log("server is running"));
+app.listen(5000, () => console.log("Server is running on port 5000"));

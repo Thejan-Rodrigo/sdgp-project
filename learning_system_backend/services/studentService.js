@@ -5,9 +5,11 @@ import Progress from "../models/progressModel.js";
 
 export const getStudentData = async (studentId) => {
   try {
+    console.log("service");
     const student = await Student.findOne({ studentId });
+    console.log(student);
     if (!student) throw new Error("Student not found");
-
+    console.log(student);
     const attendance = await Attendance.find({ studentId });
     const progress = await Progress.find({ studentId }).select("notes createdAt");
 
