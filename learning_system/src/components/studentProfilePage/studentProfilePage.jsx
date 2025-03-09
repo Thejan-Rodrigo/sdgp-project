@@ -21,6 +21,7 @@ const StudentProfile = ({ studentId }) => {
 
         // Fetch Progress
         const progressRes = await fetch(`http://localhost:5000/progress/${studentId}`);
+        // const response = await fetch(`http://localhost:5000/api/progress/${selectedStudent._id}`);
         const progressData = await progressRes.json();
         setProgress(progressData);
       } catch (error) {
