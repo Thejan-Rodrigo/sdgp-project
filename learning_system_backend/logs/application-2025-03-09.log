@@ -181,3 +181,33 @@
 [2025-03-09 20:15:48] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
 [2025-03-09 20:15:48] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
 [2025-03-09 20:15:48] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
+[2025-03-09 20:30:31] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
+[2025-03-09 20:30:31] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
+[2025-03-09 20:30:31] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
+[2025-03-09 20:30:32] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
+[2025-03-09 20:31:12] [[32minfo[39m] [32m[schoolController] Data came[39m
+[2025-03-09 20:31:12] [[32minfo[39m] [32m[schoolService] Not admin found and creating a new school[39m
+[2025-03-09 20:31:12] [[32minfo[39m] [32m[schoolService] New school created and saved in database[39m
+[2025-03-09 20:31:12] [[32minfo[39m] [32m[schoolService] New admin created and saved in database[39m
+[2025-03-09 20:31:12] [[32minfo[39m] [32m[schoolController] School and admin created successfully[39m
+[2025-03-09 20:31:19] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
+[2025-03-09 20:31:19] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
+[2025-03-09 20:31:19] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
+[2025-03-09 20:31:19] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
+[2025-03-09 20:31:22] [[32minfo[39m] [32m[schoolController] Deleting school with ID: 67cdad38d0eda21a2b37c181[39m
+[2025-03-09 20:31:23] [[32minfo[39m] [32m[schoolService] All users associated with school ID: 67cdad38d0eda21a2b37c181 deleted successfully[39m
+[2025-03-09 20:31:23] [[32minfo[39m] [32m[schoolService] School with ID: 67cdad38d0eda21a2b37c181 deleted successfully[39m
+[2025-03-09 20:31:23] [[32minfo[39m] [32m[schoolController] School with ID: 67cdad38d0eda21a2b37c181 deleted successfully[39m
+[2025-03-09 20:39:04] [[32minfo[39m] [32m[schoolController] Data came[39m
+[2025-03-09 20:39:04] [[32minfo[39m] [32m[schoolService] Not admin found and creating a new school[39m
+[2025-03-09 20:39:04] [[32minfo[39m] [32m[schoolService] New school created and saved in database[39m
+[2025-03-09 20:39:04] [[32minfo[39m] [32m[schoolService] New admin created and saved in database[39m
+[2025-03-09 20:39:04] [[32minfo[39m] [32m[schoolController] School and admin created successfully[39m
+[2025-03-09 20:39:08] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
+[2025-03-09 20:39:08] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
+[2025-03-09 20:39:08] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
+[2025-03-09 20:39:08] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
+[2025-03-09 20:39:36] [[32minfo[39m] [32m[schoolController] Deleting school with ID: 67cdaf10d0eda21a2b37c18d[39m
+[2025-03-09 20:39:37] [[32minfo[39m] [32m[schoolService] All users associated with school ID: 67cdaf10d0eda21a2b37c18d deleted successfully[39m
+[2025-03-09 20:39:37] [[32minfo[39m] [32m[schoolService] School with ID: 67cdaf10d0eda21a2b37c18d deleted successfully[39m
+[2025-03-09 20:39:37] [[32minfo[39m] [32m[schoolController] School with ID: 67cdaf10d0eda21a2b37c18d deleted successfully[39m
