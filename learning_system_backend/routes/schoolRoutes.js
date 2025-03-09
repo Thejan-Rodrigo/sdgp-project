@@ -7,4 +7,7 @@ const router = express.Router();
 // Only super admins can create schools
 router.post("/create", authMiddleware, schoolController.createSchool);
 
+// Get all schools
+router.get("/getallschools", schoolController.getAllSchools);
+
 export default router;

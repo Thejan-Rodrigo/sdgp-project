@@ -6,6 +6,7 @@ import TeacherDashboard from './components/Announcement/teacherAnnouncement/Teac
 import Home from './components/homePage/Home'
 import LoginPage from './components/loginPage/LoginPage';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import RegistrationPage from './components/registering/RegistrationPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/addSchool" element={<AddSchoolPage />}/>
         <Route path= "/superadminannouncement" element={<SuperAdminDashboard/>}/>
         <Route path= "/teacherannouncement" element={<TeacherDashboard/>}/>
+        <Route path="/registering" element={<RegistrationPage/>}/>
       </Routes>
     </Router>
   );
