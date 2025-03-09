@@ -37,9 +37,6 @@ const createSchoolWithAdmin = async ({
   await school.save();
   logger.info("[schoolService] New school created and saved in database");
 
-  // Hash password before saving admin
-  //const hashedPassword = await bcrypt.hash(password, 10);
-
   // Create admin user linked to the school
   const admin = new User({
     schoolId: school._id,
@@ -66,4 +63,22 @@ const getAllSchools = async () => {
   return schools;
 };
 
-export default { createSchoolWithAdmin, getAllSchools };
+// Function to delete a school by ID
+const deleteSchoolById = async (schoolId) => {
+  // Check if the school exists
+  const school = await School.findById(schoolId);
+  if (!school) {
+    logger.error(`[schoolService] School with ID: ${schoolId} not found`);
+    throw new ApiError(404, "School not found");
+  }
+
+  // Delete the school
+  await School.findByIdAndDelete(schoolId);
+  logger.info(`[schoolService] School with ID: ${schoolId} deleted successfully`);
+
+  // Optionally, delete the associated admin user(s)
+  await User.deleteMany({ schoolId });
+  logger.info(`[schoolService] Associated admin users for school ID: ${schoolId} deleted successfully`);
+};
+
+export default { createSchoolWithAdmin, getAllSchools, deleteSchoolById };
