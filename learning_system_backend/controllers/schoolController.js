@@ -11,6 +11,13 @@ const schoolController = {
     logger.info("[schoolController] School and admin created successfully");
     successResponse(res, { school, admin }, "School and admin created successfully", 201);
   }),
+
+  getAllSchools: catchAsync(async (req, res) => {
+    logger.info("[schoolController] Fetching all schools");
+    const schools = await schoolService.getAllSchools();
+    logger.info("[schoolController] Successfully fetched all schools");
+    successResponse(res, { schools }, "All schools retrieved successfully");
+  }),
 };
 
 export default schoolController;

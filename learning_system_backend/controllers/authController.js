@@ -2,6 +2,7 @@ import catchAsync from "../utils/catchAsync.js";
 import ApiError from "../utils/ApiError.js";
 import { successResponse } from "../utils/responseHandler.js";
 import authService from "../services/authService.js";
+import logger from "../utils/logger.js";
 
 const authController = {
 
@@ -12,7 +13,7 @@ const authController = {
 
     // Ensure super admin does not have a schoolId
 
-    console.log(req.body.role);
+    logger.debug(role)
 
     let user, token;
 
