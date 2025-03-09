@@ -14,10 +14,10 @@ export const getStudentData = async (studentId) => {
     console.log(student);
     if (!student) throw new Error("Student not found");
 
-    // const attendance = await Attendance.find({ studentId });
-    // const progress = await Progress.find({ studentId }).select("notes createdAt");
+    const attendance = await Attendance.find({ studentId });
+    const progress = await Progress.find({ studentId }).select("notes createdAt");
     // , attendance, progress
-    return { student };
+    return { student, attendance, progress };
   } catch (error) {
     throw new Error(error.message);
   }
