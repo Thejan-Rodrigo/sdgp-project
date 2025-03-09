@@ -7,6 +7,7 @@ import logger from '../utils/logger.js'; // Import the logger
 import Student from "../models/Student.js";
 import Parent from "../models/Parent.js";
 
+
 dotenv.config();
 
 
@@ -182,4 +183,28 @@ const generateAuthToken = (user) => {
   return token;
 };
 
-export default { createUser, loginWithEmailAndPassword, generateAuthToken, createTeacher, createStudentAndParent };
+const getUsersBySchoolId = async (schoolId) => {
+  // Fetch teachers and parents from the User collection
+  const teachersAndParents = await User.find({ schoolId });
+
+  // Fetch students from the Student collection
+  const students = await Student.find({ schoolId });
+
+  // Combine the results
+  const users = {
+    teachers: teachersAndParents.filter((user) => user.role === "teacher"),
+    parents: teachersAndParents.filter((user) => user.role === "parent"),
+    students,
+  };
+
+  return users;
+};
+
+export default {
+  createUser,
+  loginWithEmailAndPassword,
+  generateAuthToken,
+  createTeacher,
+  createStudentAndParent,
+  getUsersBySchoolId, // Add the new method
+};
