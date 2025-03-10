@@ -1,4 +1,4 @@
-import { getProgressByStudentId, createProgressNote } from "../services/progressService.js";
+import { getProgressByStudentId, createProgressNote, getStudentsBySchoolId as getStudentsBySchoolIdService } from "../services/progressService.js";
 
 export const getProgressByStudent = async (req, res) => {
   try {
@@ -16,5 +16,14 @@ export const addProgress = async (req, res) => {
     res.status(201).json(newProgress);
   } catch (error) {
     res.status(500).json({ message: "Error adding progress note", error });
+  }
+};
+
+export const getStudentsBySchoolId = async (req, res) => {
+  try {
+    const students = await getStudentsBySchoolIdService(req.params.schoolId);
+    res.json(students);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching students by school ID", error });
   }
 };
