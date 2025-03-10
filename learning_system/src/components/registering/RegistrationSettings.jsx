@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FaTrash } from 'react-icons/fa'; // Import bin icon
 
 export default function RegistrationSettings() {
   const [schools, setSchools] = useState([]); // State to store the list of schools
@@ -52,6 +53,54 @@ export default function RegistrationSettings() {
     setSelectedSchool(event.target.value); // Update the selected school
   };
 
+  // Handle delete teacher
+  const handleDeleteTeacher = async (teacherId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/auth/teachers/${teacherId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        // Remove the deleted teacher from the list
+        setUsers((prevUsers) => ({
+          ...prevUsers,
+          teachers: prevUsers.teachers.filter((teacher) => teacher._id !== teacherId),
+        }));
+        alert('Teacher deleted successfully');
+      } else {
+        const errorData = await response.json();
+        alert(`Failed to delete teacher: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.error('Error deleting teacher:', error);
+      alert('An error occurred while deleting the teacher');
+    }
+  };
+
+  // Handle delete parent and student
+  const handleDeleteParent = async (parentId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/auth/parents/${parentId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        // Remove the deleted parent from the list
+        setUsers((prevUsers) => ({
+          ...prevUsers,
+          parents: prevUsers.parents.filter((parent) => parent._id !== parentId),
+        }));
+        alert('Parent and associated student deleted successfully');
+      } else {
+        const errorData = await response.json();
+        alert(`Failed to delete parent: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.error('Error deleting parent:', error);
+      alert('An error occurred while deleting the parent');
+    }
+  };
+
   return (
     <div className="p-6 bg-white rounded-lg shadow-sm">
       <h2 className="text-2xl font-semibold mb-6">Registration Settings</h2>
@@ -85,11 +134,17 @@ export default function RegistrationSettings() {
             {users.teachers.length > 0 ? (
               <ul className="divide-y divide-gray-200">
                 {users.teachers.map((teacher) => (
-                  <li key={teacher._id} className="py-2">
+                  <li key={teacher._id} className="py-2 flex items-center justify-between">
                     <div className="flex flex-col">
                       <span className="text-gray-700 font-medium">{teacher.firstName} {teacher.lastName}</span>
                       <span className="text-sm text-gray-500">{teacher.email}</span>
                     </div>
+                    <button
+                      onClick={() => handleDeleteTeacher(teacher._id)}
+                      className="p-2 text-red-600 hover:text-red-800"
+                    >
+                      <FaTrash className="text-lg" /> {/* Bin icon */}
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -104,11 +159,17 @@ export default function RegistrationSettings() {
             {users.parents.length > 0 ? (
               <ul className="divide-y divide-gray-200">
                 {users.parents.map((parent) => (
-                  <li key={parent._id} className="py-2">
+                  <li key={parent._id} className="py-2 flex items-center justify-between">
                     <div className="flex flex-col">
                       <span className="text-gray-700 font-medium">{parent.firstName} {parent.lastName}</span>
                       <span className="text-sm text-gray-500">{parent.email}</span>
                     </div>
+                    <button
+                      onClick={() => handleDeleteParent(parent._id)}
+                      className="p-2 text-red-600 hover:text-red-800"
+                    >
+                      <FaTrash className="text-lg" /> {/* Bin icon */}
+                    </button>
                   </li>
                 ))}
               </ul>
