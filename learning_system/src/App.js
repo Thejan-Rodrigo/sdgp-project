@@ -1,3 +1,5 @@
+import Progress from "./components/progress/progress"
+
 import './App.css';
 import AddAdminPage from './components/addAdmin/AddAdminPage';
 import AddSchoolPage from './components/addSchool/AddSchoolPage';
@@ -24,9 +26,11 @@ function App() {
         <Route path= "/adminannouncement" element={<AdminDashboard/>}/>
         <Route path= "/teacherannouncement" element={<TeacherDashboard/>}/>
         <Route path= "/studentannouncement" element={<StudentDashboard/>}/>
+        <Route path="/progress" element={<Progress/>}/>
       </Routes>
     </Router>
   );
 }
 
-export default App;
+export default App
+
