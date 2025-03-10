@@ -3,7 +3,7 @@ import CommenNavBar from '../CommenNavbBar'
 import TeacherSideBar from '../TeacherSideBar'
 import TeacherMassage from './TeacherMassage'
 import MeetingForm from './MeetingForm';
-import Sidebar from './Sidebar';
+import Sidebar from '../Sidebar';
 import axios from "axios";
 
 export default function TeacherMeeting() {
