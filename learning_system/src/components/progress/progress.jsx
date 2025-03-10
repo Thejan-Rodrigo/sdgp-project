@@ -11,11 +11,14 @@ function Progress() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Fetch all students
+  // Hardcoded school ID for now
+  const schoolId = "67cc5370e98552e9b5a6e097";
+
+  // Fetch students by school ID
   useEffect(() => {
-    const fetchStudents = async () => {
+    const fetchStudentsBySchoolId = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/students"); // Explicit URL
+        const response = await fetch(`http://localhost:5000/api/progress/school/${schoolId}`); // Updated API endpoint
         console.log("Response object:", response); // Check the raw response
 
         if (!response.ok) throw new Error("Failed to fetch students");
@@ -31,7 +34,7 @@ function Progress() {
       }
     };
 
-    fetchStudents();
+    fetchStudentsBySchoolId();
   }, []);
 
   // Fetch progress history when a student is selected
@@ -41,7 +44,7 @@ function Progress() {
     const fetchProgressHistory = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`http://localhost:5000/api/progress/${selectedStudent._id}`);
+        const response = await fetch(`http://localhost:5000/api/progress/student/${selectedStudent._id}`);
 
         if (!response.ok) throw new Error("Failed to fetch progress history");
 
@@ -139,7 +142,7 @@ function Progress() {
                     onClick={() => setSelectedStudent(student)}
                   >
                     <span>
-                      {`${student.firstName} ${student.lastName}` ||"Unknown Student"}
+                      {`${student.firstName} ${student.lastName}` || "Unknown Student"}
                     </span>
                   </div>
                 ))}
