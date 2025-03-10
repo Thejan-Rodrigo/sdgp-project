@@ -21,9 +21,27 @@ const userSchema = new mongoose.Schema(
     },
     isActive: { type: Boolean, default: true },
     lastLogin: { type: Date },
+    student: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Student",
+      required: function () {
+        return this.role === "parent"; // Only required for parents
+      },
+      validate: {
+        validator: function (value) {
+          // Only validate if the role is parent
+          if (this.role === "parent") {
+            return value !== null && value !== undefined;
+          }
+          return true; // Skip validation for other roles
+        },
+        message: "Student ID is required for parents.",
+      },
+    },
   },
   { timestamps: true } //Automatically adds createdAt & updatedAt
 );
+
 /*const userSchema = new mongoose.Schema({
   schoolId: { type: mongoose.Schema.Types.ObjectId, ref: "School", required: true },
   firstName: { type: String, required: true, trim: true },
