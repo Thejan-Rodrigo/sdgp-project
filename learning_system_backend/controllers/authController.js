@@ -72,6 +72,18 @@ const authController = {
     await authService.deleteTeacherById(teacherId);
     successResponse(res, null, "Teacher deleted successfully", 204);
   }),
+
+  // Delete parent and student by parent ID
+  deleteParentAndStudentById: catchAsync(async (req, res) => {
+    const { parentId } = req.params;
+
+    if (!parentId) {
+      throw new ApiError(400, "Parent ID is required");
+    }
+
+    await authService.deleteParentAndStudentById(parentId);
+    successResponse(res, null, "Parent and associated student deleted successfully", 204);
+  }),
 };
 
 export default authController;
