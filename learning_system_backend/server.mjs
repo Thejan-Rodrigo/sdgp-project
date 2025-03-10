@@ -62,12 +62,13 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", meetingRoutes);
+app.use("/api/auth", authRoutes);
 
 // Route to initiate OAuth2 flow
-app.get('/auth', (req, res) => {
-  const authUrl = getAuthUrl();
-  res.redirect(authUrl);
-});
+// app.get('/auth', (req, res) => {
+//   const authUrl = getAuthUrl();
+//   res.redirect(authUrl);
+// });
 
 // Callback route to handle OAuth2 response
 app.get('/oauth2callback', async (req, res) => {
