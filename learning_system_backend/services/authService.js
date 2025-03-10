@@ -52,20 +52,10 @@ const createStudentAndParent = async ({
   studentFirstName, studentLastName, dateOfBirth, phone, address, 
   parentFirstName, parentLastName, parentEmail, password, schoolId
 }) => {
-  console.log(dateOfBirth);
+  // Check if parent already exists
   const existingParent = await User.findOne({ email: parentEmail });
   if (existingParent) throw new Error("Parent already registered with this email");
 
-  console.log("-------");
-  console.log(studentFirstName);
-  console.log(studentLastName);
-  console.log(password);
-  console.log(phone);
-  console.log(parentFirstName);
-  console.log(parentLastName);
-  console.log(parentEmail);
-  console.log(schoolId);
-  console.log("-------");
   // Hash password before saving
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -88,12 +78,17 @@ const createStudentAndParent = async ({
     email: parentEmail,
     phone,
     address,
-    password,  // ✅ Now we store the hashed password
+    password,
     schoolId,
-    student: student._id // Save student reference
+    student: student._id // Set student reference only for parents
   });
 
   await parent.save();
+
+  // Optionally, set the parent reference in the Student document
+  student.parent = parent._id;
+  await student.save();
+
   return { student, parent };
 };
 
