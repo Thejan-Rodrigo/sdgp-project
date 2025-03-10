@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Sidebar from './Sidebar';
+import Sidebar from '../SupAdSidebar';
 import Header from './Header';
 import { useAuth } from '../../context/AuthContext';
 import SchoolInformationForm from './SchoolInformationForm';

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Sidebar from "../Sidebar";
+import Sidebar from "../TeaSidebar";
 
 function Progress() {
   const [students, setStudents] = useState([]);
