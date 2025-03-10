@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Sidebar from "../Sidebar";
 
 function Progress() {
   const [students, setStudents] = useState([]);
@@ -101,15 +102,10 @@ function Progress() {
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
-      <div className="w-60 bg-white border-r flex flex-col">
-        <div className="p-6 flex items-center gap-2 border-b">
-          <span className="text-2xl">🎓</span>
-          <span className="font-semibold">EduTeach</span>
-        </div>
-      </div>
+      <Sidebar/>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col ml-7">
         <header className="bg-white border-b">
           <div className="flex items-center justify-between px-6 h-14">
             <h1 className="text-xl font-semibold">Student Progress</h1>
