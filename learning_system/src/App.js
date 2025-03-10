@@ -1,3 +1,5 @@
+import Progress from "./components/progress/progress"
+
 import './App.css';
 import AddAdminPage from './components/addAdmin/AddAdminPage';
 import AddSchoolPage from './components/addSchool/AddSchoolPage';
@@ -15,9 +17,11 @@ function App() {
         <Route path="/addadmin" element={<AddAdminPage />}/>
         <Route path="/addSchool" element={<AddSchoolPage />}/>
         <Route path="/registering" element={<RegistrationPage/>}/>
+        <Route path="/progress" element={<Progress/>}/>
       </Routes>
     </Router>
   );
 }
 
-export default App;
+export default App
+
