@@ -8,11 +8,9 @@ export default function RegistrationSettings() {
 
   // Fetch users by school ID when the component mounts
   useEffect(() => {
-    //console.log(user.schoolId);
     if (user?.schoolId) {
       const fetchUsersBySchoolId = async () => {
         try {
-          console.log(user.schoolId);
           const response = await fetch(`http://localhost:5000/api/auth/users/${user.schoolId}`, {
             headers: {
               Authorization: `Bearer ${user.token}`, // Include the token in the request
@@ -97,13 +95,13 @@ export default function RegistrationSettings() {
         <h3 className="text-xl font-semibold mb-4">Users in Your School</h3>
 
         {/* Teachers Section */}
-        <div className="mb-6">
-          <h4 className="text-lg font-medium mb-2">Teachers</h4>
+        <div className="mb-8">
+          <h4 className="text-lg font-medium mb-4">Teachers</h4>
           {users.teachers.length > 0 ? (
             <ul className="divide-y divide-gray-200">
               {users.teachers.map((teacher) => (
-                <li key={teacher._id} className="py-2 flex items-center justify-between">
-                  <div className="flex flex-col">
+                <li key={teacher._id} className="py-3 flex items-center justify-between">
+                  <div className="flex flex-col space-y-1">
                     <span className="text-gray-700 font-medium">{teacher.firstName} {teacher.lastName}</span>
                     <span className="text-sm text-gray-500">{teacher.email}</span>
                   </div>
@@ -122,24 +120,32 @@ export default function RegistrationSettings() {
         </div>
 
         {/* Parents Section */}
-        <div className="mb-6">
-          <h4 className="text-lg font-medium mb-2">Parents</h4>
+        <div className="mb-8">
+          <h4 className="text-lg font-medium mb-4">Parents</h4>
           {users.parents.length > 0 ? (
             <ul className="divide-y divide-gray-200">
-              {users.parents.map((parent) => (
-                <li key={parent._id} className="py-2 flex items-center justify-between">
-                  <div className="flex flex-col">
-                    <span className="text-gray-700 font-medium">{parent.firstName} {parent.lastName}</span>
-                    <span className="text-sm text-gray-500">{parent.email}</span>
-                  </div>
-                  <button
-                    onClick={() => handleDeleteParent(parent._id)}
-                    className="p-2 text-red-600 hover:text-red-800"
-                  >
-                    <FaTrash className="text-lg" /> {/* Bin icon */}
-                  </button>
-                </li>
-              ))}
+              {users.parents.map((parent) => {
+                const student = users.students.find((student) => student._id === parent.student);
+                return (
+                  <li key={parent._id} className="py-3 flex items-center justify-between">
+                    <div className="flex flex-col space-y-1">
+                      <span className="text-gray-700 font-medium">{parent.firstName} {parent.lastName}</span>
+                      <span className="text-sm text-gray-500">{parent.email}</span>
+                      {student && (
+                        <span className="text-xs text-gray-400 mt-1">
+                          Student - {student.firstName} {student.lastName}
+                        </span>
+                      )}
+                    </div>
+                    <button
+                      onClick={() => handleDeleteParent(parent._id)}
+                      className="p-2 text-red-600 hover:text-red-800"
+                    >
+                      <FaTrash className="text-lg" /> {/* Bin icon */}
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
           ) : (
             <p className="text-gray-500">No parents found.</p>
@@ -147,18 +153,26 @@ export default function RegistrationSettings() {
         </div>
 
         {/* Students Section */}
-        <div className="mb-6">
-          <h4 className="text-lg font-medium mb-2">Students</h4>
+        <div className="mb-8">
+          <h4 className="text-lg font-medium mb-4">Students</h4>
           {users.students.length > 0 ? (
             <ul className="divide-y divide-gray-200">
-              {users.students.map((student) => (
-                <li key={student._id} className="py-2">
-                  <div className="flex flex-col">
-                    <span className="text-gray-700 font-medium">{student.firstName} {student.lastName}</span>
-                    <span className="text-sm text-gray-500">{student.email}</span>
-                  </div>
-                </li>
-              ))}
+              {users.students.map((student) => {
+                const parent = users.parents.find((parent) => parent.student === student._id);
+                return (
+                  <li key={student._id} className="py-3">
+                    <div className="flex flex-col space-y-1">
+                      <span className="text-gray-700 font-medium">{student.firstName} {student.lastName}</span>
+                      <span className="text-sm text-gray-500">{student.email}</span>
+                      {parent && (
+                        <span className="text-xs text-gray-400 mt-1">
+                          Parent - {parent.firstName} {parent.lastName}
+                        </span>
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
           ) : (
             <p className="text-gray-500">No students found.</p>
