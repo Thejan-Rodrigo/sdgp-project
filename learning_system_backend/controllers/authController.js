@@ -1,6 +1,7 @@
+// authController.js
 import catchAsync from "../utils/catchAsync.js";
-import ApiError from "../utils/ApiError.js"; // Use curly braces for named export
-import { successResponse } from "../utils/responseHandler.js"; // Use curly braces for named export
+import ApiError from "../utils/ApiError.js";
+import { successResponse } from "../utils/responseHandler.js";
 import authService from "../services/authService.js";
 import logger from "../utils/logger.js";
 
@@ -20,7 +21,7 @@ const authController = {
     } else if (role === "student") {
       const { student, parent } = await authService.createStudentAndParent(req.body);
       token = authService.generateAuthToken(parent); // Parents log in
-      return successResponse(res, { student, parent, token }, "Registration successful", 201);
+      return successResponse(res, 201, { student, parent, token }, "Registration successful");
     } else if (role === "superadmin") {
       if (role === "superadmin" && schoolId) {
         throw new ApiError(400, "Super admin should not be assigned to a school");
@@ -32,7 +33,7 @@ const authController = {
       throw new Error("Invalid role");
     }
 
-    successResponse(res, { user, token }, "Registration successful", 201);
+    successResponse(res, 201, { user, token }, "Registration successful");
   }),
 
   // Login user
@@ -41,12 +42,13 @@ const authController = {
     const user = await authService.loginWithEmailAndPassword(email, password);
     const token = authService.generateAuthToken(user);
 
-    successResponse(res, { user, token }, "Login successful");
+    // Use successResponse correctly
+    successResponse(res, 200, { user, token }, "Login successful");
   }),
 
   // Get user profile
   getProfile: catchAsync(async (req, res) => {
-    successResponse(res, { user: req.user });
+    successResponse(res, 200, { user: req.user }, "Profile retrieved successfully");
   }),
 
   // Get all users by school ID

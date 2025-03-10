@@ -36,3 +36,13 @@
 [2025-03-10 15:33:13] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
 [2025-03-10 15:33:15] [[32minfo[39m] [32m[getAdminsBySchoolId] Fetching admins for schoolId: 67cc5370e98552e9b5a6e097[39m
 [2025-03-10 15:33:15] [[32minfo[39m] [32m[getAdminsBySchoolId] Admins fetched successfully[39m
+[2025-03-10 19:55:14] [[32minfo[39m] [32m[authService] Passwords match![39m
+[2025-03-10 19:55:14] [[32minfo[39m] [32m[authService] Login successfull![39m
+[2025-03-10 19:55:20] [[32minfo[39m] [32m[authService] Passwords match![39m
+[2025-03-10 19:55:20] [[32minfo[39m] [32m[authService] Login successfull![39m
+[2025-03-10 20:06:28] [[32minfo[39m] [32m[authService] Passwords match![39m
+[2025-03-10 20:06:28] [[32minfo[39m] [32m[authService] Login successfull![39m
+[2025-03-10 20:08:10] [[32minfo[39m] [32m[authService] Passwords match![39m
+[2025-03-10 20:08:10] [[32minfo[39m] [32m[authService] Login successfull![39m
+[2025-03-10 20:08:56] [[32minfo[39m] [32m[authService] Passwords match![39m
+[2025-03-10 20:08:56] [[32minfo[39m] [32m[authService] Login successfull![39m
