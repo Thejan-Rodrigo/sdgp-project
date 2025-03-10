@@ -18,6 +18,14 @@ const schoolController = {
     logger.info("[schoolController] Successfully fetched all schools");
     successResponse(res, { schools }, "All schools retrieved successfully");
   }),
+
+  deleteSchoolById: catchAsync(async (req, res) => {
+    const schoolId = req.params.id; // Get the school ID from the request parameters
+    logger.info(`[schoolController] Deleting school with ID: ${schoolId}`);
+    await schoolService.deleteSchoolById(schoolId);
+    logger.info(`[schoolController] School with ID: ${schoolId} deleted successfully`);
+    successResponse(res, null, "School deleted successfully");
+  }),
 };
 
 export default schoolController;

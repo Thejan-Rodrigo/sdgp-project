@@ -10,4 +10,7 @@ router.post("/create", authMiddleware, schoolController.createSchool);
 // Get all schools
 router.get("/getallschools", schoolController.getAllSchools);
 
+// Delete a school by ID
+router.delete("/:id", authMiddleware, schoolController.deleteSchoolById);
+
 export default router;

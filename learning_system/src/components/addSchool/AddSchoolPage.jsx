@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import Header from './Header';
-import { useAuth } from '../../context/AuthContext'; // Import the useAuth hook
+import { useAuth } from '../../context/AuthContext';
 import SchoolInformationForm from './SchoolInformationForm';
 import AdministratorForm from './AdministratorForm';
+import AddSchoolSettings from './AddSchoolSettings';
+import CustomAlert from './CustomAlert'; // Import the custom alert component
 
 const AddSchoolPage = () => {
-  const { user } = useAuth(); // Get the user (which includes the token) from the context
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
-    // School Information
     schoolName: '',
     schoolAddress: '',
     district: '',
     province: '',
-    
-    // Administrator Details
     firstName: '',
     lastName: '',
     dateOfBirth: '',
@@ -23,6 +22,9 @@ const AddSchoolPage = () => {
     address: '',
     password: ''
   });
+
+  const [showSettings, setShowSettings] = useState(false); // State to manage visibility
+  const [alert, setAlert] = useState(null); // State to manage the alert
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,26 +39,22 @@ const AddSchoolPage = () => {
 
     if (!user?.token) {
       console.error('No token found. User is not authenticated.');
-      // You can redirect the user to the login page or show an error message
       return;
     }
 
-    // Add the role to the formData
     const requestBody = {
       ...formData,
-      role: user.role, // Include the role from the user object
+      role: user.role,
     };
 
     try {
-      console.log(user.token);
-      console.log(requestBody); // Log the request body to verify it includes the role
       const response = await fetch('http://localhost:5000/api/schools/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${user.token}`, // Include the token in the Authorization header
+          Authorization: `Bearer ${user.token}`,
         },
-        body: JSON.stringify(requestBody), // Send the updated request body
+        body: JSON.stringify(requestBody),
       });
 
       if (!response.ok) {
@@ -65,36 +63,80 @@ const AddSchoolPage = () => {
 
       const result = await response.json();
       console.log('Success:', result);
-      // You can add additional logic here, such as showing a success message or redirecting the user
+
+      // Show a success alert
+      setAlert({ message: 'School registered successfully!', type: 'success' });
+
+      // Clear the form data after successful submission
+      setFormData({
+        schoolName: '',
+        schoolAddress: '',
+        district: '',
+        province: '',
+        firstName: '',
+        lastName: '',
+        dateOfBirth: '',
+        phone: '',
+        email: '',
+        address: '',
+        password: ''
+      });
     } catch (error) {
       console.error('Error:', error);
-      // You can add additional logic here, such as showing an error message to the user
+
+      // Show an error alert
+      setAlert({ message: 'Failed to register school. Please try again.', type: 'error' });
     }
+  };
+
+  const closeAlert = () => {
+    setAlert(null); // Close the alert
+  };
+
+  const toggleSettings = () => {
+    setShowSettings(prev => !prev); // Toggle the settings view
   };
 
   return (
     <div className="flex min-h-screen bg-gray-50">
       <Sidebar />
       <main className="flex-1 p-8">
-        
-        <form onSubmit={handleSubmit}>
-          <div className="bg-white p-6 rounded-lg shadow-sm mb-6">
-            <SchoolInformationForm formData={formData} handleChange={handleChange} />
-          </div>
-          
-          <div className="bg-white p-6 rounded-lg shadow-sm mb-6">
-            <AdministratorForm formData={formData} handleChange={handleChange} />
-          </div>
-          
-          <div className="flex justify-end">
-            <button
-              type="submit"
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Create School
-            </button>
-          </div>
-        </form>
+        <Header
+          onSettingsClick={toggleSettings} // Pass the toggle function
+          isSettingsView={showSettings} // Pass the current view state
+        />
+
+        {/* Render the custom alert if alert state is not null */}
+        {alert && (
+          <CustomAlert
+            message={alert.message}
+            type={alert.type}
+            onClose={closeAlert} // Pass the closeAlert function
+          />
+        )}
+
+        {showSettings ? (
+          <AddSchoolSettings /> // Render the settings component if showSettings is true
+        ) : (
+          <form onSubmit={handleSubmit}>
+            <div className="bg-white p-6 rounded-lg shadow-sm mb-6">
+              <SchoolInformationForm formData={formData} handleChange={handleChange} />
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-sm mb-6">
+              <AdministratorForm formData={formData} handleChange={handleChange} />
+            </div>
+            
+            <div className="flex justify-end">
+              <button
+                type="submit"
+                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                Create School
+              </button>
+            </div>
+          </form>
+        )}
       </main>
     </div>
   );
