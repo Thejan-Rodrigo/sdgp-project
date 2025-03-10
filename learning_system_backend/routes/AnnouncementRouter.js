@@ -6,44 +6,31 @@ import announcementValidation from "../validations/announcement.validation.js";
 
 const router = express.Router();
 
-// All authenticated users can view and mark announcements as read
-//router.use(auth());
 router.get(
   "/",
-  //validate(announcementValidation.getAnnouncements),
   auth(),
   announcementController.getAnnouncements
 );
-// router.get(
-//   "/:id",
-//   validate(announcementValidation.getAnnouncement),
-//   announcementController.getAnnouncement
-// );
 router.post(
   "/:id/read",
-  validate(announcementValidation.markAsRead),
   auth(),
   announcementController.markAsRead
 );
 router.get("/:id/read-status",auth(), announcementController.getReadStatus);
 
 router.get(
-  '/:id',
+  '/get-one/:id',
   auth(),
-  validate(announcementValidation.getAnnouncement),
   announcementController.getAnnouncement
 );
 
-// Teacher and Admin routes
 router.use(auth("teacher", "admin"));
 router.post(
   "/",
-  validate(announcementValidation.createAnnouncement),
   announcementController.createAnnouncement
 );
 router.put(
   "/:id",
-  validate(announcementValidation.updateAnnouncement),
   announcementController.updateAnnouncement
 );
 router.delete(
@@ -53,7 +40,6 @@ router.delete(
 );
 router.get(
   "/stats",
-  validate(announcementValidation.getStats),
   announcementController.getAnnouncementStats
 );
 
