@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const StudentProfile = ({ studentId }) => {
-  const [student, setStudent] = useState(null);
+  const [student, setStudent] = useState(true);
   const [attendance, setAttendance] = useState([]);
   const [progress, setProgress] = useState([]);
   const [loading, setLoading] = useState(true);
