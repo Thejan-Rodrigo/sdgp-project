@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext"; // Import useAuth
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const LoginForm = () => {
-  const { login } = useAuth();
+  const { login } = useAuth(); // Destructure login from useAuth
+  const navigate = useNavigate(); // Initialize useNavigate
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState(""); // Error state
   const [formData, setFormData] = useState({
@@ -21,60 +23,81 @@ const LoginForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setErrorMessage(""); // Reset error message before new login attempt
+  e.preventDefault();
+  setErrorMessage(""); // Reset error message before new login attempt
 
-    try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-        }),
-      });
+  try {
+    const response = await fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: formData.email,
+        password: formData.password,
+      }),
+    });
 
-      const data = await response.json();
-      console.log("Login response:", data);
-      
+    const responseData = await response.json(); // Renamed to responseData for clarity
+    console.log("Login response:", responseData);
 
-      if (!response.ok) {
-        throw new Error(data.message || "Invalid email or password");
-      }
-      
-
-      if (data.success) {
-      
-
-        console.log("Login response: hello");
-
-        login(data); // Store user data in context
-        console.log("Login response: hello");
-
-        localStorage.setItem("token", data.token);
-
-        console.log("Login response: hello");
-
-        console.log("Login successful:", data.user);
-
-        // Redirect user after login (optional)
-        window.location.href = "/"; // Change to the actual route
-
-      } else {
-        console.error("Login failed:", response.data.message);
-      }
-
-    } catch (error) {
-      console.error("Login error:", error.message);
-      setErrorMessage(error.message); // Set error message in state
+    if (!response.ok) {
+      throw new Error(responseData.message || "Invalid email or password");
     }
-  };
+
+    if (responseData.success) {
+      // Check if responseData.data exists
+      if (!responseData.data) {
+        throw new Error("Invalid response from server: data is missing");
+      }
+
+      // Check if responseData.data.user exists
+      if (!responseData.data.user) {
+        throw new Error("Invalid response from server: user data is missing");
+      }
+
+      // Check if responseData.data.token exists
+      if (!responseData.data.token) {
+        throw new Error("Invalid response from server: token is missing");
+      }
+
+      // Call the login function from AuthContext to store user and token
+      login(responseData);
+
+      // Save token to localStorage
+      localStorage.setItem("token", responseData.data.token);
+
+      console.log("Login successful:", responseData.data.user);
+
+      // Redirect based on user role
+      switch (responseData.data.user.role) {
+        case "teacher":
+          navigate("/teachermeeting"); // Redirect to teacher meeting page
+          break;
+        case "parent":
+          navigate("/parentmeeting"); // Redirect to parent meeting page
+          break;
+        case "admin":
+          navigate("/registering"); // Redirect to registering page
+          break;
+        case "superadmin":
+          navigate("/addadmin"); // Redirect to add admin page
+          break;
+        default:
+          navigate("/"); // Default redirect to home page
+      }
+    } else {
+      console.error("Login failed:", responseData.message);
+      setErrorMessage(responseData.message || "Login failed");
+    }
+  } catch (error) {
+    console.error("Login error:", error.message);
+    setErrorMessage(error.message); // Set error message in state
+  }
+};
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-
       {/* Show error message if any */}
       {errorMessage && (
         <p className="text-red-500 text-sm text-center">{errorMessage}</p>
