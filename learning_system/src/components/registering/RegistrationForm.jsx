@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Alert from "./Alert"; // Import the Alert component
 import { FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt, FaCalendar, FaLock, FaEyeSlash, FaEye } from 'react-icons/fa';
+import { useAuth } from '../../context/AuthContext'; // Import the useAuth hook
 
 const RegistrationForm = () => {
   const [role, setRole] = useState('student');
   const [cusalert, setCusAlert] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
-  const [schoolId, setSchoolId] = useState('67ac6107daffb78924247923');
+  const { user } = useAuth(); // Get the user (which includes the token) from the context
+  const [schoolId, setSchoolId] = useState('');
 
   // Form Data for Student
   const [studentData, setStudentData] = useState({
@@ -33,6 +35,13 @@ const RegistrationForm = () => {
     address: ''
   });
 
+  // Set the schoolId from the user object when the component mounts
+  useEffect(() => {
+    if (user && user.schoolId) {
+      setSchoolId(user.schoolId);
+    }
+  }, [user]);
+
   const handleRoleChange = (e) => {
     setRole(e.target.value);
   };
@@ -56,7 +65,7 @@ const RegistrationForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(studentData)
+      console.log(studentData);
       let response;
       if (role === 'student') {
         response = await axios.post('http://localhost:5000/api/auth/register', { role, schoolId, ...studentData });
@@ -64,42 +73,34 @@ const RegistrationForm = () => {
         response = await axios.post('http://localhost:5000/api/auth/register', { role, schoolId, ...teacherData });
       }
       console.log('✅ Registration successful:', response.data);
-      //const result = await response.json();
-      //console.log('Success:', result);
-  
+
       // Clear the form fields after successful submission
       setStudentData({
-        schoolName: '',
-        schoolAddress: '',
-        district: '',
-        province: '',
-        firstName: '',
-        lastName: '',
+        studentFirstName: '',
+        studentLastName: '',
         dateOfBirth: '',
+        parentFirstName: '',
+        parentLastName: '',
+        parentEmail: '',
         phone: '',
-        email: '',
-        address: '',
         password: '',
+        address: ''
       });
 
       setTeacherData({
-        schoolName: '',
-        schoolAddress: '',
-        district: '',
-        province: '',
         firstName: '',
         lastName: '',
         dateOfBirth: '',
-        phone: '',
         email: '',
-        address: '',
+        phone: '',
         password: '',
+        address: ''
       });
+
       alert('Registration successful!');
     } catch (error) {
       console.error('❌ Registration failed:', error.response?.data || error.message);
       setCusAlert({ type: "error", message: "Failed to create school. Please try again." });
-      //alert('Registration failed! Check the console for more details.');
     }
   };
 
@@ -196,14 +197,13 @@ const RegistrationForm = () => {
               </div>
             </div>
 
-
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
               <div className="relative">
                 <FaUser className="absolute inset-y-0 left-3 flex items-center text-gray-400 text-lg" />
                 <input
                   type="text"
-                  name="phone"  // ✅ Corrected name
+                  name="phone"
                   value={studentData.phone}
                   onChange={handleStudentChange}
                   placeholder="Enter Phone Number Here"
@@ -339,7 +339,7 @@ const RegistrationForm = () => {
               <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
               <input
                 type="text"
-                name="phone"  // ✅ Corrected name
+                name="phone"
                 value={teacherData.phone}
                 onChange={handleTeacherChange}
                 placeholder="Enter Phone Number Here"

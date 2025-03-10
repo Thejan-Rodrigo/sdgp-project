@@ -7,6 +7,7 @@ import logger from '../utils/logger.js'; // Import the logger
 import Student from "../models/Student.js";
 import Parent from "../models/Parent.js";
 
+
 dotenv.config();
 
 
@@ -51,20 +52,10 @@ const createStudentAndParent = async ({
   studentFirstName, studentLastName, dateOfBirth, phone, address, 
   parentFirstName, parentLastName, parentEmail, password, schoolId
 }) => {
-  console.log(dateOfBirth);
+  // Check if parent already exists
   const existingParent = await User.findOne({ email: parentEmail });
   if (existingParent) throw new Error("Parent already registered with this email");
 
-  console.log("-------");
-  console.log(studentFirstName);
-  console.log(studentLastName);
-  console.log(password);
-  console.log(phone);
-  console.log(parentFirstName);
-  console.log(parentLastName);
-  console.log(parentEmail);
-  console.log(schoolId);
-  console.log("-------");
   // Hash password before saving
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -87,12 +78,17 @@ const createStudentAndParent = async ({
     email: parentEmail,
     phone,
     address,
-    password,  // ✅ Now we store the hashed password
+    password,
     schoolId,
-    student: student._id // Save student reference
+    student: student._id // Set student reference only for parents
   });
 
   await parent.save();
+
+  // Optionally, set the parent reference in the Student document
+  student.parent = parent._id;
+  await student.save();
+
   return { student, parent };
 };
 
@@ -182,4 +178,64 @@ const generateAuthToken = (user) => {
   return token;
 };
 
-export default { createUser, loginWithEmailAndPassword, generateAuthToken, createTeacher, createStudentAndParent };
+const getUsersBySchoolId = async (schoolId) => {
+  // Fetch teachers and parents from the User collection
+  const teachersAndParents = await User.find({ schoolId });
+
+  // Fetch students from the Student collection
+  const students = await Student.find({ schoolId });
+
+  // Combine the results
+  const users = {
+    teachers: teachersAndParents.filter((user) => user.role === "teacher"),
+    parents: teachersAndParents.filter((user) => user.role === "parent"),
+    students,
+  };
+
+  return users;
+};
+
+const deleteTeacherById = async (teacherId) => {
+  // Find the teacher by ID
+  const teacher = await User.findOne({ _id: teacherId, role: "teacher" });
+
+  if (!teacher) {
+    throw new ApiError(404, "Teacher not found");
+  }
+
+  // Delete the teacher
+  await User.deleteOne({ _id: teacherId });
+};
+
+const deleteParentAndStudentById = async (parentId) => {
+  // Find the parent by ID and role
+  const parent = await User.findOne({ _id: parentId, role: "parent" });
+
+  if (!parent) {
+    throw new ApiError(404, "Parent not found");
+  }
+
+  // Get the associated student ID from the parent document
+  const studentId = parent.student;
+
+  if (!studentId) {
+    throw new ApiError(404, "Associated student not found");
+  }
+
+  // Delete the parent
+  await User.deleteOne({ _id: parentId });
+
+  // Delete the associated student
+  await Student.deleteOne({ _id: studentId });
+};
+
+export default {
+  createUser,
+  loginWithEmailAndPassword,
+  generateAuthToken,
+  createTeacher,
+  createStudentAndParent,
+  getUsersBySchoolId,
+  deleteTeacherById,
+  deleteParentAndStudentById, // Add the new method
+};

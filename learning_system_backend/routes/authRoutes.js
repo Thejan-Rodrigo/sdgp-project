@@ -1,13 +1,15 @@
 import express from "express";
 import authController from "../controllers/authController.js";
 
-// Access the login method from the imported authController
-const { login, register } = authController;
+// Access the methods from the imported authController
+const { login, register, getUsersBySchoolId, deleteTeacherById, deleteParentAndStudentById } = authController;
 
 const router = express.Router();
 
 router.post("/register", register);
-// Login Route
 router.post("/login", login);
+router.get("/users/:schoolId", getUsersBySchoolId); // Get users by school ID
+router.delete("/teachers/:teacherId", deleteTeacherById); // Delete teacher by ID
+router.delete("/parents/:parentId", deleteParentAndStudentById); // Delete parent and student by parent ID
 
 export default router;
