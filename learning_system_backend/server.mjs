@@ -37,7 +37,6 @@ app.get("/test",(req,res)=>{
 // Routes
 app.use("/api/students", studentRoutes);
 app.use("/api/progress", progressRoutes);
-connectDB();
 
 app.get("/", (req, res) => {
   res.send("MongoDB Connected with Mongoose!");
