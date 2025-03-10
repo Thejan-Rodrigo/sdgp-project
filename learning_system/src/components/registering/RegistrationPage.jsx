@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Sidebar from '../registering/Sidebar';
+import Sidebar from '../AdSidebar';
 import RegistrationHeader from '../registering/RegistrationHeader';
 import RegistrationForm from '../registering/RegistrationForm';
 import RegistrationSettings from '../registering/RegistrationSettings'; // Import the settings component
