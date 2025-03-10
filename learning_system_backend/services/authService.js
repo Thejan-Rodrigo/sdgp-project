@@ -212,6 +212,28 @@ const deleteTeacherById = async (teacherId) => {
   await User.deleteOne({ _id: teacherId });
 };
 
+const deleteParentAndStudentById = async (parentId) => {
+  // Find the parent by ID and role
+  const parent = await User.findOne({ _id: parentId, role: "parent" });
+
+  if (!parent) {
+    throw new ApiError(404, "Parent not found");
+  }
+
+  // Get the associated student ID from the parent document
+  const studentId = parent.student;
+
+  if (!studentId) {
+    throw new ApiError(404, "Associated student not found");
+  }
+
+  // Delete the parent
+  await User.deleteOne({ _id: parentId });
+
+  // Delete the associated student
+  await Student.deleteOne({ _id: studentId });
+};
+
 export default {
   createUser,
   loginWithEmailAndPassword,
@@ -219,5 +241,6 @@ export default {
   createTeacher,
   createStudentAndParent,
   getUsersBySchoolId,
-  deleteTeacherById, // Add the new method
+  deleteTeacherById,
+  deleteParentAndStudentById, // Add the new method
 };
