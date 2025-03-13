@@ -18,8 +18,8 @@ export const getProgressByStudent = async (req, res) => {
 
 export const addProgress = async (req, res) => {
   try {
-    const { studentId, notes } = req.body;
-    const newProgress = await createProgressNote(studentId, notes);
+    const { studentId, teacherId, notes } = req.body; // Include teacherId
+    const newProgress = await createProgressNote(studentId, teacherId, notes); // Pass teacherId
     successResponse(res, 201, { newProgress }, "Progress note added successfully");
   } catch (error) {
     console.error("Error adding progress note:", error);
