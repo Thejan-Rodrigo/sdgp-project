@@ -87,9 +87,6 @@ function Progress() {
   // Handle adding a progress note
   const handleAddNote = async () => {
     if (!selectedStudent || !newNote.trim() || !user) return; // Ensure user is available
-    console.log(selectedStudent._id)
-    console.log(user.id)
-    console.log(newNote)
 
     try {
       const response = await fetch("http://localhost:5000/api/progress", {
@@ -97,7 +94,7 @@ function Progress() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           studentId: selectedStudent._id,
-          teacherId: user.id, // Use user._id as teacherId
+          teacherId: user._id, // Use user._id as teacherId
           notes: newNote,
         }),
       });
@@ -205,6 +202,12 @@ function Progress() {
                           {new Date(entry.createdAt).toLocaleDateString()}
                         </div>
                         <p>{entry.notes}</p>
+                        {/* Display teacher's name */}
+                        {entry.teacherId && (
+                          <div className="text-gray-600 text-sm mt-1">
+                            Added by: {entry.teacherId.firstName} {entry.teacherId.lastName}
+                          </div>
+                        )}
                       </div>
                     ))
                   ) : (
