@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Sidebar from "../TeaSidebar";
+import { useAuth } from '../../context/AuthContext'; // Import the useAuth hook
 
 function Progress() {
   const [students, setStudents] = useState([]);
@@ -12,14 +13,16 @@ function Progress() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Hardcoded school ID for now
-  const schoolId = "67cc5370e98552e9b5a6e097";
+  // Get the authenticated user from the context
+  const { user } = useAuth();
 
-  // Fetch students by school ID
+  // Fetch students by school ID (from the authenticated user)
   useEffect(() => {
+    if (!user || !user.schoolId) return; // Ensure user and schoolId are available
+
     const fetchStudentsBySchoolId = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/progress/school/${schoolId}`); // Updated API endpoint
+        const response = await fetch(`http://localhost:5000/api/progress/school/${user.schoolId}`); // Use user.schoolId
         console.log("Response object:", response); // Check the raw response
 
         if (!response.ok) throw new Error("Failed to fetch students");
@@ -42,7 +45,7 @@ function Progress() {
     };
 
     fetchStudentsBySchoolId();
-  }, []);
+  }, [user]); // Re-fetch when user changes
 
   // Fetch progress history when a student is selected
   useEffect(() => {
@@ -83,7 +86,10 @@ function Progress() {
 
   // Handle adding a progress note
   const handleAddNote = async () => {
-    if (!selectedStudent || !newNote.trim()) return;
+    if (!selectedStudent || !newNote.trim() || !user) return; // Ensure user is available
+    console.log(selectedStudent._id)
+    console.log(user.id)
+    console.log(newNote)
 
     try {
       const response = await fetch("http://localhost:5000/api/progress", {
@@ -91,6 +97,7 @@ function Progress() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           studentId: selectedStudent._id,
+          teacherId: user.id, // Use user._id as teacherId
           notes: newNote,
         }),
       });
