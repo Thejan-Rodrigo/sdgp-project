@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Sidebar from "../TeaSidebar";
 import { useAuth } from '../../context/AuthContext'; // Import the useAuth hook
+import { TrashIcon } from "@heroicons/react/24/outline"; // Import the bin icon from Heroicons
 
 function Progress() {
   const [students, setStudents] = useState([]);
@@ -94,7 +95,7 @@ function Progress() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           studentId: selectedStudent._id,
-          teacherId: user._id, // Use user._id as teacherId
+          teacherId: user.id, // Use user._id as teacherId
           notes: newNote,
         }),
       });
@@ -109,6 +110,26 @@ function Progress() {
         setNewNote(""); // Clear input after saving
       } else {
         throw new Error("Invalid response format");
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  // Handle deleting a progress note
+  const handleDeleteProgress = async (progressId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/progress/${progressId}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) throw new Error("Failed to delete progress note");
+
+      const data = await response.json();
+
+      // Remove the deleted progress note from the state
+      if (data.success && data.data && data.data.deletedProgress) {
+        setProgressHistory(progressHistory.filter((entry) => entry._id !== progressId));
       }
     } catch (error) {
       setError(error.message);
@@ -197,17 +218,28 @@ function Progress() {
                     <p className="text-gray-500">Loading progress history...</p>
                   ) : progressHistory.length > 0 ? (
                     progressHistory.map((entry) => (
-                      <div key={entry._id} className="p-3 border-b">
-                        <div className="text-gray-600 text-sm">
-                          {new Date(entry.createdAt).toLocaleDateString()}
-                        </div>
-                        <p>{entry.notes}</p>
-                        {/* Display teacher's name */}
-                        {entry.teacherId && (
-                          <div className="text-gray-600 text-sm mt-1">
-                            Added by: {entry.teacherId.firstName} {entry.teacherId.lastName}
+                      <div key={entry._id} className="p-3 border-b hover:bg-gray-50 transition-colors">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <div className="text-gray-600 text-sm">
+                              {new Date(entry.createdAt).toLocaleDateString()}
+                            </div>
+                            <p className="mt-1">{entry.notes}</p>
+                            {/* Display teacher's name */}
+                            {entry.teacherId && (
+                              <div className="text-gray-600 text-sm mt-1">
+                                Added by: {entry.teacherId.firstName} {entry.teacherId.lastName}
+                              </div>
+                            )}
                           </div>
-                        )}
+                          {/* Bin icon for delete */}
+                          <button
+                            className="text-gray-500 hover:text-red-500 transition-colors"
+                            onClick={() => handleDeleteProgress(entry._id)}
+                          >
+                            <TrashIcon className="h-5 w-5" />
+                          </button>
+                        </div>
                       </div>
                     ))
                   ) : (

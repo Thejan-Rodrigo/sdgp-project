@@ -1,11 +1,12 @@
-// controllers/progressController.js
 import { successResponse } from "../utils/responseHandler.js";
 import { 
   getProgressByStudentId, 
   createProgressNote, 
-  getStudentsBySchoolId as getStudentsBySchoolIdService 
+  getStudentsBySchoolId as getStudentsBySchoolIdService, // Rename the imported function to avoid conflict
+  deleteProgressById as deleteProgressByIdService // Import the new service function
 } from "../services/progressService.js";
 
+// Fetch progress history for a student
 export const getProgressByStudent = async (req, res) => {
   try {
     const progress = await getProgressByStudentId(req.params.id);
@@ -16,10 +17,11 @@ export const getProgressByStudent = async (req, res) => {
   }
 };
 
+// Add a new progress note
 export const addProgress = async (req, res) => {
   try {
-    const { studentId, teacherId, notes } = req.body; // Include teacherId
-    const newProgress = await createProgressNote(studentId, teacherId, notes); // Pass teacherId
+    const { studentId, teacherId, notes } = req.body;
+    const newProgress = await createProgressNote(studentId, teacherId, notes);
     successResponse(res, 201, { newProgress }, "Progress note added successfully");
   } catch (error) {
     console.error("Error adding progress note:", error);
@@ -27,6 +29,7 @@ export const addProgress = async (req, res) => {
   }
 };
 
+// Fetch students by school ID
 export const getStudentsBySchoolId = async (req, res) => {
   try {
     const students = await getStudentsBySchoolIdService(req.params.schoolId);
@@ -34,5 +37,22 @@ export const getStudentsBySchoolId = async (req, res) => {
   } catch (error) {
     console.error("Error fetching students by school ID:", error);
     successResponse(res, 500, null, "Error fetching students by school ID");
+  }
+};
+
+// Delete progress by ID
+export const deleteProgressById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedProgress = await deleteProgressByIdService(id);
+
+    if (!deletedProgress) {
+      return successResponse(res, 404, null, "Progress note not found");
+    }
+
+    successResponse(res, 200, { deletedProgress }, "Progress note deleted successfully");
+  } catch (error) {
+    console.error("Error deleting progress note:", error);
+    successResponse(res, 500, null, "Error deleting progress note");
   }
 };
