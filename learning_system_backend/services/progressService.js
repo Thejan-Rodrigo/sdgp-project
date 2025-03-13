@@ -7,8 +7,8 @@ export const getProgressByStudentId = async (studentId) => {
 };
 
 // Add a new progress note
-export const createProgressNote = async (studentId, notes) => {
-  const progress = new Progress({ studentId, notes });
+export const createProgressNote = async (studentId, teacherId, notes) => {
+  const progress = new Progress({ studentId, teacherId, notes }); // Include teacherId
   return await progress.save();
 };
 
