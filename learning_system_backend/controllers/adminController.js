@@ -1,3 +1,4 @@
+// controllers/adminController.js
 import catchAsync from "../utils/catchAsync.js";
 import { successResponse } from "../utils/responseHandler.js";
 import adminService from "../services/adminService.js";
@@ -22,7 +23,8 @@ const adminController = {
         schoolId,
       });
 
-      successResponse(res, { admin }, "Admin added successfully", 201);
+      // Use successResponse correctly
+      successResponse(res, 201, { admin }, "Admin added successfully");
     } catch (error) {
       logger.error("[adminController] Error creating admin:", error);
       next(error); // Pass error to the middleware for handling
@@ -37,7 +39,8 @@ const adminController = {
       // Call service to get admins by school ID
       const admins = await adminService.getAdminsBySchoolId(schoolId);
 
-      successResponse(res, { admins }, "Admins fetched successfully");
+      // Use successResponse correctly
+      successResponse(res, 200, { admins }, "Admins fetched successfully");
     } catch (error) {
       logger.error("[adminController] Error fetching admins:", error);
       next(error); // Pass error to the middleware for handling
@@ -52,7 +55,8 @@ const adminController = {
       // Call service to delete the admin by ID
       await adminService.deleteAdminById(adminId);
 
-      successResponse(res, null, "Admin deleted successfully");
+      // Use successResponse correctly
+      successResponse(res, 204, null, "Admin deleted successfully");
     } catch (error) {
       logger.error("[adminController] Error deleting admin:", error);
       next(error); // Pass error to the middleware for handling

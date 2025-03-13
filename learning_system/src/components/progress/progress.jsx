@@ -26,7 +26,13 @@ function Progress() {
 
         const data = await response.json();
         console.log("Fetched students data:", data); // Debugging
-        setStudents(data);
+
+        // Extract the students array from the response
+        if (data.success && data.data && data.data.students) {
+          setStudents(data.data.students);
+        } else {
+          throw new Error("Invalid response format");
+        }
       } catch (error) {
         console.error("Error fetching students:", error);
         setError(error.message);
@@ -57,7 +63,13 @@ function Progress() {
 
         const data = await response.json();
         console.log("Progress history:", data);
-        setProgressHistory(data);
+
+        // Extract the progress array from the response
+        if (data.success && data.data && data.data.progress) {
+          setProgressHistory(data.data.progress);
+        } else {
+          throw new Error("Invalid response format");
+        }
       } catch (error) {
         console.error("Error fetching progress:", error.message);
         setError(error.message);
@@ -85,9 +97,15 @@ function Progress() {
 
       if (!response.ok) throw new Error("Failed to add progress note");
 
-      const newProgress = await response.json();
-      setProgressHistory([newProgress, ...progressHistory]);
-      setNewNote(""); // Clear input after saving
+      const data = await response.json();
+
+      // Extract the new progress note from the response
+      if (data.success && data.data && data.data.newProgress) {
+        setProgressHistory([data.data.newProgress, ...progressHistory]);
+        setNewNote(""); // Clear input after saving
+      } else {
+        throw new Error("Invalid response format");
+      }
     } catch (error) {
       setError(error.message);
     }
@@ -102,7 +120,7 @@ function Progress() {
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
-      <Sidebar/>
+      <Sidebar />
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col ml-7">
