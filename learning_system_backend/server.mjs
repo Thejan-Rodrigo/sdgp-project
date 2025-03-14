@@ -5,6 +5,8 @@ import connectDB from "./config/db.mjs";
 import authRoutes from "./routes/authRoutes.js";
 // import errorHandler from "./middleware/errorMiddleware.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import announcementRoute from "./routes/AnnouncementRouter.js"
+
 import schoolRoutes from "./routes/schoolRoutes.js";
 import { errorHandler } from "./middleware/errorHandler.js"; // Use curly braces for named export
 import logRequest from './utils/logger.js'; // Adjust the path to where you defined logRequest
@@ -24,9 +26,14 @@ app.use(cors());
 app.use("/api/admin", adminRoutes);
 app.use("/api/schools", schoolRoutes);
 
+
+app.use("/api/auth", authRoutes);
+
+app.use('/api/v1/announcements', announcementRoute);
+
 app.get("/test",(req,res)=>{
     console.log(req);
-    res.send("Hello world");
+    res.send("Hello  world");
     
 });
 

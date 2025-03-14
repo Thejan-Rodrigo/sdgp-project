@@ -1,38 +1,4 @@
-[2025-03-10 15:30:32] [[32minfo[39m] [32m[authService] Passwords match![39m
-[2025-03-10 15:30:32] [[32minfo[39m] [32m[authService] Login successfull![39m
-[2025-03-10 15:30:38] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
-[2025-03-10 15:30:38] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
-[2025-03-10 15:30:38] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
-[2025-03-10 15:30:38] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
-[2025-03-10 15:30:44] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
-[2025-03-10 15:30:44] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
-[2025-03-10 15:30:44] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
-[2025-03-10 15:30:44] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
-[2025-03-10 15:30:46] [[32minfo[39m] [32m[getAdminsBySchoolId] Fetching admins for schoolId: 67cc5370e98552e9b5a6e097[39m
-[2025-03-10 15:30:46] [[32minfo[39m] [32m[getAdminsBySchoolId] Admins fetched successfully[39m
-[2025-03-10 15:31:32] [[32minfo[39m] [32m[deleteAdminById] Deleting admin with ID: 67cd1b01c25d20b3b754fd7c[39m
-[2025-03-10 15:31:32] [[32minfo[39m] [32m[deleteAdminById] Admin deleted successfully[39m
-[2025-03-10 15:31:34] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
-[2025-03-10 15:31:34] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
-[2025-03-10 15:31:34] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
-[2025-03-10 15:31:34] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
-[2025-03-10 15:31:35] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
-[2025-03-10 15:31:35] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
-[2025-03-10 15:31:35] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
-[2025-03-10 15:31:35] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
-[2025-03-10 15:31:37] [[32minfo[39m] [32m[getAdminsBySchoolId] Fetching admins for schoolId: 67cc5370e98552e9b5a6e097[39m
-[2025-03-10 15:31:37] [[32minfo[39m] [32m[getAdminsBySchoolId] Admins fetched successfully[39m
-[2025-03-10 15:31:40] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
-[2025-03-10 15:31:41] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
-[2025-03-10 15:31:41] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
-[2025-03-10 15:31:41] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
-[2025-03-10 15:32:48] [[32minfo[39m] [32m[createAdmin] searching a user[39m
-[2025-03-10 15:32:48] [[32minfo[39m] [32m[createAdmin] user not found. Creating a new user[39m
-[2025-03-10 15:32:48] [[32minfo[39m] [32m[createAdmin] user created successfully[39m
-[2025-03-10 15:32:48] [[32minfo[39m] [32m[createAdmin] user saved in the database successfully[39m
-[2025-03-10 15:33:13] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
-[2025-03-10 15:33:13] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
-[2025-03-10 15:33:13] [[32minfo[39m] [32m[schoolController] Fetching all schools[39m
-[2025-03-10 15:33:13] [[32minfo[39m] [32m[schoolController] Successfully fetched all schools[39m
-[2025-03-10 15:33:15] [[32minfo[39m] [32m[getAdminsBySchoolId] Fetching admins for schoolId: 67cc5370e98552e9b5a6e097[39m
-[2025-03-10 15:33:15] [[32minfo[39m] [32m[getAdminsBySchoolId] Admins fetched successfully[39m
+[2025-03-10 01:26:13] [[32minfo[39m] [32m[authService] Passwords match![39m
+[2025-03-10 01:26:13] [[32minfo[39m] [32m[authService] Login successfull![39m
+[2025-03-10 01:55:08] [[32minfo[39m] [32m[authService] Passwords match![39m
+[2025-03-10 01:55:08] [[32minfo[39m] [32m[authService] Login successfull![39m

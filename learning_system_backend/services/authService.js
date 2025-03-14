@@ -151,6 +151,7 @@ const loginWithEmailAndPassword = async (email, password) => {
   console.log("Entered password:", password);
   console.log("Stored hashed password:", user.password);
 
+  // Compare passwords
 
   // Compare plain text password with stored hashed password
   const isMatch = await bcrypt.compare(password, user.password);
@@ -171,7 +172,7 @@ const loginWithEmailAndPassword = async (email, password) => {
 
 const generateAuthToken = (user) => {
   const token = jwt.sign(
-    { _id: user._id, role: user.role },
+    { _id: user._id, role: user.role, schoolId:user.schoolId },
     process.env.JWT_SECRET,
     { expiresIn: "7d" }
   );
