@@ -1,21 +1,23 @@
-import { React, useState, useEffect } from 'react'
-import CommenNavBar from '../CommenNavbBar'
-import TeacherSideBar from '../TeacherSideBar'
-import TeacherMassage from './TeacherMassage'
+import { React, useState, useEffect } from 'react';
+import CommenNavBar from '../CommenNavbBar';
+import TeacherSideBar from '../TeacherSideBar';
+import TeacherMassage from './TeacherMassage';
 import MeetingForm from './MeetingForm';
 import Sidebar from '../TeaSidebar';
-import axios from "axios";
+import axios from 'axios';
+import { useAuth } from '../../context/AuthContext'; // Import useAuth
 
 export default function TeacherMeeting() {
+    const { user } = useAuth(); // Access the user object from AuthContext
     const [model, setModel] = useState(false);
     const [showGenerate, setShowGenerate] = useState(true);
     const [showAddLink, setShowAddLink] = useState(false);
     const [meetings, setMeetings] = useState([]);
-    const [title, setTitle] = useState("");
-    const [link, setLink] = useState("");
-    const [date, setDate] = useState("");
-    const [time, setTime] = useState("");
-    const [description, setDescription] = useState("");
+    const [title, setTitle] = useState('');
+    const [link, setLink] = useState('');
+    const [date, setDate] = useState('');
+    const [time, setTime] = useState('');
+    const [description, setDescription] = useState('');
 
     const handleGenerateClick = () => {
         setShowGenerate(true);
@@ -30,10 +32,10 @@ export default function TeacherMeeting() {
     useEffect(() => {
         const fetchMeetings = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/api/meetings"); // Adjust backend URL if needed
+                const response = await axios.get('http://localhost:5000/api/meetings'); // Adjust backend URL if needed
                 setMeetings(response.data); // Update state with meetings data
             } catch (error) {
-                console.error("Error fetching meetings:", error);
+                console.error('Error fetching meetings:', error);
             }
         };
 
@@ -45,25 +47,25 @@ export default function TeacherMeeting() {
 
         // Construct the meeting object to send to the backend
         const newMeeting = {
-            name: "Nethmi Himasara",
+            name: 'Nethmi Himasara',
             description: description,
             time: `${date}T${time}:00.000Z`, // Combine date and time into a proper ISO format
             link: link,
+            schoolId: user.schoolId, // Include schoolId from AuthContext
         };
 
         try {
-            console.log("Send the data to the backend")
+            console.log('Sending the data to the backend');
             // Send the data to the backend and fetch the updated list of meetings
-            const response = await axios.post("http://localhost:5000/api/addmeeting", newMeeting);
-            console.log("fetch the updated list of meetings")
-            console.log("Meeting Added:", response.data);
+            const response = await axios.post('http://localhost:5000/api/addmeeting', newMeeting);
+            console.log('Meeting Added:', response.data);
 
             // Set the meetings state with the response data from the backend
             setMeetings(response.data); // Assume the backend returns the updated list of meetings
-            console.log(" Set the meetings state")
-            toggel()
+            console.log('Set the meetings state');
+            toggel();
         } catch (error) {
-            console.error("Error adding meeting:", error);
+            console.error('Error adding meeting:', error);
         }
     };
 
@@ -72,58 +74,53 @@ export default function TeacherMeeting() {
             const response = await axios.delete(`http://localhost:5000/api/deletemeeting/${id}`);
             setMeetings(response.data); // Update state with the new list of meetings
         } catch (error) {
-            console.error("Error deleting meeting:", error);
+            console.error('Error deleting meeting:', error);
         }
     };
 
-
-
     const data = [
         {
-            "name": "Nethmi Himasara",
-            "descrip": "This is monthly meeting hdydbtcuxb ieb ctchd sis bctd hsvhs c ns cus sgb cyshshssyd stshbcgdjsbxvdgcyshsvd nchdsisnxh shshsgdtshsbdgcxfdvxgbgstd sgdtsvscsyshsnndjxnbd tshsgdb diaygd  dsadasd dsada gd sths dsgvc dtcha ctjs ddhsjc a aai aa ups snkkd ayw d s a a ar i want to how you do that me baby. how did you heart mend so easy mine still blead.",
-            "time": "Today, 2:00 PM"
+            name: 'Nethmi Himasara',
+            descrip: 'This is monthly meeting hdydbtcuxb ieb ctchd sis bctd hsvhs c ns cus sgb cyshshssyd stshbcgdjsbxvdgcyshsvd nchdsisnxh shshsgdtshsbdgcxfdvxgbgstd sgdtsvscsyshsnndjxnbd tshsgdb diaygd  dsadasd dsada gd sths dsgvc dtcha ctjs ddhsjc a aai aa ups snkkd ayw d s a a ar i want to how you do that me baby. how did you heart mend so easy mine still blead.',
+            time: 'Today, 2:00 PM',
         },
         {
-            "name": "Tarini Abesinhe",
-            "descrip": "Annual meeting to 'Kakulu sara'",
-            "time": "Today, 2:00 PM"
+            name: 'Tarini Abesinhe',
+            descrip: "Annual meeting to 'Kakulu sara'",
+            time: 'Today, 2:00 PM',
         },
         {
-            "name": "Kalina Dissanayake",
-            "descrip": "Only for G3 class",
-            "time": "Today, 2:00 PM"
+            name: 'Kalina Dissanayake',
+            descrip: 'Only for G3 class',
+            time: 'Today, 2:00 PM',
         },
         {
-            "name": "Achira Manathunga",
-            "descrip": "All the Teachers",
-            "time": "Today, 2:00 PM"
+            name: 'Achira Manathunga',
+            descrip: 'All the Teachers',
+            time: 'Today, 2:00 PM',
         },
         {
-            "name": "Thejani Balasuriya",
-            "descrip": "Weekly meeting",
-            "time": "Today, 2:00 PM"
+            name: 'Thejani Balasuriya',
+            descrip: 'Weekly meeting',
+            time: 'Today, 2:00 PM',
         },
         {
-            "name": "Sarani Niranthara",
-            "descrip": "Daruwo godagamu workshop",
-            "time": "Today, 2:00 PM"
-        }
-    ]
+            name: 'Sarani Niranthara',
+            descrip: 'Daruwo godagamu workshop',
+            time: 'Today, 2:00 PM',
+        },
+    ];
 
     const toggel = () => {
-        console.log("Hello World")
-        setModel(!model)
-    }
+        console.log('Hello World');
+        setModel(!model);
+    };
 
     return (
         <div className="test">
-
-
             <div className="side" class=" flex bg-white">
                 <Sidebar />
                 <div class=" p-7 bg-gray-50 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full overflow-y-scroll" style={{ height: 700 }}>
-
                     <h2 className="text-lg font-semibold mb-4 ml-10">Upcoming Meetings</h2>
 
                     {meetings.map((meeting, index) => (
@@ -137,7 +134,6 @@ export default function TeacherMeeting() {
                             onDelete={handleDeleteMeeting}
                         />
                     ))}
-
 
                     <button onClick={toggel} class=" bottom-0 fixed right-0 p-4 m-20 px-3 fixd  float-start w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-lg border border-gray-200 dark:border-gray-600 shadow-xs dark:hover:text-white dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
                         <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 24 24">
@@ -346,5 +342,5 @@ export default function TeacherMeeting() {
                 )}
             </div>
         </div>
-    )
+    );
 }
