@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const StudentProfile = ({ studentId }) => {
-  const [student, setStudent] = useState(true);
+  const [student, setStudent] = useState(null);
   const [attendance, setAttendance] = useState([]);
   const [progress, setProgress] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,7 +21,6 @@ const StudentProfile = ({ studentId }) => {
 
         // Fetch Progress
         const progressRes = await fetch(`http://localhost:5000/progress/${studentId}`);
-        // const response = await fetch(`http://localhost:5000/api/progress/${selectedStudent._id}`);
         const progressData = await progressRes.json();
         setProgress(progressData);
       } catch (error) {
@@ -31,7 +30,9 @@ const StudentProfile = ({ studentId }) => {
       }
     };
 
-    fetchStudentData();
+    if (studentId) {
+      fetchStudentData();
+    }
   }, [studentId]);
 
   return (
@@ -70,9 +71,9 @@ const StudentProfile = ({ studentId }) => {
             <p>Loading student details...</p>
           ) : (
             <div className="bg-white rounded-lg p-6 mb-6">
-              <h3 className="text-2xl font-semibold mb-4">{student.name}</h3>
-              <p><strong>Student ID:</strong> {student.studentId}</p>
-              <p><strong>Address:</strong> {student.address}</p>
+              <h3 className="text-2xl font-semibold mb-4">{student?.name}</h3>
+              <p><strong>Student ID:</strong> {student?.studentId}</p>
+              <p><strong>Address:</strong> {student?.address}</p>
             </div>
           )}
 
