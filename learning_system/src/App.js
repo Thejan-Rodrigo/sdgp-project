@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import StudentProfile from './components/studentProfilePage/studentProfilePage';
 
 const App = () => {
-  const studentId = "650c7b3c8a2f8e12e45a1234"; // Replace with actual student ID from MongoDB
+  
 
   return (
     <Router>
