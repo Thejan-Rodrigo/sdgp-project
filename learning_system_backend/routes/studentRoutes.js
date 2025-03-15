@@ -10,4 +10,5 @@ router.get("/", getStudents);
 // GET student profile by student ID
 router.get("/:studentId", getStudentProfile);
 
+
 export default router;
