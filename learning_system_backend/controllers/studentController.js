@@ -16,11 +16,14 @@ export const getStudents = async (req, res) => {
 
 export const getStudentProfile = async (req, res) => {
   try {
+    console.log("hi c1");
     const student = await getStudentById(req.params.id);
+    console.log("hi c2");
     res.json(student);
+    console.log("hi c3");
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-export default getStudent;
+

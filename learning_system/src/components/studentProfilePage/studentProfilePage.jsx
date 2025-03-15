@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-const StudentProfile = ({ studentId }) => {
-  const [student, setStudent] = useState(null);
+const StudentProfile = () => {
+  const [student, setStudent] = useState(true);
   const [attendance, setAttendance] = useState([]);
   const [progress, setProgress] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -9,20 +9,22 @@ const StudentProfile = ({ studentId }) => {
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
+        console.log("helow");
         // Fetch Student Details
-        const studentRes = await fetch(`http://localhost:5000/students/${studentId}`);
+        const studentRes = await fetch(`http://localhost:5000/students/67ceba38ebd2b490d7c573b6`);
         const studentData = await studentRes.json();
+        console.log(studentData);
         setStudent(studentData);
 
         // Fetch Attendance
-        const attendanceRes = await fetch(`http://localhost:5000/attendance/${studentId}`);
-        const attendanceData = await attendanceRes.json();
-        setAttendance(attendanceData);
+        // const attendanceRes = await fetch(`http://localhost:5000/attendance/${studentId}`);
+        // const attendanceData = await attendanceRes.json();
+        // setAttendance(attendanceData);
 
         // Fetch Progress
-        const progressRes = await fetch(`http://localhost:5000/progress/${studentId}`);
-        const progressData = await progressRes.json();
-        setProgress(progressData);
+        // const progressRes = await fetch(`http://localhost:5000/progress/${studentId}`);
+        // const progressData = await progressRes.json();
+        // setProgress(progressData);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -30,10 +32,10 @@ const StudentProfile = ({ studentId }) => {
       }
     };
 
-    if (studentId) {
+  
       fetchStudentData();
-    }
-  }, [studentId]);
+    
+  }, []);
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -52,8 +54,10 @@ const StudentProfile = ({ studentId }) => {
               className="w-8 h-8 rounded-full"
             />
             <div>
-              <div className="font-medium">{student?.name || "Loading..."}</div>
-              <div className="text-sm text-gray-500">Student ID: {student?.studentId || "..."}</div>
+              <div className="font-medium">
+                {student ? `${student.firstName} ${student.lastName}` : "Loading..."}
+              </div>
+              <div className="text-sm text-gray-500">Student ID: {student?._id || "..."}</div>
             </div>
           </div>
         </div>
@@ -71,13 +75,16 @@ const StudentProfile = ({ studentId }) => {
             <p>Loading student details...</p>
           ) : (
             <div className="bg-white rounded-lg p-6 mb-6">
-              <h3 className="text-2xl font-semibold mb-4">{student?.name}</h3>
-              <p><strong>Student ID:</strong> {student?.studentId}</p>
-              <p><strong>Address:</strong> {student?.address}</p>
+              <h3 className="text-2xl font-semibold mb-4">
+                {student ? `${student.firstName} ${student.lastName}` : "No Name"}
+              </h3>
+              <p><strong>Role:</strong> {student?.role || "N/A"}</p>
+              <p><strong>Phone:</strong> {student?.phone || "N/A"}</p>
+              <p><strong>Address:</strong> {student?.address || "N/A"}</p>
             </div>
           )}
 
-          {/* Attendance */}
+          {/* Attendance
           <div className="bg-white rounded-lg p-6 mb-6">
             <h4 className="text-lg font-medium mb-4">Attendance Overview</h4>
             {attendance.length > 0 ? (
@@ -88,7 +95,10 @@ const StudentProfile = ({ studentId }) => {
                     <span>{month.percentage}%</span>
                   </div>
                   <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div className="h-full bg-green-500 rounded-full" style={{ width: `${month.percentage}%` }} />
+                    <div
+                      className="h-full bg-green-500 rounded-full"
+                      style={{ width: `${month.percentage}%` }}
+                    />
                   </div>
                   <p className="text-sm text-gray-500">
                     Present: {month.presentDays} / {month.totalDays} days
@@ -98,9 +108,9 @@ const StudentProfile = ({ studentId }) => {
             ) : (
               <p>No attendance records found.</p>
             )}
-          </div>
+          </div> */}
 
-          {/* Progress Reports */}
+          {/* Progress Reports
           <div className="bg-white rounded-lg p-6">
             <h4 className="text-lg font-medium mb-4">Progress Messages</h4>
             {progress.length > 0 ? (
@@ -118,7 +128,7 @@ const StudentProfile = ({ studentId }) => {
             ) : (
               <p>No progress records found.</p>
             )}
-          </div>
+          </div> */}
         </main>
       </div>
     </div>

@@ -44,8 +44,8 @@ res.send("MongoDB Connected with Mongoose!");
 });
 
 app.use("/students", studentRoutes);
-app.use("/attendance", attendanceRoutes);
-app.use("/progress", progressRoutes);
+// app.use("/attendance", attendanceRoutes);
+// app.use("/progress", progressRoutes);
 
 
 // Routes

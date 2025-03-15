@@ -22,5 +22,3 @@ export const fetchStudentProgress = async (studentId) => {
 export const getStudentById = async (studentId) => {
   return await Student.findOne({ studentId });
 };
-
-export default getStudentById;

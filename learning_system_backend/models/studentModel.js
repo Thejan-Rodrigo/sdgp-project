@@ -1,4 +1,3 @@
-// models/studentModel.js
 import mongoose from "mongoose";
 
 const studentSchema = new mongoose.Schema({
@@ -12,5 +11,5 @@ const studentSchema = new mongoose.Schema({
   parent: { type: mongoose.Schema.Types.ObjectId, ref: "Parent" } // Link to parent
 });
 
-const Student = mongoose.model("Student", studentSchema);
+const Student = mongoose.models.Student || mongoose.model("Student", studentSchema);
 export default Student;
