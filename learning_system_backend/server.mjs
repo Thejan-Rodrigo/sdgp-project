@@ -6,6 +6,8 @@ import connectDB from './config/db.mjs'
 import dotenv from 'dotenv';
 import cors from "cors";
 import studentRoutes from "./routes/studentRoutes.js";
+import attendanceRoutes from "./routes/attendanceRoutes.js"; 
+import progressRoutes from "./routes/progressRoutes.js";
 
 dotenv.config();
 connectDB();
@@ -31,6 +33,8 @@ res.send("MongoDB Connected with Mongoose!");
 });
 
 app.use("/students", studentRoutes);
+app.use("/attendance", attendanceRoutes);
+app.use("/progress", progressRoutes);
 
 // Global error handler
 app.use(errorHandler);
