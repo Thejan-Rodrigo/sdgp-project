@@ -22,3 +22,29 @@ export const fetchStudentProgress = async (studentId) => {
 export const getStudentById = async (studentId) => {
   return await Student.findOne({ studentId });
 };
+
+
+export const getStudentsBySchoolId = async (schoolId) => {
+  try {
+    console.log("s1");
+    // Find all students associated with the given school ID
+    const students = await Student.find({ schoolId });
+
+    // Return the list of students
+    console.log("s2");
+    return students;
+
+  } catch (error) {
+    throw new Error("Error fetching students");
+  }
+};
+
+//update student details
+export const updateStudentById = async (studentId, updatedData) => {
+  try {
+    const student = await Student.findByIdAndUpdate(studentId, updatedData, { new: true });
+    return student;
+  } catch (error) {
+    throw new Error("Error updating student details");
+  }
+};

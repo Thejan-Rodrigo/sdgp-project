@@ -10,5 +10,11 @@ router.get("/", getStudents);
 // GET student profile by student ID
 router.get("/:studentId", getStudentProfile);
 
+//get all students by id 
+router.get("/school/:schoolId", getStudentsBySchool);
+
+// Update student by ID
+router.put("/:studentId", updateStudent);
+
 
 export default router;
