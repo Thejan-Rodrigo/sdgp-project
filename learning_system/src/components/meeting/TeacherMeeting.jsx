@@ -30,17 +30,20 @@ export default function TeacherMeeting() {
     };
 
     useEffect(() => {
-        const fetchMeetings = async () => {
+        const fetchMeetingsBySchoolId = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/meetings'); // Adjust backend URL if needed
+                // Fetch meetings by schoolId from the backend
+                const response = await axios.get(`http://localhost:5000/api/meetings/school/${user.schoolId}`);
                 setMeetings(response.data); // Update state with meetings data
             } catch (error) {
                 console.error('Error fetching meetings:', error);
             }
         };
 
-        fetchMeetings();
-    }, []); // Empty dependency array ensures it runs only on page load
+        if (user?.schoolId) {
+            fetchMeetingsBySchoolId(); // Fetch meetings only if schoolId is available
+        }
+    }, [user?.schoolId]); // Re-run effect when schoolId changes
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent the default form submission
@@ -52,6 +55,7 @@ export default function TeacherMeeting() {
             time: `${date}T${time}:00.000Z`, // Combine date and time into a proper ISO format
             link: link,
             schoolId: user.schoolId, // Include schoolId from AuthContext
+            teacherId: user.id, // Include teacherId from AuthContext
         };
 
         try {
