@@ -28,9 +28,12 @@ import http from "http";
 import { Server } from "socket.io";
 import ChatService from "./services/chatService.js";
 import { Message } from "./models/Message.js"; // ✅ Correct import
+import chatbotRouter from "./routes/chatbotRouter.js";
 
 dotenv.config(); // Load environment variables
 connectDB(); // Connect to MongoDB
+
+
 
 const app = express();
 app.use(express.json());
@@ -117,6 +120,7 @@ app.use("/api/students", studentRoutes);
 // Routes
 app.use("/api/students", studentRoutes);
 app.use("/api/progress", progressRoutes);
+app.use("/api/chatbot", chatbotRouter);
 
 app.get("/", (req, res) => {
   res.send("MongoDB Connected with Mongoose!");
