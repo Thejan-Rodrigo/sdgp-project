@@ -1,47 +1,140 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+"use client";
 
-const teacherSProfile = () => {
-  const [students, setStudents] = useState([]);
+import { useState, useEffect } from "react";
 
-  // Replace this with the actual school ID
-  const schoolId = "67cc5370e98552e9b5a6e097";
+function TeacherSProfile() {
+  const [schoolId, setSchoolId] = useState(""); // State for school ID
+  const [students, setStudents] = useState([]); // State for the list of students
+  const [selectedStudent, setSelectedStudent] = useState(null); // State for selected student
+  const [loading, setLoading] = useState(false); // Loading state
+  const [error, setError] = useState(""); // Error state
 
-  useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        const response = await axios.get(`http://localhost:5000/students/school/${schoolId}`);
-        setStudents(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error("Error fetching students:", error);
-      }
-    };
+  // Fetch all students when the school ID is entered
+  const fetchStudents = async () => {
+    if (!schoolId) {
+      setError("Please enter a school ID.");
+      return;
+    }
 
-    fetchStudents();
-  }, []);
+    try {
+      setLoading(true);
+      setError("");
+      const response = await fetch(`http://localhost:5000/students/school/${schoolId}`);
+
+      if (!response.ok) throw new Error("Failed to fetch students");
+
+      const data = await response.json();
+      setStudents(data);
+    } catch (error) {
+      console.error("Error fetching students:", error.message);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch student details when a student is selected
+  const fetchStudentDetails = async (studentId) => {
+    try {
+      setLoading(true);
+      setError("");
+      const response = await fetch(`http://localhost:5000/students/${studentId}`);
+
+      if (!response.ok) throw new Error("Failed to fetch student details");
+
+      const data = await response.json();
+      setSelectedStudent(data);
+    } catch (error) {
+      console.error("Error fetching student details:", error.message);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-3xl font-bold text-center mb-6">Students</h1>
-      <div className="flex flex-wrap justify-center p-4 gap-6">
-        {students.map((student) => (
-          <div
-            key={student._id}
-            className="bg-white rounded-2xl shadow-lg p-6 m-2 w-80 flex flex-col items-center"
-          >
-            <img
-              className="w-24 h-24 rounded-full mb-4"
-              src={student.profilePicture || "https://via.placeholder.com/150"}
-              alt={student.firstName}
-            />
-            <h2 className="text-xl font-semibold">{`${student.firstName} ${student.lastName}`}</h2>
-            
+    <div className="flex h-screen">
+      <div className="w-60 bg-white border-r flex flex-col">
+        <div className="p-6 flex items-center gap-2 border-b">
+          <span className="text-2xl">🎓</span>
+          <span className="font-semibold">EduTeach</span>
+        </div>
+      </div>
+
+      <div className="flex-1 flex flex-col">
+        <header className="bg-white border-b">
+          <div className="flex items-center justify-between px-6 h-14">
+            <h1 className="text-xl font-semibold">Student Progress</h1>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                className="border rounded-md px-3 py-1"
+                placeholder="Enter School ID"
+                value={schoolId}
+                onChange={(e) => setSchoolId(e.target.value)}
+              />
+              <button
+                className="bg-blue-500 text-white px-4 py-1 rounded-md"
+                onClick={fetchStudents}
+              >
+                Fetch Students
+              </button>
+            </div>
           </div>
-        ))}
+        </header>
+
+        <div className="flex flex-1 bg-white">
+          <div className="w-[300px] border-r p-4">
+            <h2 className="text-lg font-semibold">Students</h2>
+            {loading ? (
+              <p className="text-gray-500">Loading...</p>
+            ) : error ? (
+              <p className="text-red-500">{error}</p>
+            ) : students.length === 0 ? (
+              <p className="text-gray-500">No students found.</p>
+            ) : (
+              <div className="overflow-auto h-[calc(100vh-11rem)]">
+                {students.map((student) => (
+                  <div
+                    key={student._id}
+                    className={`flex items-center gap-3 p-3 border-b cursor-pointer hover:bg-gray-100 ${
+                      selectedStudent?._id === student._id ? "bg-blue-100" : ""
+                    }`}
+                    onClick={() => fetchStudentDetails(student._id)}
+                  >
+                    <span>
+                      {`${student.firstName} ${student.lastName}` || "Unknown Student"}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="flex-1 p-6">
+            <h2 className="text-lg font-semibold">Student Details</h2>
+
+            {selectedStudent ? (
+              <div className="mt-4 bg-gray-100 p-4 rounded-md">
+                <h3 className="text-xl font-semibold">
+                  {selectedStudent.firstName} {selectedStudent.lastName}
+                </h3>
+                <p className="text-gray-600">ID: {selectedStudent._id}</p>
+                <p className="text-gray-600">Role: {selectedStudent.role}</p>
+                <p className="text-gray-600">Date of Birth: {new Date(selectedStudent.dateOfBirth).toLocaleDateString()}</p>
+                <p className="text-gray-600">Phone: {selectedStudent.phone}</p>
+                <p className="text-gray-600">Address: {selectedStudent.address}</p>
+                <p className="text-gray-600">School ID: {selectedStudent.schoolId}</p>
+                <p className="text-gray-600">Parent ID: {selectedStudent.parent}</p>
+              </div>
+            ) : (
+              <p className="text-gray-500">Select a student to view details.</p>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
-};
+}
 
-export default teacherSProfile;
+export default TeacherSProfile;
