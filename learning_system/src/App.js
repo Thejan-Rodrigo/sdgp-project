@@ -43,9 +43,6 @@ const App = () => {
         {/* Public routes */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginPage />} />
-        {/* <Route path="/addadmin" element={<AddAdminPage />}/>
-        <Route path="/addSchool" element={<AddSchoolPage />}/>
-        <Route path="/registering" element={<RegistrationPage/>}/>
         <Route path= "/superadminannouncement" element={<SuperAdminDashboard/>}/>
         <Route path= "/adminannouncement" element={<AdminDashboard/>}/>
         <Route path= "/teacherannouncement" element={<TeacherDashboard/>}/>
@@ -56,7 +53,7 @@ const App = () => {
         <Route path="/teacherSProfile" element={<TeacherSProfile />}/>
         <Route path="/adminSProfile" element={<AdminSProfile />}/>
         <Route path="/teachermeeting" element={<TeacherMeeting/>}/>
-        <Route path="/parentmeeting" element={<ParentMeeting/>}/> */}
+        <Route path="/parentmeeting" element={<ParentMeeting/>}/> 
 
         {/* Role-protected routes */}
         <Route
