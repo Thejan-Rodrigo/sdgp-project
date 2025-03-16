@@ -5,7 +5,8 @@ const meetingSchema = new mongoose.Schema({
   description: { type: String, required: true },
   time: { type: Date, required: true },
   link: { type: String, required: true },
-  schoolId: { type: mongoose.Schema.Types.ObjectId, required: true } // Add schoolId field
+  schoolId: { type: mongoose.Schema.Types.ObjectId, required: true }, // Include schoolId
+  teacherId: { type: mongoose.Schema.Types.ObjectId, required: true }, // Include teacherId
 }, { timestamps: true });
 
 const Meeting = mongoose.model("Meeting", meetingSchema);
