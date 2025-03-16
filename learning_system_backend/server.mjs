@@ -19,6 +19,7 @@ import progressRoutes from "./routes/progressRoutes.js";
 import meetingRoutes from "./api/router/meetingRoutes.mjs";
 
 
+import chatbotRouter from "./routes/chatbotRouter.js";
 
 
 dotenv.config();
@@ -60,6 +61,7 @@ app.use("/api/students", studentRoutes);
 // Routes
 app.use("/api/students", studentRoutes);
 app.use("/api/progress", progressRoutes);
+app.use("/api/chatbot", chatbotRouter);
 
 app.get("/", (req, res) => {
   res.send("MongoDB Connected with Mongoose!");
