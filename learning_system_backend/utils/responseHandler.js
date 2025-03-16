@@ -1,8 +1,10 @@
-// utils/responseHandler.js
-export const successResponse = (res, statusCode, data, message = "Success") => {
-  res.status(statusCode).json({
-    success: true,
-    message,
-    data,
-  });
-};
+const successResponse = (res, data, message = "Success", statusCode = 200) => {
+    res.status(statusCode).json({ success: true, message, data });
+  };
+  
+  const errorResponse = (res, message = "Error", statusCode = 500) => {
+    res.status(statusCode).json({ success: false, message });
+  };
+  
+  export { successResponse, errorResponse };
+  

@@ -36,10 +36,9 @@ const ProtectedRoute = ({ allowedRoles, element }) => {
   return element;
 };
 
-
-const App = () => {
   
-
+function App() {
+  const { user } = useAuth();
   return (
     <Router>
       <Routes>
@@ -157,9 +156,21 @@ const App = () => {
         <Route path="/" element={<ParentPage />} />
 
         <Route path="/addLearningPage" element={<AddLearningPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/lessons" element={<Lessons />} />
+        <Route path="/attendance" element={<Attendance />} />
       </Routes>
+      <div className="user-info">
+        {user ? (
+          <h1>Welcome, {user.firstName}!</h1>
+        ) : (
+          <a href="/login" className="login-button">Login</a>
+        )}
+      </div>
     </Router>
   );
 };
+
 
 export default App;

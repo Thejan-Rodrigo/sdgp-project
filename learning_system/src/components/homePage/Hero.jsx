@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-
+import { useNavigate } from 'react-router-dom';
 // Updated animation variants with slower duration
 const fadeInUp = {
   hidden: { opacity: 0, y: 50 },
@@ -37,7 +37,10 @@ const AnimatedSection = ({ children, variants, className }) => {
   );
 };
 
+
 const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="relative h-[600px] bg-gradient-to-r from-blue-500 to-green-400">
       <div className="absolute inset-0 bg-black opacity-40"></div>

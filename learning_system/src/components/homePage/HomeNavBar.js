@@ -6,6 +6,7 @@ import Logo from "./Logo";
 export default function HomeNavBar() {
   const navigate = useNavigate();
   const { user, logout } = useAuth(); // Get user & logout function from context
+  console.log('Current user:', user);
 
   return (
     <nav className="bg-white shadow-md">
