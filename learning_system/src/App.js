@@ -13,8 +13,13 @@ import LoginPage from './components/loginPage/LoginPage';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import RegistrationPage from './components/registering/RegistrationPage';
 
+import StudentProfile from './components/studentProfilePage/studentProfilePage';
+import TeacherSProfile from './components/studentProfilePage/teacherSProfile';
+import AdminSProfile from "./components/studentProfilePage/adminSProfile";
 
-function App() {
+const App = () => {
+  
+
   return (
     <Router>
       <Routes>
@@ -29,10 +34,13 @@ function App() {
         <Route path= "/studentannouncement" element={<StudentDashboard/>}/>
         <Route path="/progress" element={<Progress/>}/>
         <Route path="/aboutus" element={<AboutUs/>}/>
+        <Route path="/studentprofile" element={<StudentProfile />}/>
+        <Route path="/teacherSProfile" element={<TeacherSProfile />}/>
+        <Route path="/adminSProfile" element={<AdminSProfile />}/>
       </Routes>
     </Router>
   );
-}
+};
 
 export default App
 
