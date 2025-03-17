@@ -45,7 +45,9 @@ export default function Footer() {
           <div className="grid md:grid-cols-4 gap-8">
             <AnimatedSection variants={fadeInUp}>
               <div>
-                <Logo />
+                <div className="flex items-center space-x-2">
+                  <div className="text-2xl font-bold text-primary text-blue-500">≡ Kinder Zone</div>
+                </div>
                 <p className="mt-4 text-gray-400">Nurturing young minds and building strong foundations.</p>
               </div>
             </AnimatedSection>
