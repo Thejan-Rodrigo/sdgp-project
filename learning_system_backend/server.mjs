@@ -11,7 +11,8 @@ import { errorHandler } from "./middleware/errorHandler.js"; // Use curly braces
 import logRequest from './utils/logger.js'; // Adjust the path to where you defined logRequest
 import studentRoutes from "./routes/studentRoutes.js";
 import progressRoutes from "./routes/progressRoutes.js";
-import { getStudentProfile, getStudentAttendance, getStudentProgress } from "./controllers/studentController.js";
+// import { getStudentProfile, getStudentProgress } from "./controllers/studentController.js";
+// import { getAttendance } from "./controllers/studentAttendace.js"
 
 dotenv.config();
 connectDB();
@@ -44,7 +45,7 @@ res.send("MongoDB Connected with Mongoose!");
 });
 
 app.use("/students", studentRoutes);
-// app.use("/attendance", attendanceRoutes);
+//app.use("/attendance", attendanceRoutes);
 // app.use("/progress", progressRoutes);
 
 

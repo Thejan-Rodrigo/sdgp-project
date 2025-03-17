@@ -15,6 +15,7 @@ import RegistrationPage from './components/registering/RegistrationPage';
 
 import StudentProfile from './components/studentProfilePage/studentProfilePage';
 import TeacherSProfile from './components/studentProfilePage/teacherSProfile';
+import AdminSProfile from "./components/studentProfilePage/adminSProfile";
 
 const App = () => {
   
@@ -35,6 +36,7 @@ const App = () => {
         <Route path="/aboutus" element={<AboutUs/>}/>
         <Route path="/studentprofile" element={<StudentProfile />}/>
         <Route path="/teacherSProfile" element={<TeacherSProfile />}/>
+        <Route path="/adminSProfile" element={<AdminSProfile />}/>
       </Routes>
     </Router>
   );
