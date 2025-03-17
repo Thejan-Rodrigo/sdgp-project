@@ -1,5 +1,5 @@
 import React from 'react';
-import StudentSidebar from './Headers/StudentSidebar';
+import StudentSidebar from '../ParentSideBar';
 import StudentHeader from './Headers/StudentHeader';
 import AnnouncementDashboard from './AnnouncementDashboard';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import SuperAdminSidebar from './Headers/SuperAdminSidebar'
+import SuperAdminSidebar from '../SupAdSidebar'
 import SuperAdminHeader from './Headers/SuperAdminHeader';
 import AnnouncementDashboard from './AnnouncementDashboard';
 

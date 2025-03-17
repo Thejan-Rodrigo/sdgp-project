@@ -110,6 +110,45 @@ const App = () => {
             />
           }
         />
+        <Route
+          path="/superadminannouncement"
+          element={
+            <ProtectedRoute
+              allowedRoles={['superadmin']}
+              element={<SuperAdminDashboard />}
+            />
+          }
+        />
+
+        <Route
+          path="/adminannouncement"
+          element={
+            <ProtectedRoute
+              allowedRoles={['admin']}
+              element={<AdminDashboard />}
+            />
+          }
+        />
+
+        <Route
+          path="/teacherannouncement"
+          element={
+            <ProtectedRoute
+              allowedRoles={['teacher']}
+              element={<TeacherDashboard />}
+            />
+          }
+        />
+
+        <Route
+          path="/studentannouncement"
+          element={
+            <ProtectedRoute
+              allowedRoles={['parent']}
+              element={<StudentDashboard />}
+            />
+          }
+        />
       </Routes>
     </Router>
   );

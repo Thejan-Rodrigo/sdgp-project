@@ -3,7 +3,7 @@ import CommenNavBar from '../CommenNavbBar'
 import ParentSideBar from '../ParentSideBar'
 import ParentMessage from './ParentMessage'
 import axios from "axios";
-import Sidebar from '../TeaSidebar';
+import Sidebar from '../ParentSideBar';
 
 export default function ParentMeeting() {
 

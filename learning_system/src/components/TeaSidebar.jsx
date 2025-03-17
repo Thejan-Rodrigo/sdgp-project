@@ -7,7 +7,7 @@ const Sidebar = () => {
   const location = useLocation(); // Initialize useLocation to get the current route
 
   const menuItems = [
-    { icon: <FaBullhorn />, text: 'Announcement', path: '/announcement' }, // Added path for Announcement
+    { icon: <FaBullhorn />, text: 'Announcement', path: '/teacherannouncement' }, // Added path for Announcement
     { icon: <FaCalendar />, text: 'Meeting', path: '/teachermeeting' }, // Added path for Meeting
     { icon: <FaUserCheck />, text: 'Attendance', path: '/attendance' }, // Added path for Attendance
     { icon: <FaBook />, text: 'Lessons', path: '/lessons' }, // Added path for Lessons
