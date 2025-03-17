@@ -72,16 +72,16 @@ const LoginForm = () => {
       // Redirect based on user role
       switch (responseData.data.user.role) {
         case "teacher":
-          navigate("/teachermeeting"); // Redirect to teacher meeting page
+          navigate("/teacherannouncement"); // Redirect to teacher meeting page
           break;
         case "parent":
-          navigate("/parentmeeting"); // Redirect to parent meeting page
+          navigate("/studentannouncement"); // Redirect to parent meeting page
           break;
         case "admin":
-          navigate("/registering"); // Redirect to registering page
+          navigate("/adminannouncement"); // Redirect to registering page
           break;
         case "superadmin":
-          navigate("/addadmin"); // Redirect to add admin page
+          navigate("/superadminannouncement"); // Redirect to add admin page
           break;
         default:
           navigate("/"); // Default redirect to home page

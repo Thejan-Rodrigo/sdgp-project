@@ -9,14 +9,11 @@ const Sidebar = () => {
   const location = useLocation(); // Initialize useLocation to get the current route
 
   const menuItems = [
-    { icon: <FaGraduationCap />, text: 'EduAdmin', isHeader: true },
-    { icon: <FaTachometerAlt />, text: 'Dashboard', path: '/dashboard' }, // Added path for Dashboard
-    { icon: <FaBell />, text: 'Announcements', path: '/announcements' }, // Added path for Announcements
+    //{ icon: <FaGraduationCap />, text: 'EduAdmin', isHeader: true },
+    { icon: <FaBell />, text: 'Announcements', path: '/superadminannouncement' }, // Added path for Announcements
     { icon: <FaSchool />, text: 'Add School', path: '/addSchool' }, // Added path for Add School
     { icon: <FaUserCog />, text: 'Add Admin', path: '/addadmin' }, // Added path for Add Admin
-    { icon: <FaUserGraduate />, text: 'Student Profiles', path: '/student-profiles' }, // Added path for Student Profiles
-    { icon: <FaQuestionCircle />, text: 'Q&A Management', path: '/qa-management' }, // Added path for Q&A Management
-    { icon: <FaHeadphones />, text: 'Help & Support', path: '/help-support' }, // Added path for Help & Support
+    { icon: <FaQuestionCircle />, text: 'Q&A Management', path: '/qa-management' } // Added path for Q&A Management
   ];
 
   // Function to handle menu item clicks
@@ -29,7 +26,14 @@ const Sidebar = () => {
   return (
     <div className="w-64 bg-white shadow-lg h-screen">
       <div className="p-4">
+      <div
+            className='flex items-center gap-3 p-3 rounded-lg mb-2 cursor-pointer text-blue-600 font-bold text-lg ' // Active styles
+          >
+            <FaGraduationCap />
+            <span>Kinderzone</span>
+          </div>
         <div className="flex items-center gap-3 mb-8">
+          
           <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
             <img src="https://via.placeholder.com/40" alt="Profile" className="rounded-full" />
           </div>
@@ -52,13 +56,12 @@ const Sidebar = () => {
             return (
               <div
                 key={index}
-                className={`flex items-center gap-3 p-3 rounded-lg mb-2 cursor-pointer ${
-                  item.isHeader
+                className={`flex items-center gap-3 p-3 rounded-lg mb-2 cursor-pointer ${item.isHeader
                     ? 'text-blue-600 font-bold text-lg' // Header styles
                     : isActive
-                    ? 'bg-blue-600 text-white' // Active styles
-                    : 'text-gray-700 hover:bg-gray-100' // Default styles
-                }`}
+                      ? 'bg-blue-600 text-white' // Active styles
+                      : 'text-gray-700 hover:bg-gray-100' // Default styles
+                  }`}
                 onClick={() => handleMenuItemClick(item.path)} // Add onClick handler
               >
                 {item.icon}

@@ -1,5 +1,5 @@
 import React from 'react';
-import TeacherSidebar from './Headers/TeacherSidebar';
+import TeacherSidebar from '../TeaSidebar';
 import TeacherHeader from './Headers/TeacherHeader';
 import AnnouncementDashboard from './AnnouncementDashboard';
 
