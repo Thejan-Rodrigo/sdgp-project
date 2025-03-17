@@ -2,36 +2,46 @@
 
 import { useState, useEffect } from "react";
 
-function TeacherSProfile() {
-  const [schoolId, setSchoolId] = useState(""); // State for school ID
+function TeacherSProfile({ user }) {
   const [students, setStudents] = useState([]); // State for the list of students
-  const [selectedStudent, setSelectedStudent] = useState(null); // State for selected student
-  const [loading, setLoading] = useState(false); // Loading state
+  const [selectedStudent, setSelectedStudent] = useState(true); // State for selected student
+  const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(""); // Error state
 
-  // Fetch all students when the school ID is entered
-  const fetchStudents = async () => {
-    if (!schoolId) {
-      setError("Please enter a school ID.");
-      return;
-    }
+  // Fetch students by school ID (from the authenticated user)
+  useEffect(() => {
+    //if (!user || !user.schoolId) return; // Ensure user and schoolId are available
 
-    try {
-      setLoading(true);
-      setError("");
-      const response = await fetch(`http://localhost:5000/students/school/${schoolId}`);
+    const fetchStudentsBySchoolId = async () => {
+      try {
+        console.log("hi");
+        setLoading(true);
+        setError("");
+        const response = await fetch(`http://localhost:5000/students/school/67cc5370e98552e9b5a6e097`);
+        console.log("hi");
+        console.log("Response object:", response);
+        console.log("h1"); // Check the raw response
 
-      if (!response.ok) throw new Error("Failed to fetch students");
+        if (!response.ok) throw new Error("Failed to fetch students");
 
-      const data = await response.json();
-      setStudents(data);
-    } catch (error) {
-      console.error("Error fetching students:", error.message);
-      setError(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+        const data = await response.json();
+        console.log("Fetched students data:", data); // Debugging
+
+        
+        console.log(data);
+        setStudents(data);
+        
+         
+      } catch (error) {
+        console.error("Error fetching students:", error);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStudentsBySchoolId();
+  }, [user]); // Re-fetch when user changes
 
   // Fetch student details when a student is selected
   const fetchStudentDetails = async (studentId) => {
@@ -43,7 +53,7 @@ function TeacherSProfile() {
       if (!response.ok) throw new Error("Failed to fetch student details");
 
       const data = await response.json();
-      setSelectedStudent(data);
+      setSelectedStudent(data.data); // Update with the student details
     } catch (error) {
       console.error("Error fetching student details:", error.message);
       setError(error.message);
@@ -65,21 +75,6 @@ function TeacherSProfile() {
         <header className="bg-white border-b">
           <div className="flex items-center justify-between px-6 h-14">
             <h1 className="text-xl font-semibold">Student Progress</h1>
-            <div className="flex gap-2">
-              <input
-                type="text"
-                className="border rounded-md px-3 py-1"
-                placeholder="Enter School ID"
-                value={schoolId}
-                onChange={(e) => setSchoolId(e.target.value)}
-              />
-              <button
-                className="bg-blue-500 text-white px-4 py-1 rounded-md"
-                onClick={fetchStudents}
-              >
-                Fetch Students
-              </button>
-            </div>
           </div>
         </header>
 

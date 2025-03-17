@@ -14,6 +14,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import RegistrationPage from './components/registering/RegistrationPage';
 
 import StudentProfile from './components/studentProfilePage/studentProfilePage';
+import TeacherSProfile from './components/studentProfilePage/teacherSProfile';
 
 const App = () => {
   
@@ -33,7 +34,7 @@ const App = () => {
         <Route path="/progress" element={<Progress/>}/>
         <Route path="/aboutus" element={<AboutUs/>}/>
         <Route path="/studentprofile" element={<StudentProfile />}/>
-        <Route path="/teacherSProfile" element={<teacherSProfile />}/>
+        <Route path="/teacherSProfile" element={<TeacherSProfile />}/>
       </Routes>
     </Router>
   );
