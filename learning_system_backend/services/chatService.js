@@ -1,9 +1,12 @@
-import Message from "../models/Message.js"
+import Message from "../models/Message.js";
 
 const saveMessage = async (data) => {
   try {
-    const message = new Message(data);
-    console.log("hello")
+    const message = new Message({
+      senderId: data.senderId,
+      receiverId: data.receiverId,
+      message: data.message,
+    });
     await message.save();
     return message;
   } catch (error) {
@@ -11,13 +14,13 @@ const saveMessage = async (data) => {
   }
 };
 
-const getMessages = async (sender, receiver) => {
+const getMessages = async (senderId, receiverId) => {
   return await Message.find({
     $or: [
-      { sender, receiver },
-      { sender: receiver, receiver: sender },
+      { senderId, receiverId },
+      { senderId: receiverId, receiverId: senderId },
     ],
-  }).sort({ timestamp: 1 });
+  }).sort({ createdAt: 1 }); // Sort by timestamp
 };
 
 export default { saveMessage, getMessages };
