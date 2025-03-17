@@ -21,6 +21,7 @@ import TeacherSProfile from './components/studentProfilePage/teacherSProfile';
 import AdminSProfile from "./components/studentProfilePage/adminSProfile";
 import TeacherPage from "./components/learning/teacher/TeacherPage";
 import ParentPage from "./components/learning/parent/ParentPage";
+import AddLearningPage from "./components/addLearning/addLearningpage";
 
 // ProtectedRoute component
 const ProtectedRoute = ({ allowedRoles, element }) => {
@@ -155,6 +156,7 @@ const App = () => {
         <Route path="/parent" element={<ParentPage />} />
         <Route path="/" element={<ParentPage />} />
 
+        <Route path="/addLearningPage" element={<AddLearningPage />} />
       </Routes>
     </Router>
   );
