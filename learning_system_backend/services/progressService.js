@@ -1,4 +1,4 @@
-import Progress from "../models/progress.js";
+import Progress from "../models/Progress.js";
 import Student from "../models/Student.js"; // Assuming you have a Student model
 import User from "../models/User.js"; // Assuming you have a User model
 

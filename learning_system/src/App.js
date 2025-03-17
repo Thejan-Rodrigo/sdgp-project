@@ -16,6 +16,9 @@ import TeacherMassage from './components/meeting/TeacherMassage';
 import TeacherMeeting from './components/meeting/TeacherMeeting';
 import ParentMeeting from './components/meeting/ParentMeeting';
 import { useAuth } from './context/AuthContext'; // Import useAuth
+import StudentProfile from './components/studentProfilePage/studentProfilePage';
+import TeacherSProfile from './components/studentProfilePage/teacherSProfile';
+import AdminSProfile from "./components/studentProfilePage/adminSProfile";
 
 // ProtectedRoute component
 const ProtectedRoute = ({ allowedRoles, element }) => {
@@ -30,9 +33,6 @@ const ProtectedRoute = ({ allowedRoles, element }) => {
   return element;
 };
 
-import StudentProfile from './components/studentProfilePage/studentProfilePage';
-import TeacherSProfile from './components/studentProfilePage/teacherSProfile';
-import AdminSProfile from "./components/studentProfilePage/adminSProfile";
 
 const App = () => {
   

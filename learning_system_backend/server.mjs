@@ -49,7 +49,7 @@ app.get("/", (req, res) => {
 res.send("MongoDB Connected with Mongoose!");
 });
 
-app.use("/students", studentRoutes);
+app.use("/api/students", studentRoutes);
 //app.use("/attendance", attendanceRoutes);
 // app.use("/progress", progressRoutes);
 

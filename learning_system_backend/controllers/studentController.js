@@ -1,9 +1,12 @@
-import { getAllStudents } from "../services/studentService.js";
-import { fetchStudentProfile, fetchStudentAttendance, fetchStudentProgress } from "../services/studentService.js";
-// Get Student Profile
-import { getStudentById } from "../services/studentService.js";
-import { getStudentsBySchoolId } from "../services/studentService.js";
-import { updateStudentById } from "../services/studentService.js";
+import {
+  getAllStudents,
+  getStudentById,
+  getStudentsBySchoolId,
+  updateStudentById,
+  getStudentByParentId,
+  getParentById as getParentByIdService,
+  getProgressByParentId as getProgressByParentIdService, // Add this
+} from "../services/studentService.js";
 
 export const getStudents = async (req, res) => {
   try {
@@ -12,37 +15,26 @@ export const getStudents = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Error fetching students", error });
   }
-}
-
-
+};
 
 export const getStudentProfile = async (req, res) => {
   try {
-    console.log("hi c1");
-    const student = await getStudentById(req.params.id);
-    console.log("hi c2");
+    const student = await getStudentById(req.params.studentId);
     res.json(student);
-    console.log("hi c3");
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-
-// Controller to get all students by school ID
 export const getStudentsBySchool = async (req, res) => {
   try {
-    console.log("c1");
     const { schoolId } = req.params;
-
-    // Get students from the service
     const students = await getStudentsBySchoolId(schoolId);
 
-    // Check if students are found
     if (!students.length) {
       return res.status(404).json({ message: "No students found for this school." });
     }
-    console.log("c2");
+
     res.status(200).json(students);
   } catch (error) {
     console.error("Error fetching students:", error.message);
@@ -50,8 +42,6 @@ export const getStudentsBySchool = async (req, res) => {
   }
 };
 
-
-// Update student details
 export const updateStudent = async (req, res) => {
   try {
     const { studentId } = req.params;
@@ -70,4 +60,71 @@ export const updateStudent = async (req, res) => {
   }
 };
 
+export const getStudentsByParentId = async (req, res) => {
+  try {
+    const { parentId } = req.params;
 
+    // Fetch the parent document to get the studentId(s)
+    const parent = await getParentByIdService(parentId);
+
+    if (!parent) {
+      return res.status(404).json({ message: "Parent not found." });
+    }
+
+    // Fetch the student(s) using the studentId(s) from the parent document
+    const students = await getStudentByParentId(parent.student);
+
+    if (!students.length) {
+      return res.status(404).json({ message: "No students found for this parent." });
+    }
+
+    res.status(200).json(students);
+  } catch (error) {
+    console.error("Error fetching students by parent ID:", error.message);
+    res.status(500).json({ message: "Server error." });
+  }
+};
+
+export const getParentById = async (req, res) => {
+  try {
+    const { parentId } = req.params;
+
+    // Fetch the parent document
+    const parent = await getParentByIdService(parentId);
+
+    if (!parent) {
+      return res.status(404).json({ message: "Parent not found." });
+    }
+
+    res.status(200).json(parent);
+  } catch (error) {
+    console.error("Error fetching parent:", error.message);
+    res.status(500).json({ message: "Server error." });
+  }
+};
+
+// New controller to get progress by parent ID
+export const getProgressByParentId = async (req, res) => {
+  try {
+    const { parentId } = req.params;
+
+    // Fetch the parent document to get the studentId(s)
+    const parent = await getParentByIdService(parentId);
+
+    if (!parent) {
+      return res.status(404).json({ message: "Parent not found." });
+    }
+
+    // Fetch progress data for the student(s) associated with the parent
+    const progress = await getProgressByParentIdService(parent.student);
+
+    if (!progress.length) {
+      return res.status(404).json({ message: "No progress records found for this parent." });
+    }
+
+    res.status(200).json(progress);
+  } catch (error) {
+    console.error("Error fetching progress by parent ID:", error.message);
+    res.status(500).json({ message: "Server error." });
+  }
+};
