@@ -58,12 +58,32 @@ const ChatArea = () => {
     }
   };
 
+  const handleDeleteMessage = async (messageId, senderId) => {
+    if (senderId !== "67ceba9febd2b490d7c573c0") {
+      alert("You can only delete your own messages.");
+      return;
+    }
+  
+    try {
+      await axios.delete(`http://localhost:5000/api/chat/delete/${messageId}`, {
+        data: { userId: senderId },
+      });
+  
+      setMessages((prevMessages) => prevMessages.filter((msg) => msg._id !== messageId));
+      socket.emit("deleteMessage", messageId);
+    } catch (error) {
+      console.error("Error deleting message:", error.response?.data || error.message);
+    }
+  };
+  
+
   return (
     <div className="flex-1 flex flex-col h-screen">
       <ChatHeader teacher={{ name: receiverId, subject: "Mathematics" }} />
       <div className="flex-1 overflow-y-auto p-4 bg-white">
         {messages.map((message, index) => (
-          <Message key={index} {...message} currentUserId={senderId} />
+          <Message key={index} {...message} currentUserId={senderId} onDelete={() => handleDeleteMessage(message._id, message.senderId)} />
+
         ))}
       </div>
       <ChatInput onSendMessage={handleSendMessage} />
