@@ -1,23 +1,20 @@
-const Message = ({ message, timestamp, sender, currentUser }) => {
-    const isSentByUser = sender === currentUser;
-  
-    return (
-      <div className={`flex ${isSentByUser ? "justify-end" : "justify-start"} my-2 mb-6`}>
-        <div className="flex flex-col max-w-xs">
-          <div
-            className={`p-3 rounded-lg ${
-              isSentByUser ? "bg-blue-700 text-white" : "bg-blue-200 text-black"
-            }`}
-          >
-            <p>{message}</p>
-          </div>
-          <span className={`text-xs text-gray-500 mt-1 ${isSentByUser ? "text-right" : "text-left"}`}>
-            {new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-          </span>
-        </div>
+const Message = ({ message, timestamp, senderId, currentUserId }) => {
+  const isSentByUser = senderId === currentUserId;
+
+  return (
+    <div className={`flex ${isSentByUser ? "justify-end" : "justify-start"} my-2`}>
+      <div
+        className={`max-w-xs p-3 rounded-lg shadow-md ${
+          isSentByUser ? "bg-blue-600 text-white rounded-tr-none" : "bg-gray-200 text-black rounded-tl-none"
+        }`}
+      >
+        <p>{message}</p>
+        <span className="text-xs text-gray-500 block text-right mt-1">
+          {new Date(timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+        </span>
       </div>
-    );
-  };
-  
-  export default Message;
-  
+    </div>
+  );
+};
+
+export default Message;
