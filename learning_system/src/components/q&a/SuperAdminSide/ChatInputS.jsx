@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { Paperclip, Send } from 'lucide-react';
+import React, { useState } from "react";
+import { Paperclip, Send } from "lucide-react";
 
 const ChatInputS = ({ onSendMessage }) => {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (message.trim()) {
       onSendMessage(message);
-      setMessage('');
+      setMessage("");
     }
   };
 
