@@ -6,7 +6,8 @@ import {
   updateStudent,
   getStudentsByParentId,
   getParentById,
-  getProgressByParentId, // Add this
+  getProgressByParentId,
+  getProgressByStudentId, // Add this
 } from "../controllers/studentController.js";
 
 const router = express.Router();
@@ -26,7 +27,10 @@ router.get("/parent/:parentId", getStudentsByParentId);
 router.get("/parent/:parentId/details", getParentById);
 
 // GET progress by parent ID
-router.get("/parent/:parentId/progress", getProgressByParentId); // Add this route
+router.get("/parent/:parentId/progress", getProgressByParentId);
+
+// GET progress by student ID
+router.get("/:studentId/progress", getProgressByStudentId); // Add this route
 
 // Update student by ID
 router.put("/:studentId", updateStudent);

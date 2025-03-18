@@ -10,6 +10,7 @@ const Sidebar = () => {
     { icon: <FaBullhorn />, text: 'Announcement', path: '/teacherannouncement' }, // Added path for Announcement
     { icon: <FaCalendar />, text: 'Meeting', path: '/teachermeeting' }, // Added path for Meeting
     { icon: <FaUserCheck />, text: 'Attendance', path: '/attendance' }, // Added path for Attendance
+    { icon: <FaUserCheck />, text: 'Student Profile', path: '/teacherSProfile' }, // Added path for Attendance
     { icon: <FaBook />, text: 'Lessons', path: '/lessons' }, // Added path for Lessons
     { icon: <FaChartBar />, text: 'Progress', path: '/progress' }, // Added path for Progress
     { icon: <FaQuestionCircle />, text: 'Q&A', path: '/qa' }, // Added path for Q&A
