@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext"; // Import the useAuth hook
+import ParentSideBar from "../ParentSideBar"
 
 const StudentProfile = () => {
   const [student, setStudent] = useState(null); // Change initial state to null
@@ -68,28 +69,7 @@ const StudentProfile = () => {
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Left Sidebar */}
-      <div className="w-64 bg-white border-r">
-        <div className="p-4 border-b">
-          <h1 className="text-xl font-semibold flex items-center gap-2">
-            <span className="text-blue-600">📚</span> EduTeach
-          </h1>
-        </div>
-        <div className="p-2">
-          <div className="flex items-center gap-3 p-2 rounded-lg">
-            <img
-              src="https://via.placeholder.com/40"
-              alt="Profile"
-              className="w-8 h-8 rounded-full"
-            />
-            <div>
-              <div className="font-medium">
-                {student ? `${student.firstName} ${student.lastName}` : "Loading..."}
-              </div>
-              <div className="text-sm text-gray-500">Student ID: {student?._id || "..."}</div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <ParentSideBar />
 
       {/* Main Content */}
       <div className="flex-1">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import AdSidebar from "../AdSidebar"
 
 function AdminSProfile({ user }) {
   const [students, setStudents] = useState([]);
@@ -9,6 +10,7 @@ function AdminSProfile({ user }) {
   const [error, setError] = useState("");
   const [isEditing, setIsEditing] = useState(false); // Editing state
   const [editedStudent, setEditedStudent] = useState({}); // Holds edited student details
+  const [progress, setProgress] = useState([]); // State for progress data
 
   // Fetch students by school ID
   useEffect(() => {
@@ -16,7 +18,7 @@ function AdminSProfile({ user }) {
       try {
         setLoading(true);
         setError("");
-        const response = await fetch(`http://localhost:5000/students/school/67cc5370e98552e9b5a6e097`);
+        const response = await fetch(`http://localhost:5000/api/students/school/67cc5370e98552e9b5a6e097`);
 
         if (!response.ok) throw new Error("Failed to fetch students");
 
@@ -34,6 +36,42 @@ function AdminSProfile({ user }) {
 
     fetchStudentsBySchoolId();
   }, [user]);
+
+  // Fetch progress data when a student is selected
+  useEffect(() => {
+    const fetchProgressByStudentId = async () => {
+      if (!selectedStudent) return; // Do nothing if no student is selected
+
+      try {
+        setLoading(true);
+        setError("");
+        const response = await fetch(
+          `http://localhost:5000/api/students/${selectedStudent._id}/progress`
+        );
+
+        if (!response.ok) throw new Error("Failed to fetch progress data");
+
+        const data = await response.json();
+
+        // If the response is an empty array, set progress to an empty array
+        if (Array.isArray(data)) {
+          setProgress(data);
+          // if (data.length === 0) {
+          //   setError("No progress are posted by teachers yet..."); // Set a user-friendly message
+          // } else {
+          //   setError(""); // Clear any previous error
+          // }
+        }
+      } catch (error) {
+        console.error("Error fetching progress data:", error);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProgressByStudentId();
+  }, [selectedStudent]); // Re-run when selectedStudent changes
 
   // Handle input changes for edited student
   const handleInputChange = (e) => {
@@ -75,12 +113,7 @@ function AdminSProfile({ user }) {
 
   return (
     <div className="flex h-screen">
-      <div className="w-60 bg-white border-r flex flex-col">
-        <div className="p-6 flex items-center gap-2 border-b">
-          <span className="text-2xl">🎓</span>
-          <span className="font-semibold">EduTeach</span>
-        </div>
-      </div>
+      <AdSidebar />
 
       <div className="flex-1 flex flex-col">
         <header className="bg-white border-b">
@@ -164,10 +197,10 @@ function AdminSProfile({ user }) {
                     />
                     <input
                       type="text"
-                      name="address"
+                      name="dateOfBirth"
                       value={editedStudent.dateOfBirth || ""}
                       onChange={handleInputChange}
-                      placeholder="DateOfBirth"
+                      placeholder="Date of Birth"
                       className="block w-full p-2 mt-2 border rounded"
                     />
                     <button
@@ -189,6 +222,7 @@ function AdminSProfile({ user }) {
                     <p className="text-gray-600">Address: {selectedStudent.address}</p>
                     <p className="text-gray-600">Role: {selectedStudent.role}</p>
                     <p className="text-gray-600">ID: {selectedStudent._id}</p>
+                    <p className="text-gray-600">Parent: {selectedStudent.parentFirstName} {selectedStudent.parentLastName}</p>
                     <button
                       onClick={() => setIsEditing(true)}
                       className="mt-4 bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
@@ -197,6 +231,32 @@ function AdminSProfile({ user }) {
                     </button>
                   </>
                 )}
+
+                {/* Progress Section */}
+                <div className="mt-6">
+                  <h4 className="text-lg font-semibold">Progress Records</h4>
+                  {loading ? (
+                    <p className="text-gray-500">Loading progress...</p>
+                  ) : error ? (
+                    <p className="text-red-500">{error}</p>
+                  ) : progress.length === 0 ? (
+                    <p className="text-gray-500">No progress are posted by teachers yet...</p>
+                  ) : (
+                    <div className="mt-4">
+                      {progress.map((record) => (
+                        <div key={record._id} className="mb-4 p-4 bg-white rounded-md shadow-sm">
+                          <p className="text-gray-600"><strong>Notes:</strong> {record.notes}</p>
+                          <p className="text-gray-600">
+                            <strong>Posted By:</strong> {record.teacherFirstName} {record.teacherLastName}
+                          </p>
+                          <p className="text-gray-600">
+                            <strong>Created At:</strong> {new Date(record.createdAt).toLocaleDateString()}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
             ) : (
               <p className="text-gray-500">Select a student to view details.</p>

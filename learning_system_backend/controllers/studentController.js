@@ -5,7 +5,8 @@ import {
   updateStudentById,
   getStudentByParentId,
   getParentById as getParentByIdService,
-  getProgressByParentId as getProgressByParentIdService, // Add this
+  getProgressByParentId as getProgressByParentIdService,
+  getProgressByStudentId as getProgressByStudentIdService, // Add this
 } from "../services/studentService.js";
 
 export const getStudents = async (req, res) => {
@@ -103,7 +104,6 @@ export const getParentById = async (req, res) => {
   }
 };
 
-// New controller to get progress by parent ID
 export const getProgressByParentId = async (req, res) => {
   try {
     const { parentId } = req.params;
@@ -125,6 +125,22 @@ export const getProgressByParentId = async (req, res) => {
     res.status(200).json(progress);
   } catch (error) {
     console.error("Error fetching progress by parent ID:", error.message);
+    res.status(500).json({ message: "Server error." });
+  }
+};
+
+// Controller to get progress by student ID
+export const getProgressByStudentId = async (req, res) => {
+  try {
+    const { studentId } = req.params;
+
+    // Fetch progress data for the student
+    const progress = await getProgressByStudentIdService(studentId);
+
+    // If no progress records are found, return an empty array
+    res.status(200).json(progress);
+  } catch (error) {
+    console.error("Error fetching progress by student ID:", error.message);
     res.status(500).json({ message: "Server error." });
   }
 };
