@@ -27,7 +27,6 @@ const addLearningMaterial = async ({ title, description, duration, audience, ima
 const getAllLearningMaterials = async (filter = {}) => {
   try {
     const materials = await Learning.find(filter); 
-    console.log(materials); 
     return materials;
   } catch (error) {
     console.error("Error fetching materials:", error);
