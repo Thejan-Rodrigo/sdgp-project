@@ -1,10 +1,9 @@
 import express from "express";
-import chatController from "../controllers/chatController.js"; // Import the default export
+import chatController from "../controllers/chatController.js";
 
 const router = express.Router();
 
 router.post("/send", chatController.sendMessage);
-router.get("/:sender/:receiver", chatController.getChatHistory);
+router.get("/:senderId/:receiverId", chatController.getChatHistory);
 
 export default router;
-

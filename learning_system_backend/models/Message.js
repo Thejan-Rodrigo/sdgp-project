@@ -1,9 +1,9 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const messageSchema = new mongoose.Schema(
   {
-    sender: { type: String, required: true }, // user ID or name
-    receiver: { type: String, required: true }, // recipient ID or group
+    senderId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    receiverId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     message: { type: String, required: true },
     timestamp: { type: Date, default: Date.now },
   },
