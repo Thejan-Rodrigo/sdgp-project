@@ -1,3 +1,4 @@
 credentials.json
 test.txt
 *node_modules/*
+/uploads
