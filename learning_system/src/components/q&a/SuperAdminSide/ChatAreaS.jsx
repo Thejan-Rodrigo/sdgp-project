@@ -24,7 +24,7 @@ const ChatArea = () => {
     };
 
     fetchMessages();
-    
+
     // ✅ SuperAdmin joins their socket room
     socket.emit("join", senderId);
 
@@ -34,8 +34,14 @@ const ChatArea = () => {
       setMessages((prevMessages) => [...prevMessages, message]);
     });
 
+    // ✅ Listen for deleted messages
+    socket.on("messageDeleted", (messageId) => {
+      setMessages((prevMessages) => prevMessages.filter((msg) => msg._id !== messageId));
+    });
+
     return () => {
       socket.off("receiveMessage");
+      socket.off("messageDeleted");
     };
   }, [senderId, receiverId]);
 
@@ -63,12 +69,38 @@ const ChatArea = () => {
     }
   };
 
+  const handleDeleteMessage = async (messageId, senderIdFromMsg) => {
+    if (senderIdFromMsg !== "67ca7c9f7800be438ae1efc1") {
+      alert("You can only delete your own messages.");
+      return;
+    }
+
+    try {
+      await axios.delete(`http://localhost:5000/api/chat/delete/${messageId}`, {
+        data: { userId: senderId },
+      });
+
+      // ✅ Remove from UI instantly
+      setMessages((prevMessages) => prevMessages.filter((msg) => msg._id !== messageId));
+
+      // ✅ Emit delete event for real-time sync
+      socket.emit("deleteMessage", messageId);
+    } catch (error) {
+      console.error("Error deleting message:", error.response?.data || error.message);
+    }
+  };
+
   return (
     <div className="flex-1 flex flex-col h-screen">
       <ChatHeader admin={{ name: receiverId }} />
       <div className="flex-1 overflow-y-auto p-4 bg-white">
         {messages.map((message, index) => (
-          <Message key={index} {...message} currentUserId={senderId} />
+          <Message
+            key={index}
+            {...message}
+            currentUserId={senderId}
+            onDelete={() => handleDeleteMessage(message._id, message.senderId)}
+          />
         ))}
       </div>
       <ChatInput onSendMessage={handleSendMessage} />
