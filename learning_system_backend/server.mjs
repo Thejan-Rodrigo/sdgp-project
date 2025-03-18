@@ -20,10 +20,12 @@ import meetingRoutes from "./api/router/meetingRoutes.mjs";
 
 import lessonsRoutes from "./routes/lessonsRoutes.js";
 import attendanceRoutes from "./routes/attendanceRoutes.js";
+import chatRoutes from "./routes/chatRoutes.js";
+import errorHandler from "./middleware/errorMiddleware.js";
 import http from "http";
 import { Server } from "socket.io";
-import chatRoutes from "./routes/chatRoutes.js";
 import ChatService from "./services/chatService.js";
+import MessageModel from "./models/Message.js"; // ✅ Import Message Model
 
 dotenv.config(); // Load environment variables
 connectDB(); // Connect to MongoDB
@@ -33,31 +35,17 @@ app.use(express.json());
 app.use(cors());
 
 // Routes
-
-app.use("/api/admin", adminRoutes);
-app.use("/api/schools", schoolRoutes);
-
-app.use("/api/learning", learningRoutes)
-
-
 app.use("/api/auth", authRoutes);
-
-app.use('/api/v1/announcements', announcementRoute);
-
-app.get("/test",(req,res)=>{
-const server = http.createServer(app);
-
-const io = new Server(server, {
-    cors: { origin: "*" },
-})})
-
+app.use("/api/admin", adminRoutes);
 app.use("/api/chat", chatRoutes);
 
-const server = http.createServer(app); // ✅ Fix: Ensure WebSocket is on same server
+// Create HTTP Server
+const server = http.createServer(app);
 
+// WebSocket Server
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000", // Change to match frontend
+    origin: "http://localhost:3000", // ✅ Ensure frontend URL is correct
     methods: ["GET", "POST"],
   },
 });
@@ -68,10 +56,9 @@ io.on("connection", (socket) => {
   socket.on("sendMessage", async (data) => {
     try {
       const savedMessage = await ChatService.saveMessage(data);
-      
       console.log("Message saved:", savedMessage);
 
-      // Emit message only to the intended recipient
+      // Emit message to recipient
       socket.to(data.receiverId).emit("receiveMessage", savedMessage);
       socket.emit("receiveMessage", savedMessage); // Send back to sender
     } catch (error) {
@@ -84,35 +71,33 @@ io.on("connection", (socket) => {
   });
 });
 
-
-app.post("/api/chat/send", async (req, res) => {
+// ✅ Fix: Properly Define the Delete Route
+app.delete("/api/chat/delete/:messageId", async (req, res) => {
   try {
-    const { senderId, receiverId, message } = req.body;
+    const { messageId } = req.params;
+    const { userId } = req.body; // Assuming sender ID is sent in the request body
 
-    if (!senderId || !receiverId || !message) {
-      return res.status(400).json({ error: "Missing required fields" }); // ✅ Clear error message
+    const message = await MessageModel.findById(messageId);
+
+    if (!message) {
+      return res.status(404).json({ error: "Message not found" });
     }
 
-    const newMessage = new ChatModel({
-      senderId,
-      receiverId,
-      message,
-      timestamp: new Date(),
-    });
+    if (message.senderId.toString() !== userId) {
+      return res.status(403).json({ error: "You can only delete your own messages" });
+    }
 
-    const savedMessage = await newMessage.save();
-
-    res.status(201).json(savedMessage);
+    await MessageModel.findByIdAndDelete(messageId);
+    io.emit("messageDeleted", messageId);
+    res.status(200).json({ success: true, messageId });
   } catch (error) {
-    console.error("Error saving message:", error);
-    res.status(500).json({ error: "Internal server error" });
+    console.error("Error deleting message:", error);
+    res.status(500).json({ error: "Failed to delete message" });
   }
 });
 
 
-
-
-// Test endpoint
+// ✅ Test Endpoint
 app.get("/test", (req, res) => {
   res.send("Hello world");
 });
@@ -173,7 +158,9 @@ app.use('/api/lessons', lessonsRoutes);
 //   }
 // });
 
-app.use(errorHandler); // Global error handler
+// ✅ Global Error Handler
+app.use(errorHandler);
 
+// Start Server
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`)); // ✅ FIXED
+server.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));

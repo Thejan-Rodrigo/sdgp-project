@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
-import { Paperclip, Send } from 'lucide-react';
+import React, { useState } from "react";
+import { Paperclip, Send } from "lucide-react";
 
 const ChatInput = ({ onSendMessage }) => {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (message.trim()) {
-      onSendMessage(message);
-      setMessage('');
-    }
+    
+    if (!message.trim()) return;
+
+    console.log("Sending message:", message);
+    
+    onSendMessage(message);
+    setMessage(""); // Clear input after sending
   };
 
   return (

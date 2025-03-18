@@ -22,11 +22,11 @@ const ChatHeader = ({ teacher, onDeleteConversation }) => {
         <MoreVertical size={20} className="text-gray-600" />
       </button>
 
-      {showOptions && (
+      {/* {showOptions && (
         <div className="absolute top-12 right-4 bg-white shadow-md rounded-md p-2">
           <button className="text-red-600 hover:text-red-800" onClick={onDeleteConversation}>Delete Chat</button>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
