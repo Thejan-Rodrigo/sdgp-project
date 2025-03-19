@@ -13,6 +13,11 @@ import studentRoutes from "./routes/studentRoutes.js";
 import progressRoutes from "./routes/progressRoutes.js";
 // import { getStudentProfile, getStudentProgress } from "./controllers/studentController.js";
 // import { getAttendance } from "./controllers/studentAttendace.js"
+import { getAuthUrl, handleOAuthCallback, generateMeetingLink } from './api/router/meeting.mjs';
+import meetingRoutes from "./api/router/meetingRoutes.mjs";
+
+
+
 
 dotenv.config();
 connectDB();
@@ -44,18 +49,51 @@ app.get("/", (req, res) => {
 res.send("MongoDB Connected with Mongoose!");
 });
 
-app.use("/students", studentRoutes);
+app.use("/api/students", studentRoutes);
 //app.use("/attendance", attendanceRoutes);
 // app.use("/progress", progressRoutes);
-
 
 // Routes
 app.use("/api/students", studentRoutes);
 app.use("/api/progress", progressRoutes);
 
+app.get("/", (req, res) => {
+  res.send("MongoDB Connected with Mongoose!");
+});
 
+app.use("/api", meetingRoutes);
+app.use("/api/auth", authRoutes);
+
+// Route to initiate OAuth2 flow
+// app.get('/auth', (req, res) => {
+//   const authUrl = getAuthUrl();
+//   res.redirect(authUrl);
+// });
+
+// Callback route to handle OAuth2 response
+// app.get('/oauth2callback', async (req, res) => {
+//   const { code } = req.query;
+
+//   try {
+//     await handleOAuthCallback(code);
+//     res.send('Authentication successful! You can now generate a Google Meet link.');
+//   } catch (error) {
+//     console.error('Error during OAuth callback:', error);
+//     res.status(500).send('Error during authentication');
+//   }
+// });
+
+// Route to generate Google Meet link after successful authentication
+// app.get('/generateMeetingLink', async (req, res) => {
+//   try {
+//     const meetingLink = await generateMeetingLink();
+//     res.json({ meetingLink });
+//   } catch (error) {
+//     console.error('Error creating Google Meet:', error);
+//     res.status(500).json({ error: 'Failed to generate meeting link.' });
+//   }
+// });
 
 app.use(errorHandler); // Global error handler
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(5000,()=> console.log("server is running"));

@@ -60,7 +60,7 @@ const authController = {
     }
 
     const users = await authService.getUsersBySchoolId(schoolId);
-    successResponse(res, { users }, "Users retrieved successfully");
+    successResponse(res, 200, { users }, "Users retrieved successfully");
   }),
 
   // Delete teacher by ID
@@ -72,7 +72,7 @@ const authController = {
     }
 
     await authService.deleteTeacherById(teacherId);
-    successResponse(res, null, "Teacher deleted successfully", 204);
+    successResponse(res, 204, null, "Teacher deleted successfully");
   }),
 
   // Delete parent and student by parent ID
@@ -84,7 +84,7 @@ const authController = {
     }
 
     await authService.deleteParentAndStudentById(parentId);
-    successResponse(res, null, "Parent and associated student deleted successfully", 204);
+    successResponse(res, 204, null, "Parent and associated student deleted successfully");
   }),
 };
 

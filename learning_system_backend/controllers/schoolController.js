@@ -1,3 +1,4 @@
+// controllers/schoolController.js
 import catchAsync from "../utils/catchAsync.js";
 import { successResponse } from "../utils/responseHandler.js";
 import schoolService from "../services/schoolService.js";
@@ -9,14 +10,14 @@ const schoolController = {
     logger.info("[schoolController] Data came");
     const { school, admin } = await schoolService.createSchoolWithAdmin(schoolData);
     logger.info("[schoolController] School and admin created successfully");
-    successResponse(res, { school, admin }, "School and admin created successfully", 201);
+    successResponse(res, 201, { school, admin }, "School and admin created successfully");
   }),
 
   getAllSchools: catchAsync(async (req, res) => {
     logger.info("[schoolController] Fetching all schools");
     const schools = await schoolService.getAllSchools();
     logger.info("[schoolController] Successfully fetched all schools");
-    successResponse(res, { schools }, "All schools retrieved successfully");
+    successResponse(res, 200, { schools }, "All schools retrieved successfully");
   }),
 
   deleteSchoolById: catchAsync(async (req, res) => {
@@ -24,7 +25,7 @@ const schoolController = {
     logger.info(`[schoolController] Deleting school with ID: ${schoolId}`);
     await schoolService.deleteSchoolById(schoolId);
     logger.info(`[schoolController] School with ID: ${schoolId} deleted successfully`);
-    successResponse(res, null, "School deleted successfully");
+    successResponse(res, 204, null, "School deleted successfully");
   }),
 };
 
