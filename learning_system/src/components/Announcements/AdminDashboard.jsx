@@ -1,5 +1,5 @@
 import React from 'react';
-import AdminSidebar from './Headers/AdminSidebar';
+import AdminSidebar from '../AdSidebar';
 import AdminHeader from './Headers/AdminHeader';
 import AnnouncementDashboard from './AnnouncementDashboard';
 

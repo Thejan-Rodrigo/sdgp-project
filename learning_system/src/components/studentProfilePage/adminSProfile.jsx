@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import AdSidebar from "../AdSidebar";
 
 function AdminSProfile({ user }) {
   const [students, setStudents] = useState([]);
@@ -9,6 +10,7 @@ function AdminSProfile({ user }) {
   const [error, setError] = useState("");
   const [isEditing, setIsEditing] = useState(false); // Editing state
   const [editedStudent, setEditedStudent] = useState({}); // Holds edited student details
+  const [progress, setProgress] = useState([]); // State for progress data
 
   // Fetch students by school ID
   useEffect(() => {
@@ -16,7 +18,7 @@ function AdminSProfile({ user }) {
       try {
         setLoading(true);
         setError("");
-        const response = await fetch(`http://localhost:5000/students/school/67cc5370e98552e9b5a6e097`);
+        const response = await fetch(`http://localhost:5000/api/students/school/67cc5370e98552e9b5a6e097`);
 
         if (!response.ok) throw new Error("Failed to fetch students");
 
@@ -35,6 +37,37 @@ function AdminSProfile({ user }) {
     fetchStudentsBySchoolId();
   }, [user]);
 
+  // Fetch progress data when a student is selected
+  useEffect(() => {
+    const fetchProgressByStudentId = async () => {
+      if (!selectedStudent) return; // Do nothing if no student is selected
+
+      try {
+        setLoading(true);
+        setError("");
+        const response = await fetch(
+          `http://localhost:5000/api/students/${selectedStudent._id}/progress`
+        );
+
+        if (!response.ok) throw new Error("Failed to fetch progress data");
+
+        const data = await response.json();
+
+        // If the response is an empty array, set progress to an empty array
+        if (Array.isArray(data)) {
+          setProgress(data);
+        }
+      } catch (error) {
+        console.error("Error fetching progress data:", error);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProgressByStudentId();
+  }, [selectedStudent]); // Re-run when selectedStudent changes
+
   // Handle input changes for edited student
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -47,7 +80,8 @@ function AdminSProfile({ user }) {
   // Handle save button click
   const handleSave = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/students/${selectedStudent._id}`, {
+      console.log(selectedStudent._id);
+      const response = await fetch(`http://localhost:5000/api/students/${selectedStudent._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -73,14 +107,22 @@ function AdminSProfile({ user }) {
     }
   };
 
+  // Loading animation component
+  const LoadingAnimation = () => (
+    <div className="flex-col gap-4 w-full flex items-center justify-center">
+      <div
+        className="w-20 h-20 border-4 border-transparent text-blue-400 text-4xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full"
+      >
+        <div
+          className="w-16 h-16 border-4 border-transparent text-blue-400 text-2xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full"
+        ></div>
+      </div>
+    </div>
+  );
+
   return (
     <div className="flex h-screen">
-      <div className="w-60 bg-white border-r flex flex-col">
-        <div className="p-6 flex items-center gap-2 border-b">
-          <span className="text-2xl">🎓</span>
-          <span className="font-semibold">EduTeach</span>
-        </div>
-      </div>
+      <AdSidebar />
 
       <div className="flex-1 flex flex-col">
         <header className="bg-white border-b">
@@ -93,7 +135,7 @@ function AdminSProfile({ user }) {
           <div className="w-[300px] border-r p-4">
             <h2 className="text-lg font-semibold">Students</h2>
             {loading ? (
-              <p className="text-gray-500">Loading...</p>
+              <LoadingAnimation /> // Use loading animation
             ) : error ? (
               <p className="text-red-500">{error}</p>
             ) : students.length === 0 ? (
@@ -125,78 +167,139 @@ function AdminSProfile({ user }) {
             <h2 className="text-lg font-semibold">Student Details</h2>
 
             {selectedStudent ? (
-              <div className="mt-4 bg-gray-100 p-4 rounded-md">
+              <div className="mt-4 bg-gray-100 p-6 rounded-md">
                 {isEditing ? (
                   <>
-                    <h3 className="text-xl font-semibold">Edit Student</h3>
+                    <h3 className="text-xl font-semibold mb-4">Edit Student</h3>
                     
-                    <input
-                      type="text"
-                      name="firstName"
-                      value={editedStudent.firstName || ""}
-                      onChange={handleInputChange}
-                      placeholder="First Name"
-                      className="block w-full p-2 mt-2 border rounded"
-                    />
-                    <input
-                      type="text"
-                      name="lastName"
-                      value={editedStudent.lastName || ""}
-                      onChange={handleInputChange}
-                      placeholder="Last Name"
-                      className="block w-full p-2 mt-2 border rounded"
-                    />
-                    <input
-                      type="text"
-                      name="phone"
-                      value={editedStudent.phone || ""}
-                      onChange={handleInputChange}
-                      placeholder="Phone"
-                      className="block w-full p-2 mt-2 border rounded"
-                    />
-                    <input
-                      type="text"
-                      name="address"
-                      value={editedStudent.address || ""}
-                      onChange={handleInputChange}
-                      placeholder="Address"
-                      className="block w-full p-2 mt-2 border rounded"
-                    />
-                    <input
-                      type="text"
-                      name="address"
-                      value={editedStudent.dateOfBirth || ""}
-                      onChange={handleInputChange}
-                      placeholder="DateOfBirth"
-                      className="block w-full p-2 mt-2 border rounded"
-                    />
-                    <button
-                      onClick={handleSave}
-                      className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                    >
-                      Save
-                    </button>
+                    <div className="space-y-4">
+                      <input
+                        type="text"
+                        name="firstName"
+                        value={editedStudent.firstName || ""}
+                        onChange={handleInputChange}
+                        placeholder="First Name"
+                        className="block w-full p-2 border rounded"
+                      />
+                      <input
+                        type="text"
+                        name="lastName"
+                        value={editedStudent.lastName || ""}
+                        onChange={handleInputChange}
+                        placeholder="Last Name"
+                        className="block w-full p-2 border rounded"
+                      />
+                      <input
+                        type="text"
+                        name="phone"
+                        value={editedStudent.phone || ""}
+                        onChange={handleInputChange}
+                        placeholder="Phone"
+                        className="block w-full p-2 border rounded"
+                      />
+                      <input
+                        type="text"
+                        name="address"
+                        value={editedStudent.address || ""}
+                        onChange={handleInputChange}
+                        placeholder="Address"
+                        className="block w-full p-2 border rounded"
+                      />
+                      <input
+                        type="date"
+                        name="dateOfBirth"
+                        value={editedStudent.dateOfBirth || ""}
+                        onChange={handleInputChange}
+                        placeholder="Date of Birth"
+                        className="block w-full p-2 border rounded"
+                      />
+                    </div>
+
+                    {/* Save Button */}
+                    <label className="mt-6 block">
+                      <input type="checkbox" checked className="peer hidden" />
+                      <div
+                        className="group flex w-fit cursor-pointer items-center gap-2 overflow-hidden rounded-full border border-blue-600 fill-none p-2 px-3 font-extrabold text-blue-600 transition-all active:scale-90 peer-checked:fill-blue-600 peer-checked:hover:text-white"
+                        onClick={handleSave}
+                      >
+                        <div className="z-10 transition group-hover:translate-x-4">SAVE</div>
+                        <svg
+                          className="size-6 transition group-hover:-translate-x-6 group-hover:-translate-y-3 group-hover:scale-[750%] duration-500"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
+                          ></path>
+                        </svg>
+                      </div>
+                    </label>
                   </>
                 ) : (
                   <>
-                    <h3 className="text-xl font-semibold">
+                    <h3 className="text-xl font-semibold mb-4">
                       {selectedStudent.firstName} {selectedStudent.lastName}
                     </h3>
-                    <p className="text-gray-600">Phone: {selectedStudent.phone}</p>
-                    <p className="text-gray-600">First Name: {selectedStudent.firstName}</p>
-                    <p className="text-gray-600">Last Name: {selectedStudent.lastName}</p>
-                    <p className="text-gray-600">Date of Birth: {new Date(selectedStudent.dateOfBirth).toLocaleDateString()}</p>
-                    <p className="text-gray-600">Address: {selectedStudent.address}</p>
-                    <p className="text-gray-600">Role: {selectedStudent.role}</p>
-                    <p className="text-gray-600">ID: {selectedStudent._id}</p>
+                    <div className="space-y-3">
+                      <p className="text-gray-600"><strong>Phone:</strong> {selectedStudent.phone}</p>
+                      <p className="text-gray-600"><strong>First Name:</strong> {selectedStudent.firstName}</p>
+                      <p className="text-gray-600"><strong>Last Name:</strong> {selectedStudent.lastName}</p>
+                      <p className="text-gray-600"><strong>Date of Birth:</strong> {new Date(selectedStudent.dateOfBirth).toLocaleDateString()}</p>
+                      <p className="text-gray-600"><strong>Address:</strong> {selectedStudent.address}</p>
+                      <p className="text-gray-600"><strong>Role:</strong> {selectedStudent.role}</p>
+                      <p className="text-gray-600"><strong>ID:</strong> {selectedStudent._id}</p>
+                      <p className="text-gray-600"><strong>Parent:</strong> {selectedStudent.parentFirstName} {selectedStudent.parentLastName}</p>
+                    </div>
+
+                    {/* Edit Button */}
                     <button
                       onClick={() => setIsEditing(true)}
-                      className="mt-4 bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+                      className="inline-flex items-center justify-center px-4 py-2 bg-blue-600 transition ease-in-out delay-75 hover:bg-blue-700 text-white text-sm font-medium rounded-md hover:-translate-y-1 hover:scale-110 mt-6"
                     >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        stroke="currentColor"
+                        fill="none"
+                        className="h-5 w-5 mr-1 self-center items-center"
+                      >
+                        <path
+                          d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"
+                        ></path>
+                      </svg>
                       Edit
                     </button>
                   </>
                 )}
+
+                {/* Progress Section */}
+                <div className="mt-8">
+                  <h4 className="text-lg font-semibold mb-4">Progress Records</h4>
+                  {loading ? (
+                    <LoadingAnimation /> // Use loading animation
+                  ) : error ? (
+                    <p className="text-red-500">{error}</p>
+                  ) : progress.length === 0 ? (
+                    <p className="text-gray-500">No progress are posted by teachers yet...</p>
+                  ) : (
+                    <div className="space-y-4">
+                      {progress.map((record) => (
+                        <div key={record._id} className="p-4 bg-white rounded-md shadow-sm">
+                          <p className="text-gray-600"><strong>Notes:</strong> {record.notes}</p>
+                          <p className="text-gray-600">
+                            <strong>Posted By:</strong> {record.teacherFirstName} {record.teacherLastName}
+                          </p>
+                          <p className="text-gray-600">
+                            <strong>Created At:</strong> {new Date(record.createdAt).toLocaleDateString()}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
             ) : (
               <p className="text-gray-500">Select a student to view details.</p>
