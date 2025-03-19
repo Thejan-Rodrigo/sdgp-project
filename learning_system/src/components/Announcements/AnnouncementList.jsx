@@ -63,8 +63,58 @@ const AnnouncementList = ({ refreshTrigger }) => {
           }
           return announcement;
         });
+        // Apply additional filtering based on user role if needed
+        let filteredAnnouncements = fetchedAnnouncements;
         
-        setAnnouncements(fetchedAnnouncements);
+        // Superadmin can see all announcements, no filtering needed
+        if (user.role !== 'superadmin') {
+          filteredAnnouncements = fetchedAnnouncements.filter(announcement => {
+            // If no target audience is specified, show to all users
+            if (!announcement.targetAudience || 
+                (Array.isArray(announcement.targetAudience) && announcement.targetAudience.length === 0)) {
+              return true;
+            }
+            
+            // Convert target audience to array for consistent handling
+            const targetAudiences = Array.isArray(announcement.targetAudience) 
+              ? announcement.targetAudience 
+              : [announcement.targetAudience];
+              
+            // Check if announcement is targeted specifically for superadmin only
+            if (targetAudiences.includes('superadmin') && 
+                targetAudiences.length === 1 && 
+                user.role !== 'superadmin') {
+              return false; // Don't show superadmin-only announcements to other roles
+            }
+            
+            // Role-specific filtering
+            if (user.role === 'student' && targetAudiences.includes('students') || targetAudiences.includes('all')) {
+              return true;
+            }
+            
+            if (user.role === 'parent' && targetAudiences.includes('parents') || targetAudiences.includes('all')) {
+              return true;
+            }
+            
+            if (user.role === 'teacher' && targetAudiences.includes('teachers') || targetAudiences.includes('parents') || targetAudiences.includes('all')) {
+              return true;
+            }
+            
+            if (user.role === 'admin' && targetAudiences.includes('admins') || targetAudiences.includes('all')) {
+              return true;
+            }
+
+            
+            // Admin can see all announcements except superadmin-only ones
+            if (user.role === 'admin') {
+              return !targetAudiences.includes('superadmin') || targetAudiences.length > 1;
+            }
+            
+            return false;
+          });
+        }
+        
+        setAnnouncements(filteredAnnouncements);
         setError('');
       } catch (err) {
         console.error('Error fetching announcements:', err);

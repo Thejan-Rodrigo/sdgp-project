@@ -22,53 +22,50 @@ const announcementService = {
     }
   },
 
-  // Get all announcements with filters and pagination
-  async getAnnouncements(params) {
-    try {
-      const { schoolId, page = 1, limit = 10, status, targetAudience, search, startDate, endDate } = params;
-      const query = { schoolId };
-
-      if (status) query.status = status;
-      if (targetAudience) query.targetAudience = { $in: [targetAudience, "all"] };
-
-      if (startDate || endDate) {
-        query.createdAt = {};
-        if (startDate) query.createdAt.$gte = new Date(startDate);
-        if (endDate) query.createdAt.$lte = new Date(endDate);
-      }
-
-      if (search) {
-        query.$or = [
-          { title: { $regex: search, $options: "i" } },
-          { content: { $regex: search, $options: "i" } },
-        ];
-      }
-
-      const skip = (parseInt(page) - 1) * parseInt(limit);
-
-      const [announcements, total] = await Promise.all([
-        Announcement.find(query)
-          .populate("authorId", "firstName lastName")
-          .sort({ createdAt: -1 })
-          .skip(skip)
-          .limit(parseInt(limit)),
-        Announcement.countDocuments(query),
-      ]);
-
-      return {
-        announcements,
-        pagination: {
-          page: parseInt(page),
-          limit: parseInt(limit),
-          total,
-          pages: Math.ceil(total / parseInt(limit)),
-        },
-      };
-    } catch (error) {
-      logger.error("Error getting announcements:", error);
-      throw new ApiError(status.statusCodes.INTERNAL_SERVER, "Error retrieving announcements");
+// Get all announcements with filters and pagination
+async getAnnouncements(params) {
+  try {
+    const { schoolId, page = 1, limit = 10, status, search, startDate, endDate } = params;
+    const query = { schoolId };
+    if (status) query.status = status;
+    
+    if (startDate || endDate) {
+      query.createdAt = {};
+      if (startDate) query.createdAt.$gte = new Date(startDate);
+      if (endDate) query.createdAt.$lte = new Date(endDate);
     }
-  },
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { content: { $regex: search, $options: "i" } },
+      ];
+    }
+    
+    // Removed all audience/role filtering - returning all matching announcements
+    
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const [announcements, total] = await Promise.all([
+      Announcement.find(query)
+        .populate("authorId", "firstName lastName")
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(parseInt(limit)),
+      Announcement.countDocuments(query),
+    ]);
+    return {
+      announcements,
+      pagination: {
+        page: parseInt(page),
+        limit: parseInt(limit),
+        total,
+        pages: Math.ceil(total / parseInt(limit)),
+      },
+    };
+  } catch (error) {
+    logger.error("Error getting announcements:", error);
+    throw new ApiError(status.statusCodes.INTERNAL_SERVER, "Error retrieving announcements");
+  }
+},
 
   // Get single announcement
   async getAnnouncementById(id, schoolId) {
