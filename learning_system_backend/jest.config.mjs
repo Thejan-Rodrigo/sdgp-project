@@ -1,7 +1,8 @@
 export default {
   testEnvironment: "node", // Use Node.js environment
-  testMatch: ["**/*.test.js"], // Match test files
   transform: {
-    "^.+\\.js$": "babel-jest", // Use Babel to transform ES modules
+    "^.+\\.mjs$": "babel-jest", // Use Babel to transform .mjs files
+    "^.+\\.js$": "babel-jest", // Use Babel to transform .js files
   },
+  moduleFileExtensions: ["js", "mjs"], // Allow .mjs files
 };
