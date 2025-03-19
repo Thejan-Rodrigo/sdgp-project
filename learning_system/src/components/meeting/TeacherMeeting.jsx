@@ -10,8 +10,8 @@ import { useAuth } from '../../context/AuthContext'; // Import useAuth
 export default function TeacherMeeting() {
     const { user } = useAuth(); // Access the user object from AuthContext
     const [model, setModel] = useState(false);
-    const [showGenerate, setShowGenerate] = useState(true);
-    const [showAddLink, setShowAddLink] = useState(false);
+    const [showGenerate, setShowGenerate] = useState(false);
+    const [showAddLink, setShowAddLink] = useState(true);
     const [meetings, setMeetings] = useState([]);
     const [title, setTitle] = useState('');
     const [link, setLink] = useState('');

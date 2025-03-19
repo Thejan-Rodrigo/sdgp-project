@@ -77,6 +77,19 @@ function TeacherSProfile({ user }) {
     fetchProgressByStudentId();
   }, [selectedStudent]); // Re-run when selectedStudent changes
 
+  // Loading Animation Component
+  const LoadingAnimation = () => (
+    <div className="flex-col gap-4 w-full flex items-center justify-center">
+      <div
+        className="w-20 h-20 border-4 border-transparent text-blue-400 text-4xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full"
+      >
+        <div
+          className="w-16 h-16 border-4 border-transparent text-blue-400 text-2xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full"
+        ></div>
+      </div>
+    </div>
+  );
+
   return (
     <div className="flex h-screen">
       <TeaSidebar />
@@ -89,10 +102,11 @@ function TeacherSProfile({ user }) {
         </header>
 
         <div className="flex flex-1 bg-white">
-          <div className="w-[300px] border-r p-4">
-            <h2 className="text-lg font-semibold">Students</h2>
+          {/* Student List Section */}
+          <div className="w-[300px] border-r p-4 bg-gray-50">
+            <h2 className="text-lg font-semibold mb-4">Students</h2>
             {loading ? (
-              <p className="text-gray-500">Loading...</p>
+              <LoadingAnimation /> // Use the loading animation
             ) : error ? (
               <p className="text-red-500">{error}</p>
             ) : students.length === 0 ? (
@@ -102,14 +116,15 @@ function TeacherSProfile({ user }) {
                 {students.map((student) => (
                   <div
                     key={student._id}
-                    className={`flex items-center gap-3 p-3 border-b cursor-pointer hover:bg-gray-100 ${selectedStudent?._id === student._id ? "bg-blue-100" : ""
-                      }`}
+                    className={`flex items-center gap-3 p-3 border-b cursor-pointer hover:bg-blue-50 transition-colors duration-200 ${
+                      selectedStudent?._id === student._id ? "bg-blue-100" : "bg-white"
+                    }`}
                     onClick={() => {
                       console.log("Selected student ID:", student._id); // Debugging
                       setSelectedStudent(student); // Update directly from the array
                     }}
                   >
-                    <span>
+                    <span className="text-gray-700">
                       {`${student.firstName} ${student.lastName}` || "Unknown Student"}
                     </span>
                   </div>
@@ -118,36 +133,40 @@ function TeacherSProfile({ user }) {
             )}
           </div>
 
-          <div className="flex-1 p-6">
-            <h2 className="text-lg font-semibold">Student Details</h2>
+          {/* Student Details and Progress Section */}
+          <div className="flex-1 p-6 bg-gray-50">
+            <h2 className="text-lg font-semibold mb-6">Student Details</h2>
 
             {selectedStudent ? (
-              <div className="mt-4 bg-gray-100 p-4 rounded-md">
-                <h3 className="text-xl font-semibold">
+              <div className="mt-4 bg-blue-50 p-6 rounded-lg shadow-sm">
+                <h3 className="text-xl font-semibold mb-4">
                   {selectedStudent.firstName} {selectedStudent.lastName}
                 </h3>
-                <p className="text-gray-600">ID: {selectedStudent._id}</p>
-                <p className="text-gray-600">Role: {selectedStudent.role}</p>
-                <p className="text-gray-600">First Name: {selectedStudent.firstName}</p>
-                <p className="text-gray-600">Last Name: {selectedStudent.lastName}</p>
-                <p className="text-gray-600">Date of Birth: {new Date(selectedStudent.dateOfBirth).toLocaleDateString()}</p>
-                <p className="text-gray-600">Phone: {selectedStudent.phone}</p>
-                <p className="text-gray-600">Address: {selectedStudent.address}</p>
-                <p className="text-gray-600">School ID: {selectedStudent.schoolId}</p>
-                <p className="text-gray-600">Parent: {selectedStudent.parentFirstName} {selectedStudent.parentLastName}</p>
+                <div className="space-y-3 text-gray-700">
+                  <p><strong>ID:</strong> {selectedStudent._id}</p>
+                  <p><strong>Role:</strong> {selectedStudent.role}</p>
+                  <p><strong>First Name:</strong> {selectedStudent.firstName}</p>
+                  <p><strong>Last Name:</strong> {selectedStudent.lastName}</p>
+                  <p><strong>Date of Birth:</strong> {new Date(selectedStudent.dateOfBirth).toLocaleDateString()}</p>
+                  <p><strong>Phone:</strong> {selectedStudent.phone}</p>
+                  <p><strong>Address:</strong> {selectedStudent.address}</p>
+                  <p><strong>School ID:</strong> {selectedStudent.schoolId}</p>
+                  <p><strong>Parent:</strong> {selectedStudent.parentFirstName} {selectedStudent.parentLastName}</p>
+                </div>
+
                 {/* Progress Section */}
-                <div className="mt-6">
-                  <h4 className="text-lg font-semibold">Progress Records</h4>
+                <div className="mt-8">
+                  <h4 className="text-lg font-semibold mb-4">Progress Records</h4>
                   {loading ? (
-                    <p className="text-gray-500">Loading progress...</p>
+                    <LoadingAnimation /> // Use the loading animation
                   ) : error ? (
                     <p className="text-red-500">{error}</p>
                   ) : progress.length === 0 ? (
                     <p className="text-gray-500">No progress are posted by teachers yet...</p>
                   ) : (
-                    <div className="mt-4">
+                    <div className="space-y-4">
                       {progress.map((record) => (
-                        <div key={record._id} className="mb-4 p-4 bg-white rounded-md shadow-sm">
+                        <div key={record._id} className="p-4 bg-white rounded-md shadow-sm">
                           <p className="text-gray-600"><strong>Notes:</strong> {record.notes}</p>
                           <p className="text-gray-600">
                             <strong>Posted By:</strong> {record.teacherFirstName} {record.teacherLastName}
