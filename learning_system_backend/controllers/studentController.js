@@ -47,6 +47,7 @@ export const updateStudent = async (req, res) => {
   try {
     const { studentId } = req.params;
     const updatedData = req.body;
+    console.log(updatedData)
 
     const updatedStudent = await updateStudentById(studentId, updatedData);
 

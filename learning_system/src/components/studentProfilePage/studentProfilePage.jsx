@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext"; // Import the useAuth hook
-import ParentSideBar from "../ParentSideBar"
+import ParentSideBar from "../ParentSideBar";
 
 const StudentProfile = () => {
   const [student, setStudent] = useState(null); // Change initial state to null
@@ -66,6 +66,19 @@ const StudentProfile = () => {
     return `${year}/${month}/${day}`;
   };
 
+  // Loading Animation Component
+  const LoadingAnimation = () => (
+    <div className="flex-col gap-4 w-full flex items-center justify-center">
+      <div
+        className="w-20 h-20 border-4 border-transparent text-blue-400 text-4xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full"
+      >
+        <div
+          className="w-16 h-16 border-4 border-transparent text-blue-400 text-2xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full"
+        ></div>
+      </div>
+    </div>
+  );
+
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Left Sidebar */}
@@ -80,7 +93,7 @@ const StudentProfile = () => {
         <main className="p-6">
           {/* Profile Info */}
           {loading ? (
-            <p>Loading student details...</p>
+            <LoadingAnimation /> // Use the loading animation
           ) : student ? (
             <div className="bg-white rounded-lg p-6 mb-6">
               <h3 className="text-2xl font-semibold mb-4">
@@ -98,7 +111,9 @@ const StudentProfile = () => {
           {/* Progress Reports */}
           <div className="bg-white rounded-lg p-6">
             <h4 className="text-lg font-medium mb-4">Progress Messages</h4>
-            {progress.length > 0 ? (
+            {loading ? (
+              <LoadingAnimation /> // Use the loading animation
+            ) : progress.length > 0 ? (
               progress.map((item, index) => (
                 <div key={index} className="flex gap-4 pb-4 border-b last:border-0">
                   <div className="w-12 h-12 rounded-full bg-gray-100 flex-shrink-0" />
