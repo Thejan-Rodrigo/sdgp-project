@@ -1,4 +1,4 @@
- //User retrieve
+ 
 import React from 'react';
 import TeacherNav from './TeacherNav';
 import TeacherContent from './TeacherContent';
