@@ -3,13 +3,17 @@ import express from "express";
 import announcementRouter from "../routes/AnnouncementRouter.js"; // Adjust the path as needed
 import announcementController from "../controllers/announcementController.js"; // For mocking
 import announcementService from "../services/announcementService.js"; // For mocking
-import authMiddleware from "../middleware/authMiddlewere.js"; // For mocking
 
-// Mock the authMiddleware to bypass authentication
-jest.mock("../middleware/authMiddlewere.js", () => (req, res, next) => {
-  req.user = { _id: "123", schoolId: "456", role: "teacher" }; // Mock a user
-  next();
-});
+// Mock the auth middleware to bypass authentication
+jest.mock("../middleware/authMiddlewere.js", () => ({
+  // Mock the default export of the auth middleware
+  default: (...requiredRights) => (req, res, next) => {
+    // Initialize req if it's undefined
+    req = req || {};
+    req.user = { _id: "123", schoolId: "456", role: "teacher" }; // Mock a user
+    next();
+  },
+}));
 
 // Mock the announcementController methods
 jest.mock("../controllers/announcementController.js", () => ({
