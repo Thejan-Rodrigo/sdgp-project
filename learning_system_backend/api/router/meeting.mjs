@@ -5,9 +5,9 @@ import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment-timezone';
 
 // OAuth 2.0 credentials
-const credentials = JSON.parse(readFileSync('./config/credentials.json', 'utf8'));
-const { client_id, client_secret, redirect_uris } = credentials.web;
-const oauth2Client = new OAuth2Client(client_id, client_secret, redirect_uris[0]);
+// const credentials = JSON.parse(readFileSync('./config/credentials.json', 'utf8'));
+// const { client_id, client_secret, redirect_uris } = credentials.web;
+// const oauth2Client = new OAuth2Client(client_id, client_secret, redirect_uris[0]);
 
 // Scopes required for Google Calendar and Meet
 const SCOPES = ['https://www.googleapis.com/auth/calendar.events'];
@@ -21,22 +21,22 @@ export const getAuthUrl = () => {
 };
 
 // Function to handle OAuth2 callback and set credentials
-export const handleOAuthCallback = async (code) => {
-  if (!code) {
-    throw new Error('Authorization code is missing.');
-  }
+// export const handleOAuthCallback = async (code) => {
+//   if (!code) {
+//     throw new Error('Authorization code is missing.');
+//   }
 
-  try {
-    const { tokens } = await oauth2Client.getToken(code);
-    oauth2Client.setCredentials(tokens);
-    console.log('Tokens received:', tokens);
-    // Return tokens for later use or store securely
-    return tokens;
-  } catch (error) {
-    console.error('Error during OAuth callback:', error);
-    throw new Error('Error during authentication');
-  }
-};
+//   try {
+//     const { tokens } = await oauth2Client.getToken(code);
+//     oauth2Client.setCredentials(tokens);
+//     console.log('Tokens received:', tokens);
+//     // Return tokens for later use or store securely
+//     return tokens;
+//   } catch (error) {
+//     console.error('Error during OAuth callback:', error);
+//     throw new Error('Error during authentication');
+//   }
+// };
 
 // Function to generate the Google Meet link
 export const generateMeetingLink = async () => {

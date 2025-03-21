@@ -13,7 +13,7 @@ import studentRoutes from "./routes/studentRoutes.js";
 import progressRoutes from "./routes/progressRoutes.js";
 // import { getStudentProfile, getStudentProgress } from "./controllers/studentController.js";
 // import { getAttendance } from "./controllers/studentAttendace.js"
-import { getAuthUrl, handleOAuthCallback, generateMeetingLink } from './api/router/meeting.mjs';
+//import { getAuthUrl, handleOAuthCallback, generateMeetingLink } from './api/router/meeting.mjs';
 import meetingRoutes from "./api/router/meetingRoutes.mjs";
 
 
