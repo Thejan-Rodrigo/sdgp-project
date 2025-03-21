@@ -24,6 +24,7 @@ import errorHandler from "./middleware/errorMiddleware.js";
 import lessonsRoutes from './routes/lessonsRoutes.js';
 import attendanceRoutes from './routes/attendanceRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import studentRoutes from './routes/studentRoutes.js'
 
 // Load environment variables
 dotenv.config();
@@ -80,6 +81,9 @@ app.use('/api/attendance', attendanceRoutes);
 console.log('Attendance routes set up');
 app.use('/api/users', userRoutes);
 console.log('User routes set up');
+app.use('/api/students', studentRoutes);
+console.log('Student routes set up');
+
 
 app.get("/", (req, res) => {
   res.send("MongoDB Connected with Mongoose!");

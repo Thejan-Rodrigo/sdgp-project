@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #f8f9fa;
+  background-color: #ffffff;
 }
 
 /* Header styles */
@@ -12,7 +12,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #d8b5e6;
+  background-color: #EFEFEF;
   color: #333;
 }
 
@@ -73,7 +73,7 @@
 /* Sidebar styles */
 .sidebar {
   width: 250px;
-  background-color: #ffe4e1;
+  background-color: #dbeafe;
   padding: 2rem 1rem;
 }
 
@@ -101,7 +101,7 @@
 }
 
 .sidebar-menu li.active a {
-  background-color: #87ceeb;
+  background-color: #2563EB;
   color: #fff;
 }
 
@@ -121,11 +121,11 @@
 
 /* Date header */
 .date-header {
-  background-color: #e6a8e8;
+  background-color: #f3e8ff;
   color: #333;
   padding: 1rem;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -165,7 +165,7 @@
 /* Attendance row */
 .attendance-row {
   display: flex;
-  background-color: #a8e6d5;
+  background-color: #f3e8ff;
   padding: 1rem;
   border-radius: 4px;
   align-items: center;
@@ -203,7 +203,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #a8c7e6;
   transition: .4s;
 }
 
@@ -214,12 +214,12 @@
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
+  background-color: #cee2fc;
   transition: .4s;
 }
 
 input:checked + .slider {
-  background-color: #4CAF50;
+  background-color: #1A73E8;
 }
 
 input:checked + .slider:before {
@@ -227,7 +227,7 @@ input:checked + .slider:before {
 }
 
 input:not(:checked) + .slider {
-  background-color: #f44336;
+  background-color: #a8c7e6;
 }
 
 .slider.round {
@@ -246,18 +246,18 @@ input:not(:checked) + .slider {
 }
 
 .save-button {
-  background-color: #4CAF50;
+  background-color: #2563EB;
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .save-button:hover {
-  background-color: #45a049;
+  background-color: #2563EB;
 }
 
 /* Loading and error states */
@@ -266,7 +266,7 @@ input:not(:checked) + .slider {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  font-size: 1.5rem;
+  font-size: 16px;
   color: #333;
   background-color: #f8f9fa;
 }
@@ -283,7 +283,7 @@ input:not(:checked) + .slider {
   margin-bottom: 1rem;
   border-radius: 4px;
   border-left: 4px solid #c62828;
-  font-size: 0.9rem;
+  font-size: 16px;
 }
 
 .api-error-banner p {
@@ -303,11 +303,11 @@ input:not(:checked) + .slider {
 }
 
 .save-button:disabled {
-  background-color: #cccccc;
+  background-color: #1A73E8;
   cursor: not-allowed;
 }
 
 .save-button:disabled:hover {
-  background-color: #cccccc;
+  background-color: #1A73E8;
   transform: none;
 } 
