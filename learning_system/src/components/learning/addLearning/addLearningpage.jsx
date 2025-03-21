@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from './Sidebar';
 import Header from './Header';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../../context/AuthContext';
 import AddLearningForm from './addLearningForm';
 import axios from 'axios';
+import SupAdSidebar from "../../SupAdSidebar"
 
 const AddLearningPage = () => {
   const { user } = useAuth();
@@ -60,7 +61,7 @@ const AddLearningPage = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <Sidebar />
+      <SupAdSidebar />
       <main className="flex-1 p-8">
         <Header />
         

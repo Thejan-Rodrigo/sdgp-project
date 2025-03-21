@@ -14,7 +14,7 @@ const Sidebar = () => {
     { icon: <FaBook />, text: 'Lessons', path: '/lessons' }, // Added path for Lessons
     { icon: <FaChartBar />, text: 'Progress', path: '/progress' }, // Added path for Progress
     { icon: <FaQuestionCircle />, text: 'Q&A', path: '/qa' }, // Added path for Q&A
-    { icon: <FaHeadphones />, text: 'Help & Support', path: '/support' }, // Added path for Help & Support
+    { icon: <FaHeadphones />, text: 'Learing', path: '/teacher' }, // Added path for Help & Support
   ];
 
   // Function to handle menu item clicks

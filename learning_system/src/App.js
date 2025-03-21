@@ -66,6 +66,7 @@ const App = () => {
         <Route path="/parentmeeting" element={<ParentMeeting/>}/> 
         <Route path="/lessons" element={<Lessons/>}/>
         <Route path="/attendance" element={<Attendance/>}/>
+
         {/* Role-protected routes */}
         <Route
           path="/addadmin"
@@ -169,9 +170,6 @@ const App = () => {
             />
           }
         />
-        <Route path="/teacher" element={<TeacherPage />} />
-        <Route path="/parent" element={<ParentPage />} />
-        <Route path="/" element={<ParentPage />} />
 
         <Route path="/addLearningPage" element={<AddLearningPage />} />
         <Route path="/addadmin" element={<AddAdminPage />}/>
@@ -179,6 +177,66 @@ const App = () => {
         <Route path="/Teacherq&a" element={<TeacherChat/>}/>
         <Route path="/Adminq&a" element={<AdminChat/>}/>
         <Route path="/SuperAdminq&a" element={<SuperAdminChat/>}/>
+        <Route
+          path="/studentprofile"
+          element={
+            <ProtectedRoute
+              allowedRoles={['parent']}
+              element={<StudentProfile />}
+            />
+          }
+        />
+
+        <Route
+          path="/teacherSProfile"
+          element={
+            <ProtectedRoute
+              allowedRoles={['teacher']}
+              element={<TeacherSProfile />}
+            />
+          }
+        />
+
+        <Route
+          path="/adminSProfile"
+          element={
+            <ProtectedRoute
+              allowedRoles={['admin']}
+              element={<AdminSProfile />}
+            />
+          }
+        />
+
+        <Route
+          path="/parent"
+          element={
+            <ProtectedRoute
+              allowedRoles={['parent']}
+              element={<ParentPage />}
+            />
+          }
+        />
+
+        <Route
+          path="/teacher"
+          element={
+            <ProtectedRoute
+              allowedRoles={['teacher']}
+              element={<TeacherPage />}
+            />
+          }
+        />
+
+        <Route
+          path="/addLearningPage"
+          element={
+            <ProtectedRoute
+              allowedRoles={['superadmin']}
+              element={<AddLearningPage />}
+            />
+          }
+        />
+
       </Routes>
     </Router>
   );

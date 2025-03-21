@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../../context/AuthContext";
 import { FaGraduationCap, FaTachometerAlt, FaBell, FaSchool, FaUserCog, FaUserGraduate, FaQuestionCircle, FaHeadphones, FaBook } from 'react-icons/fa';
 
 const Sidebar = () => {
