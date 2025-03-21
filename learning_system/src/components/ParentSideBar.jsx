@@ -12,7 +12,8 @@ const Sidebar = () => {
         { icon: <FaBullhorn />, text: 'Announcement', path: '/studentannouncement' }, // Added path for Announcement
         { icon: <FaCalendar />, text: 'Meeting', path: '/parentmeeting' }, // Added path for Meeting
         { icon: <FaUserGraduate />, text: 'Student Profile', path: '/studentprofile' }, // Added path for Student Profile
-        { icon: <FaQuestionCircle />, text: 'Q&A', path: '/qa' } // Added path for Q&A
+        { icon: <FaQuestionCircle />, text: 'Q&A', path: '/qa' }, // Added path for Q&A 
+        { icon: <FaHeadphones />, text: 'Learing', path: '/parent' }
     ];
 
     // Function to handle menu item clicks

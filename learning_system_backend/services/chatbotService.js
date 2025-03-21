@@ -1,5 +1,5 @@
 import Student from "../models/Student.js";
-import Progress from "../models/progress.js";
+import Progress from "../models/Progress.js";
 import User from "../models/User.js";
 import { askAI } from "../utils/openai.js";
 

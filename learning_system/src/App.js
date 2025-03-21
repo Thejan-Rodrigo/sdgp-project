@@ -21,7 +21,7 @@ import TeacherSProfile from './components/studentProfilePage/teacherSProfile';
 import AdminSProfile from "./components/studentProfilePage/adminSProfile";
 import TeacherPage from "./components/learning/teacher/TeacherPage";
 import ParentPage from "./components/learning/parent/ParentPage";
-import AddLearningPage from "./components/addLearning/addLearningpage";
+import AddLearningPage from "./components/learning/addLearning/addLearningpage";
 
 // ProtectedRoute component
 const ProtectedRoute = ({ allowedRoles, element }) => {
@@ -46,17 +46,6 @@ const App = () => {
         {/* Public routes */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path= "/superadminannouncement" element={<SuperAdminDashboard/>}/>
-        <Route path= "/adminannouncement" element={<AdminDashboard/>}/>
-        <Route path= "/teacherannouncement" element={<TeacherDashboard/>}/>
-        <Route path= "/studentannouncement" element={<StudentDashboard/>}/>
-        <Route path="/progress" element={<Progress/>}/>
-        <Route path="/aboutus" element={<AboutUs/>}/>
-        <Route path="/studentprofile" element={<StudentProfile />}/>
-        <Route path="/teacherSProfile" element={<TeacherSProfile />}/>
-        <Route path="/adminSProfile" element={<AdminSProfile />}/>
-        <Route path="/teachermeeting" element={<TeacherMeeting/>}/>
-        <Route path="/parentmeeting" element={<ParentMeeting/>}/> 
 
         {/* Role-protected routes */}
         <Route
@@ -152,11 +141,67 @@ const App = () => {
             />
           }
         />
-        <Route path="/teacher" element={<TeacherPage />} />
-        <Route path="/parent" element={<ParentPage />} />
-        <Route path="/" element={<ParentPage />} />
 
-        <Route path="/addLearningPage" element={<AddLearningPage />} />
+        <Route
+          path="/studentprofile"
+          element={
+            <ProtectedRoute
+              allowedRoles={['parent']}
+              element={<StudentProfile />}
+            />
+          }
+        />
+
+        <Route
+          path="/teacherSProfile"
+          element={
+            <ProtectedRoute
+              allowedRoles={['teacher']}
+              element={<TeacherSProfile />}
+            />
+          }
+        />
+
+        <Route
+          path="/adminSProfile"
+          element={
+            <ProtectedRoute
+              allowedRoles={['admin']}
+              element={<AdminSProfile />}
+            />
+          }
+        />
+
+        <Route
+          path="/parent"
+          element={
+            <ProtectedRoute
+              allowedRoles={['parent']}
+              element={<ParentPage />}
+            />
+          }
+        />
+
+        <Route
+          path="/teacher"
+          element={
+            <ProtectedRoute
+              allowedRoles={['teacher']}
+              element={<TeacherPage />}
+            />
+          }
+        />
+
+        <Route
+          path="/addLearningPage"
+          element={
+            <ProtectedRoute
+              allowedRoles={['superadmin']}
+              element={<AddLearningPage />}
+            />
+          }
+        />
+
       </Routes>
     </Router>
   );

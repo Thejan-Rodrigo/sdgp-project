@@ -1,13 +1,14 @@
  
 import React from 'react';
 import TeacherNav from './TeacherNav';
-import TeacherContent from './TeacherContent';
+import TeacherContent from './TeacherContent'
+import TeaSidebar from "../../TeaSidebar"
 
 
 const TeacherPage = () => {
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <TeacherNav />
+      <TeaSidebar />
       <TeacherContent />
     </div>
   );
