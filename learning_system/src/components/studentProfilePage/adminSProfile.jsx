@@ -122,8 +122,12 @@ function AdminSProfile({ user }) {
 
   return (
     <div className="flex h-screen">
-      <AdSidebar />
+      {/* Sidebar */}
+      <div className="w-[300px] flex-shrink-0">
+        <AdSidebar />
+      </div>
 
+      {/* Main content section */}
       <div className="flex-1 flex flex-col">
         <header className="bg-white border-b">
           <div className="flex items-center justify-between px-6 h-14">
@@ -171,7 +175,6 @@ function AdminSProfile({ user }) {
                 {isEditing ? (
                   <>
                     <h3 className="text-xl font-semibold mb-4">Edit Student</h3>
-                    
                     <div className="space-y-4">
                       <input
                         type="text"
@@ -279,22 +282,16 @@ function AdminSProfile({ user }) {
                 <div className="mt-8">
                   <h4 className="text-lg font-semibold mb-4">Progress Records</h4>
                   {loading ? (
-                    <LoadingAnimation /> // Use loading animation
-                  ) : error ? (
-                    <p className="text-red-500">{error}</p>
+                    <LoadingAnimation />
                   ) : progress.length === 0 ? (
-                    <p className="text-gray-500">No progress are posted by teachers yet...</p>
+                    <p>No progress records available.</p>
                   ) : (
-                    <div className="space-y-4">
-                      {progress.map((record) => (
-                        <div key={record._id} className="p-4 bg-white rounded-md shadow-sm">
-                          <p className="text-gray-600"><strong>Notes:</strong> {record.notes}</p>
-                          <p className="text-gray-600">
-                            <strong>Posted By:</strong> {record.teacherFirstName} {record.teacherLastName}
-                          </p>
-                          <p className="text-gray-600">
-                            <strong>Created At:</strong> {new Date(record.createdAt).toLocaleDateString()}
-                          </p>
+                    <div>
+                      {progress.map((entry, index) => (
+                        <div key={index} className="mb-4 p-4 bg-gray-50 rounded-md shadow-sm">
+                          <h5 className="font-semibold">Teacher: {entry.teacherName}</h5>
+                          <p className="text-gray-700">{entry.comments}</p>
+                          <p className="text-sm text-gray-500">Date: {new Date(entry.date).toLocaleDateString()}</p>
                         </div>
                       ))}
                     </div>

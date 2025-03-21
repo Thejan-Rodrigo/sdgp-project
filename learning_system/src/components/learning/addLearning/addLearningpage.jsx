@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from './Sidebar';
+import SupAdSidebar from "../../SupAdSidebar";
 import Header from './Header';
 import { useAuth } from '../../../context/AuthContext';
 import AddLearningForm from './addLearningForm';
 import axios from 'axios';
-import SupAdSidebar from "../../SupAdSidebar"
 
 const AddLearningPage = () => {
   const { user } = useAuth();
@@ -28,7 +27,6 @@ const AddLearningPage = () => {
   const handleLearningAdded = () => {
     setAlert({ message: 'Learning material added successfully!', type: 'success' });
 
-    
     setTimeout(() => {
       setAlert(null);
     }, 3000);
@@ -36,14 +34,12 @@ const AddLearningPage = () => {
 
   const handleDelete = async (id) => {
     try {
-      
       await axios.delete(`http://localhost:5000/api/learning/${id}`, {
         headers: {
           'Authorization': `Bearer ${user?.token}`, 
         },
       });
 
-      
       setLearningMaterials(learningMaterials.filter(material => material._id !== id));
 
       setAlert({ message: 'Learning material deleted successfully!', type: 'success' });
@@ -61,8 +57,8 @@ const AddLearningPage = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <SupAdSidebar />
-      <main className="flex-1 p-8">
+      <SupAdSidebar className="w-[300px] flex-shrink-0" /> {/* Sidebar with fixed width */}
+      <main className="flex-1 p-8 ml-[300px]"> {/* Add margin-left to offset the sidebar */}
         <Header />
         
         {alert && (
@@ -89,7 +85,6 @@ const AddLearningPage = () => {
                 >
                   Delete
                 </button>
-                
               </div>
             ))}
           </div>

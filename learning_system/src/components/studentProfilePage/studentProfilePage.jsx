@@ -80,12 +80,14 @@ const StudentProfile = () => {
   );
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      {/* Left Sidebar */}
-      <ParentSideBar />
+    <div className="flex bg-white">
+      {/* Fixed Sidebar */}
+      <div className="fixed h-screen w-64">
+        <ParentSideBar />
+      </div>
 
-      {/* Main Content */}
-      <div className="flex-1">
+      {/* Main Content with Left Margin */}
+      <div className="flex-1 ml-64">
         <header className="bg-white border-b px-6 py-4 flex justify-between items-center">
           <h2 className="text-xl font-semibold">Student Profile</h2>
         </header>
@@ -95,40 +97,49 @@ const StudentProfile = () => {
           {loading ? (
             <LoadingAnimation /> // Use the loading animation
           ) : student ? (
-            <div className="bg-white rounded-lg p-6 mb-6">
+            <div className="bg-blue-50 rounded-lg p-6 mb-6 shadow-sm">
               <h3 className="text-2xl font-semibold mb-4">
                 {`${student.firstName} ${student.lastName}`}
               </h3>
-              <p><strong>Role:</strong> {student.role || "N/A"}</p>
-              <p><strong>Phone:</strong> {student.phone || "N/A"}</p>
-              <p><strong>Address:</strong> {student.address || "N/A"}</p>
-              <p><strong>Date of Birth:</strong> {formatDate(student.dateOfBirth)}</p>
+              <div className="space-y-3 text-gray-700">
+                <p><strong>Role:</strong> {student.role || "N/A"}</p>
+                <p><strong>Phone:</strong> {student.phone || "N/A"}</p>
+                <p><strong>Address:</strong> {student.address || "N/A"}</p>
+                <p><strong>Date of Birth:</strong> {formatDate(student.dateOfBirth)}</p>
+              </div>
             </div>
           ) : (
-            <p>No student data found.</p>
+            <p className="text-gray-500">No student data found.</p>
           )}
 
           {/* Progress Reports */}
-          <div className="bg-white rounded-lg p-6">
+          <div className="bg-blue-50 rounded-lg p-6 shadow-sm">
             <h4 className="text-lg font-medium mb-4">Progress Messages</h4>
             {loading ? (
               <LoadingAnimation /> // Use the loading animation
             ) : progress.length > 0 ? (
-              progress.map((item, index) => (
-                <div key={index} className="flex gap-4 pb-4 border-b last:border-0">
-                  <div className="w-12 h-12 rounded-full bg-gray-100 flex-shrink-0" />
-                  <div>
-                    <h5 className="font-medium">{item.teacher}</h5>
-                    <p className="text-sm text-gray-500">{item.notes}</p>
-                    <p className="text-sm text-gray-500">
-                      Created Date: {formatDate(item.createdAt)}
-                    </p>
-                    <p className="mt-2 text-gray-600">{item.remarks}</p>
+              <div className="space-y-4">
+                {progress.map((item, index) => (
+                  <div
+                    key={index}
+                    className="bg-white p-4 rounded-md shadow-sm"
+                  >
+                    <div className="flex gap-4">
+                      <div className="w-12 h-12 rounded-full bg-gray-100 flex-shrink-0" />
+                      <div>
+                        <h5 className="font-medium">{item.teacher}</h5>
+                        <p className="text-sm text-gray-500">{item.notes}</p>
+                        <p className="text-sm text-gray-500">
+                          Created Date: {formatDate(item.createdAt)}
+                        </p>
+                        <p className="mt-2 text-gray-600">{item.remarks}</p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))
+                ))}
+              </div>
             ) : (
-              <p>No progress records found.</p>
+              <p className="text-gray-500">No progress records found.</p>
             )}
           </div>
         </main>
