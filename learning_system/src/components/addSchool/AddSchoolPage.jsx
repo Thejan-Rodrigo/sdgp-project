@@ -99,8 +99,8 @@ const AddSchoolPage = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <Sidebar />
-      <main className="flex-1 p-8">
+      <Sidebar className="w-[300px] flex-shrink-0" /> {/* Sidebar with fixed width */}
+      <main className="flex-1 p-8 ml-[300px]"> {/* Add margin-left to offset the sidebar */}
         <Header
           onSettingsClick={toggleSettings} // Pass the toggle function
           isSettingsView={showSettings} // Pass the current view state

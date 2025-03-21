@@ -25,16 +25,16 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="w-64 bg-white shadow-lg h-screen">
+    <div className="fixed w-64 h-screen bg-white shadow-lg">
       <div className="p-4">
-        <div className=" items-center gap-3 mb-8">
+        <div className="items-center gap-3 mb-8">
           <div className="flex items-center gap-3 p-3 rounded-lg mb-2 text-blue-600 font-bold text-lg">
             <FaGraduationCap />
             <span>Kinderzone</span>
           </div>
           <div>
             {user ? ( // Check if user exists
-              <div class="pl-3">
+              <div className="pl-3">
                 <h3 className="font-semibold">{`${user.firstName} ${user.lastName}`}</h3>
                 <p className="text-sm text-gray-500">{user.role}</p>
               </div>

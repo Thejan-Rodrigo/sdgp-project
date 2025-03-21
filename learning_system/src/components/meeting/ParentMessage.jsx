@@ -1,10 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { MdDateRange } from "react-icons/md"; // Calendar icon
 import { FaClock } from 'react-icons/fa';
-import { useState } from "react";
 
 export default function ParentMessage(props) {
-
     const [isExpanded, setIsExpanded] = useState(false);
     const MAX_LENGTH = 100; // Adjust this limit
 
@@ -21,49 +19,48 @@ export default function ParentMessage(props) {
         .padStart(2, "0")} ${utcHours >= 12 ? "PM" : "AM"}`;
 
     return (
-        <div class=" ml-8 h-auto bg-white rounded-lg mb-10 p-3" style={{ width: 800 }}>
-            <div class="flex">
+        <div className="bg-white rounded-lg p-6 shadow-sm">
+            <div className="flex flex-col space-y-4">
+                {/* Meeting Name */}
+                <h1 className="text-xl font-semibold text-gray-800">{props.name}</h1>
 
-                <h1 class="text-black font-semibold pl-4"> {props.name}</h1>
-            </div>
-            <div class="pt-1 font-normal mb-5">
-
-                <p>{isExpanded || props.descrip.length <= MAX_LENGTH
-                    ? props.descrip
-                    : `${props.descrip.slice(0, MAX_LENGTH)}... `}
+                {/* Description with Show More/Show Less */}
+                <p className="text-gray-600">
+                    {isExpanded || props.descrip.length <= MAX_LENGTH
+                        ? props.descrip
+                        : `${props.descrip.slice(0, MAX_LENGTH)}... `}
                     {props.descrip.length > MAX_LENGTH && (
                         <button
                             onClick={() => setIsExpanded(!isExpanded)}
-                            className="text-blue-500 font-thin ml-1"
+                            className="text-blue-500 hover:text-blue-600 ml-1 focus:outline-none"
                         >
-                            {isExpanded ? "Show Less" : "Show More.."}
+                            {isExpanded ? "Show Less" : "Show More"}
                         </button>
-                    )}</p>
-            </div>
-            <div className="flex justify-between items-center w-full">
-                {/* Left side: Time with icon */}
-                <div className="flex items-center gap-4">
-                    {/* Date with icon */}
-                    <div className="flex items-center gap-2">
-                        <MdDateRange />  {/* Small calendar icon */}
-                        <span>{utcDate}</span>  {/* YYYY/MM/DD */}
-                    </div>
+                    )}
+                </p>
 
-                    {/* Time with icon */}
-                    <div className="flex items-center gap-2">
-                        <FaClock />
-                        <span>{formattedUTCTime}</span> {/* HH:MM AM/PM */}
+                {/* Date and Time */}
+                <div className="flex items-center space-x-4 text-gray-600">
+                    <div className="flex items-center space-x-2">
+                        <MdDateRange className="text-blue-500" /> {/* Calendar icon */}
+                        <span>{utcDate}</span> {/* Formatted date */}
+                    </div>
+                    <div className="flex items-center space-x-2">
+                        <FaClock className="text-blue-500" /> {/* Clock icon */}
+                        <span>{formattedUTCTime}</span> {/* Formatted time */}
                     </div>
                 </div>
 
-                {/* Right side: Buttons */}
-                <div className="flex items-center gap-2">
-                    <button onClick={() => window.open(props.link, "_blank")} className="text-white w-14 h-7 border-2 border-green-500 rounded-lg font-extralight bg-green-400">
-                        Join
+                {/* Join Button */}
+                <div className="flex justify-end">
+                    <button
+                        onClick={() => window.open(props.link, "_blank")}
+                        className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors focus:outline-none"
+                    >
+                        Join Meeting
                     </button>
                 </div>
             </div>
-
         </div>
-    )
+    );
 }
