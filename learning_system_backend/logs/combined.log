@@ -593,3 +593,211 @@
 2025-03-20 09:47:17 [32minfo[39m: [32mAnnouncement 67dadd022bffa6665a239e83 marked as read by user 67ceba38ebd2b490d7c573b8[39m
 2025-03-20 09:47:18 [32minfo[39m: [32mAnnouncement 67dad8e02bffa6665a239e09 marked as read by user 67ceba38ebd2b490d7c573b8[39m
 2025-03-20 09:47:18 [32minfo[39m: [32mAnnouncement 67dad8e02bffa6665a239e09 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-21 23:44:02 [32minfo[39m: [32mNew announcement created with ID: 67ddac6a1883f3cece2bbb24[39m
+2025-03-21 23:47:44 [32minfo[39m: [32mAnnouncement 67dad8c22bffa6665a239e01 deleted successfully[39m
+2025-03-21 23:47:49 [32minfo[39m: [32mAnnouncement 67dad8e02bffa6665a239e09 deleted successfully[39m
+2025-03-21 23:47:53 [32minfo[39m: [32mAnnouncement 67dad9562bffa6665a239e1b deleted successfully[39m
+2025-03-21 23:47:58 [32minfo[39m: [32mAnnouncement 67db9617a3265eaa62d4a545 deleted successfully[39m
+2025-03-21 23:49:40 [32minfo[39m: [32mAnnouncement 67dae739706b2f6094cba368 deleted successfully[39m
+2025-03-21 23:50:02 [32minfo[39m: [32mAnnouncement 67dae785706b2f6094cba37e updated successfully[39m
+2025-03-21 23:50:41 [32minfo[39m: [32mNew announcement created with ID: 67ddadf91883f3cece2bbb84[39m
+2025-03-21 23:51:00 [32minfo[39m: [32mNew announcement created with ID: 67ddae0b1883f3cece2bbb8c[39m
+2025-03-21 23:59:45 [32minfo[39m: [32mAnnouncement 67ddae0b1883f3cece2bbb8c deleted successfully[39m
+2025-03-21 23:59:50 [32minfo[39m: [32mAnnouncement 67ddadf91883f3cece2bbb84 deleted successfully[39m
+2025-03-21 23:59:54 [32minfo[39m: [32mAnnouncement 67dae785706b2f6094cba37e deleted successfully[39m
+2025-03-22 00:01:40 [32minfo[39m: [32mNew announcement created with ID: 67ddb08c1883f3cece2bbbf3[39m
+2025-03-22 00:02:09 [32minfo[39m: [32mNew announcement created with ID: 67ddb0a81883f3cece2bbbfb[39m
+2025-03-22 00:02:28 [32minfo[39m: [32mAnnouncement 67ddb08c1883f3cece2bbbf3 updated successfully[39m
+2025-03-22 00:07:31 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 00:07:31 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 00:07:34 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 00:08:30 [32minfo[39m: [32mNew announcement created with ID: 67ddb2261883f3cece2bbc63[39m
+2025-03-22 00:08:55 [32minfo[39m: [32mNew announcement created with ID: 67ddb23f1883f3cece2bbc6b[39m
+2025-03-22 00:13:02 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:13:02 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:13:02 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:13:03 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:15:17 [32minfo[39m: [32mAnnouncement 67dad14a2bffa6665a239db5 deleted successfully[39m
+2025-03-22 00:19:13 [32minfo[39m: [32mNew announcement created with ID: 67ddb4a91883f3cece2bbcd2[39m
+2025-03-22 00:19:44 [32minfo[39m: [32mNew announcement created with ID: 67ddb4c71883f3cece2bbcda[39m
+2025-03-22 00:21:31 [32minfo[39m: [32mNew announcement created with ID: 67ddb5331883f3cece2bbcfc[39m
+2025-03-22 00:21:43 [32minfo[39m: [32mNew announcement created with ID: 67ddb53f1883f3cece2bbd04[39m
+2025-03-22 00:24:19 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:24:20 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:24:21 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:24:21 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:24:22 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:24:23 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:40:36 [32minfo[39m: [32mAnnouncement 67ddb53f1883f3cece2bbd04 marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:40:37 [32minfo[39m: [32mAnnouncement 67ddb53f1883f3cece2bbd04 marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:40:37 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:40:37 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:40:38 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:40:38 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:40:39 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:40:39 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:41:18 [32minfo[39m: [32mAnnouncement 67ddb53f1883f3cece2bbd04 marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:41:18 [32minfo[39m: [32mAnnouncement 67ddb53f1883f3cece2bbd04 marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:41:19 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:41:19 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:41:20 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:41:20 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:41:20 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:41:21 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 00:51:08 [32minfo[39m: [32mNew announcement created with ID: 67ddbc241883f3cece2bbdf6[39m
+2025-03-22 02:25:16 [32minfo[39m: [32mAnnouncement 67ddbc241883f3cece2bbdf6 updated successfully[39m
+2025-03-22 02:28:25 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 02:28:25 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 02:28:26 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 02:28:26 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 02:28:27 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 02:28:27 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 02:28:30 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 02:28:30 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 02:28:31 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 02:28:31 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 02:28:32 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 02:28:32 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67cebb0eebd2b490d7c573c5[39m
+2025-03-22 02:48:27 [32minfo[39m: [32mAnnouncement 67ddb53f1883f3cece2bbd04 updated successfully[39m
+2025-03-22 02:48:46 [32minfo[39m: [32mNew announcement created with ID: 67ddd7b6e78f801f5118df32[39m
+2025-03-22 02:52:29 [32minfo[39m: [32mAnnouncement 67ddd7b6e78f801f5118df32 deleted successfully[39m
+2025-03-22 02:52:33 [32minfo[39m: [32mAnnouncement 67ddbc241883f3cece2bbdf6 deleted successfully[39m
+2025-03-22 02:52:38 [32minfo[39m: [32mAnnouncement 67ddb53f1883f3cece2bbd04 deleted successfully[39m
+2025-03-22 02:53:10 [32minfo[39m: [32mNew announcement created with ID: 67ddd8bc9685ddf9a6d7023c[39m
+2025-03-22 02:58:02 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 02:58:02 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 02:58:03 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 02:58:03 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 02:58:04 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 02:58:05 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:07:53 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:07:54 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:07:55 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:07:59 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:08:00 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:08:01 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:08:01 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:08:02 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:08:02 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:08:25 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:08:25 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:08:25 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:08:26 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:08:26 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:08:27 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:11:45 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:11:46 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:11:47 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:11:48 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:11:49 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:11:50 [32minfo[39m: [32mAnnouncement 67ddb0a81883f3cece2bbbfb marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:15:17 [32minfo[39m: [32mAnnouncement 67ddd8bc9685ddf9a6d7023c updated successfully[39m
+2025-03-22 03:15:36 [32minfo[39m: [32mNew announcement created with ID: 67ddddff9685ddf9a6d70362[39m
+2025-03-22 03:19:01 [32minfo[39m: [32mAnnouncement 67ddddff9685ddf9a6d70362 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:19:02 [32minfo[39m: [32mAnnouncement 67ddddff9685ddf9a6d70362 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:19:03 [32minfo[39m: [32mAnnouncement 67ddd8bc9685ddf9a6d7023c marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:19:04 [32minfo[39m: [32mAnnouncement 67ddd8bc9685ddf9a6d7023c marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:19:05 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:19:07 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:19:08 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:19:09 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:20:05 [32minfo[39m: [32mAnnouncement 67ddb2261883f3cece2bbc63 deleted successfully[39m
+2025-03-22 03:20:42 [32minfo[39m: [32mNew announcement created with ID: 67dddf329685ddf9a6d703d0[39m
+2025-03-22 03:20:57 [32minfo[39m: [32mNew announcement created with ID: 67dddf419685ddf9a6d703d8[39m
+2025-03-22 03:21:11 [32minfo[39m: [32mAnnouncement 67dddf419685ddf9a6d703d8 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:21:12 [32minfo[39m: [32mAnnouncement 67dddf419685ddf9a6d703d8 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:21:13 [32minfo[39m: [32mAnnouncement 67dddf329685ddf9a6d703d0 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:21:14 [32minfo[39m: [32mAnnouncement 67dddf329685ddf9a6d703d0 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:21:15 [32minfo[39m: [32mAnnouncement 67ddddff9685ddf9a6d70362 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:21:16 [32minfo[39m: [32mAnnouncement 67ddddff9685ddf9a6d70362 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:21:16 [32minfo[39m: [32mAnnouncement 67ddd8bc9685ddf9a6d7023c marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:21:17 [32minfo[39m: [32mAnnouncement 67ddd8bc9685ddf9a6d7023c marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:21:17 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:21:18 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:32:34 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:32:37 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:32:39 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:32:40 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:33:11 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:33:12 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:54:27 [32minfo[39m: [32mAnnouncement 67ddd8bc9685ddf9a6d7023c deleted successfully[39m
+2025-03-22 03:55:55 [32minfo[39m: [32mAnnouncement 67ddb4c71883f3cece2bbcda deleted successfully[39m
+2025-03-22 03:58:01 [32minfo[39m: [32mNew announcement created with ID: 67dde7f0f50f9bb7a1272163[39m
+2025-03-22 03:59:29 [32minfo[39m: [32mNew announcement created with ID: 67dde848f50f9bb7a1272173[39m
+2025-03-22 03:59:45 [32minfo[39m: [32mAnnouncement 67dde848f50f9bb7a1272173 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 03:59:45 [32minfo[39m: [32mAnnouncement 67dde848f50f9bb7a1272173 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:01:14 [32minfo[39m: [32mNew announcement created with ID: 67dde8b1f50f9bb7a12721a5[39m
+2025-03-22 04:02:09 [32minfo[39m: [32mAnnouncement 67dde8b1f50f9bb7a12721a5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:02:10 [32minfo[39m: [32mAnnouncement 67dde8b1f50f9bb7a12721a5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:02:11 [32minfo[39m: [32mAnnouncement 67dde848f50f9bb7a1272173 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:02:11 [32minfo[39m: [32mAnnouncement 67dde848f50f9bb7a1272173 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:02:13 [32minfo[39m: [32mAnnouncement 67dde8b1f50f9bb7a12721a5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:02:14 [32minfo[39m: [32mAnnouncement 67dde8b1f50f9bb7a12721a5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:02:15 [32minfo[39m: [32mAnnouncement 67dde848f50f9bb7a1272173 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:02:16 [32minfo[39m: [32mAnnouncement 67dde848f50f9bb7a1272173 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:03:52 [32minfo[39m: [32mNew announcement created with ID: 67dde94ff50f9bb7a1272201[39m
+2025-03-22 04:04:30 [32minfo[39m: [32mAnnouncement 67dde94ff50f9bb7a1272201 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:04:31 [32minfo[39m: [32mAnnouncement 67dde94ff50f9bb7a1272201 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:04:32 [32minfo[39m: [32mAnnouncement 67dde8b1f50f9bb7a12721a5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:04:33 [32minfo[39m: [32mAnnouncement 67dde8b1f50f9bb7a12721a5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:04:34 [32minfo[39m: [32mAnnouncement 67dde848f50f9bb7a1272173 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:04:35 [32minfo[39m: [32mAnnouncement 67dde848f50f9bb7a1272173 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:06:09 [32minfo[39m: [32mNew announcement created with ID: 67dde9d9f50f9bb7a127224b[39m
+2025-03-22 04:06:54 [32minfo[39m: [32mAnnouncement 67dde94ff50f9bb7a1272201 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:06:54 [32minfo[39m: [32mAnnouncement 67dde94ff50f9bb7a1272201 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:06:55 [32minfo[39m: [32mAnnouncement 67dde8b1f50f9bb7a12721a5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:06:55 [32minfo[39m: [32mAnnouncement 67dde8b1f50f9bb7a12721a5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:06:55 [32minfo[39m: [32mAnnouncement 67dde848f50f9bb7a1272173 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:06:56 [32minfo[39m: [32mAnnouncement 67dde848f50f9bb7a1272173 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:16:04 [32minfo[39m: [32mAnnouncement 67dde94ff50f9bb7a1272201 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:16:04 [32minfo[39m: [32mAnnouncement 67dde94ff50f9bb7a1272201 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:16:05 [32minfo[39m: [32mAnnouncement 67dde8b1f50f9bb7a12721a5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:16:05 [32minfo[39m: [32mAnnouncement 67dde8b1f50f9bb7a12721a5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:16:05 [32minfo[39m: [32mAnnouncement 67dde848f50f9bb7a1272173 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:16:06 [32minfo[39m: [32mAnnouncement 67dde848f50f9bb7a1272173 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:20:13 [32minfo[39m: [32mNew announcement created with ID: 67dded25f50f9bb7a12722d5[39m
+2025-03-22 04:20:35 [32minfo[39m: [32mNew announcement created with ID: 67dded3af50f9bb7a12722dd[39m
+2025-03-22 04:20:41 [32minfo[39m: [32mAnnouncement 67dded3af50f9bb7a12722dd updated successfully[39m
+2025-03-22 04:22:50 [32minfo[39m: [32mAnnouncement 67dded25f50f9bb7a12722d5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:22:50 [32minfo[39m: [32mAnnouncement 67dded25f50f9bb7a12722d5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:22:51 [32minfo[39m: [32mAnnouncement 67dde94ff50f9bb7a1272201 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:22:51 [32minfo[39m: [32mAnnouncement 67dde94ff50f9bb7a1272201 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:22:51 [32minfo[39m: [32mAnnouncement 67dde8b1f50f9bb7a12721a5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:22:52 [32minfo[39m: [32mAnnouncement 67dde8b1f50f9bb7a12721a5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:22:52 [32minfo[39m: [32mAnnouncement 67dde848f50f9bb7a1272173 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 04:22:53 [32minfo[39m: [32mAnnouncement 67dde848f50f9bb7a1272173 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:29:26 [32minfo[39m: [32mNew announcement created with ID: 67de43ae0d7969417de61196[39m
+2025-03-22 10:29:54 [32minfo[39m: [32mAnnouncement 67de43ae0d7969417de61196 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:29:54 [32minfo[39m: [32mAnnouncement 67de43ae0d7969417de61196 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:29:54 [32minfo[39m: [32mAnnouncement 67dded25f50f9bb7a12722d5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:29:55 [32minfo[39m: [32mAnnouncement 67dded25f50f9bb7a12722d5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:29:55 [32minfo[39m: [32mAnnouncement 67dde94ff50f9bb7a1272201 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:29:56 [32minfo[39m: [32mAnnouncement 67dde94ff50f9bb7a1272201 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:29:56 [32minfo[39m: [32mAnnouncement 67dde8b1f50f9bb7a12721a5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:29:57 [32minfo[39m: [32mAnnouncement 67dde8b1f50f9bb7a12721a5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:29:57 [32minfo[39m: [32mAnnouncement 67dde848f50f9bb7a1272173 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:29:57 [32minfo[39m: [32mAnnouncement 67dde848f50f9bb7a1272173 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:46:33 [32minfo[39m: [32mNew announcement created with ID: 67de47b10d7969417de6121c[39m
+2025-03-22 10:46:57 [32minfo[39m: [32mNew announcement created with ID: 67de47c80d7969417de61224[39m
+2025-03-22 10:48:12 [32minfo[39m: [32mAnnouncement 67de47b10d7969417de6121c marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:48:13 [32minfo[39m: [32mAnnouncement 67de47b10d7969417de6121c marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:48:13 [32minfo[39m: [32mAnnouncement 67de43ae0d7969417de61196 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:48:14 [32minfo[39m: [32mAnnouncement 67de43ae0d7969417de61196 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:48:14 [32minfo[39m: [32mAnnouncement 67dde94ff50f9bb7a1272201 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:48:14 [32minfo[39m: [32mAnnouncement 67dde94ff50f9bb7a1272201 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:48:15 [32minfo[39m: [32mAnnouncement 67dde8b1f50f9bb7a12721a5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:48:15 [32minfo[39m: [32mAnnouncement 67dde8b1f50f9bb7a12721a5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:48:16 [32minfo[39m: [32mAnnouncement 67dde848f50f9bb7a1272173 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:48:16 [32minfo[39m: [32mAnnouncement 67dde848f50f9bb7a1272173 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:49:33 [32minfo[39m: [32mAnnouncement 67de47b10d7969417de6121c marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:49:33 [32minfo[39m: [32mAnnouncement 67de47b10d7969417de6121c marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:49:34 [32minfo[39m: [32mAnnouncement 67de43ae0d7969417de61196 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:49:34 [32minfo[39m: [32mAnnouncement 67de43ae0d7969417de61196 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:49:35 [32minfo[39m: [32mAnnouncement 67dded25f50f9bb7a12722d5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:49:35 [32minfo[39m: [32mAnnouncement 67dded25f50f9bb7a12722d5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:49:35 [32minfo[39m: [32mAnnouncement 67dde94ff50f9bb7a1272201 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:49:36 [32minfo[39m: [32mAnnouncement 67dde94ff50f9bb7a1272201 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:49:36 [32minfo[39m: [32mAnnouncement 67dde8b1f50f9bb7a12721a5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:49:37 [32minfo[39m: [32mAnnouncement 67dde8b1f50f9bb7a12721a5 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:49:37 [32minfo[39m: [32mAnnouncement 67dde848f50f9bb7a1272173 marked as read by user 67ceba38ebd2b490d7c573b8[39m
+2025-03-22 10:49:38 [32minfo[39m: [32mAnnouncement 67dde848f50f9bb7a1272173 marked as read by user 67ceba38ebd2b490d7c573b8[39m

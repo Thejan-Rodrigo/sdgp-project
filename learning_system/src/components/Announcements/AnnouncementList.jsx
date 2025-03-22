@@ -15,21 +15,18 @@ const AnnouncementList = ({ refreshTrigger }) => {
   useEffect(() => {
     const fetchAnnouncements = async () => {
       if (!user?.token) return;
-      
+  
       setLoading(true);
       try {
         // Set up parameters based on user role
         const params = {
           page: 1,
           limit: 10,
-          status: 'published'
+          status: 'published',
+          role: user.role, // Pass the user's role to the backend
+          schoolId: user.schoolId, // Pass the user's schoolId to the backend (if applicable)
         };
-
-        // For student, only get announcements targeted to them
-        if (user.role === 'student' || user.role === 'parent') {
-          params.targetAudience = 'parents';
-        }
-
+  
         console.log('Fetching announcements with token:', user.token ? 'Has token' : 'No token');
         const response = await axios.get(
           'http://localhost:5000/api/v1/announcements',
@@ -40,9 +37,9 @@ const AnnouncementList = ({ refreshTrigger }) => {
             params
           }
         );
-
+  
         console.log('API Response:', response.data);
-        
+  
         // Handle different API response formats
         let fetchedAnnouncements = [];
         if (response.data.data?.announcements) {
@@ -54,66 +51,67 @@ const AnnouncementList = ({ refreshTrigger }) => {
         } else if (Array.isArray(response.data)) {
           fetchedAnnouncements = response.data;
         }
-
-        // Make sure we have the _id property for each announcement
+  
+        // Ensure each announcement has an _id property
         fetchedAnnouncements = fetchedAnnouncements.map(announcement => {
-          // If the announcement has no _id but has id, use id as _id
           if (!announcement._id && announcement.id) {
             return { ...announcement, _id: announcement.id };
           }
           return announcement;
         });
+  
         // Apply additional filtering based on user role if needed
         let filteredAnnouncements = fetchedAnnouncements;
-        
+  
         // Superadmin can see all announcements, no filtering needed
         if (user.role !== 'superadmin') {
           filteredAnnouncements = fetchedAnnouncements.filter(announcement => {
-            // If no target audience is specified, show to all users
-            if (!announcement.targetAudience || 
-                (Array.isArray(announcement.targetAudience) && announcement.targetAudience.length === 0)) {
+            // Teachers can see announcements they created, regardless of targetAudience
+            if (user.role === 'teacher' && announcement.authorId?._id === user.id) {
               return true;
             }
-            
+  
+            // If no target audience is specified, show to all users
+            if (!announcement.targetAudience || announcement.targetAudience.length === 0) {
+              return true;
+            }
+  
             // Convert target audience to array for consistent handling
-            const targetAudiences = Array.isArray(announcement.targetAudience) 
-              ? announcement.targetAudience 
+            const targetAudiences = Array.isArray(announcement.targetAudience)
+              ? announcement.targetAudience
               : [announcement.targetAudience];
-              
+  
             // Check if announcement is targeted specifically for superadmin only
-            if (targetAudiences.includes('superadmin') && 
-                targetAudiences.length === 1 && 
-                user.role !== 'superadmin') {
+            if (targetAudiences.includes('superadmin') && targetAudiences.length === 1 && user.role !== 'superadmin') {
               return false; // Don't show superadmin-only announcements to other roles
             }
-            
+  
             // Role-specific filtering
             if (user.role === 'student' && targetAudiences.includes('students') || targetAudiences.includes('all')) {
               return true;
             }
-            
+  
             if (user.role === 'parent' && targetAudiences.includes('parents') || targetAudiences.includes('all')) {
               return true;
             }
-            
-            if (user.role === 'teacher' && targetAudiences.includes('teachers') || targetAudiences.includes('parents') || targetAudiences.includes('all')) {
+  
+            if (user.role === 'teacher' && targetAudiences.includes('teachers') || targetAudiences.includes('all')) {
               return true;
             }
-            
+  
             if (user.role === 'admin' && targetAudiences.includes('admins') || targetAudiences.includes('all')) {
               return true;
             }
-
-            
+  
             // Admin can see all announcements except superadmin-only ones
             if (user.role === 'admin') {
               return !targetAudiences.includes('superadmin') || targetAudiences.length > 1;
             }
-            
+  
             return false;
           });
         }
-        
+  
         setAnnouncements(filteredAnnouncements);
         setError('');
       } catch (err) {
@@ -123,9 +121,9 @@ const AnnouncementList = ({ refreshTrigger }) => {
         setLoading(false);
       }
     };
-
+  
     fetchAnnouncements();
-  }, [user, refreshTrigger]);
+  }, [user, refreshTrigger, user?.token]); // Add user.token to dependency array
 
   const handleEdit = (id) => {
     const announcementToEdit = announcements.find(a => a._id === id);
