@@ -4,25 +4,28 @@ import { Search } from "lucide-react";
 import { useAuth } from "../../../context/AuthContext";
 
 const ContactListT = ({ onSelectStudent }) => {
-  const { user } = useAuth(); // Get teacher ID
+  const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
+    if (!user?.schoolId) return;
+
     const fetchStudents = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/students/bySchool/${user.schoolId}`);
-        setStudents(response.data);
+        const response = await axios.get(`http://localhost:5000/api/chat/bySchool/${user.schoolId}`);
+        setStudents(response.data); // Store students properly
       } catch (error) {
         console.error("Error fetching students:", error);
       }
     };
 
-    if (user?.schoolId) fetchStudents();
+    fetchStudents();
   }, [user?.schoolId]);
 
+  // Ensure that student properties exist before filtering
   const filteredStudents = students.filter((student) =>
-    student.name.toLowerCase().includes(searchQuery.toLowerCase())
+    (`${student.firstName} ${student.lastName}`).toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -45,16 +48,24 @@ const ContactListT = ({ onSelectStudent }) => {
       </div>
 
       <div className="overflow-y-auto">
-        {filteredStudents.map((student) => (
-          <div
-            key={student._id}
-            className="p-4 hover:bg-gray-50 cursor-pointer border-b transition-colors"
-            onClick={() => onSelectStudent(student)}
-          >
-            <h3 className="font-semibold text-gray-900">{student.name}</h3>
-            <p className="text-sm text-gray-500">Parent ID: {student.parentId}</p>
-          </div>
-        ))}
+        {filteredStudents.length > 0 ? (
+          filteredStudents.map((student) => (
+            <div
+              key={student._id}
+              className="p-4 hover:bg-gray-50 cursor-pointer border-b transition-colors"
+              onClick={() => onSelectStudent({
+                _id: student._id,
+                name: `${student.firstName} ${student.lastName}`,
+                parentId: student.parent, // Fix: Use `parent` instead of `parentId`
+              })}
+            >
+              <h3 className="font-semibold text-gray-900">{student.firstName} {student.lastName}</h3>
+              <p className="text-sm text-gray-500">Parent ID: {student.parent}</p>
+            </div>
+          ))
+        ) : (
+          <p className="text-center text-gray-500 p-4">No students found</p>
+        )}
       </div>
     </div>
   );
