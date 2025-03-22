@@ -21,11 +21,12 @@ import meetingRoutes from "./api/router/meetingRoutes.mjs";
 import lessonsRoutes from "./routes/lessonsRoutes.js";
 import attendanceRoutes from "./routes/attendanceRoutes.js";
 import chatRoutes from "./routes/chatRoutes.js";
+import studentRoutes from "./routes/chatRoutes.js";
 import errorHandler from "./middleware/errorMiddleware.js";
 import http from "http";
 import { Server } from "socket.io";
 import ChatService from "./services/chatService.js";
-import MessageModel from "./models/Message.js"; // ✅ Import Message Model
+import { Message } from "./models/Message.js"; // ✅ Correct import
 
 dotenv.config(); // Load environment variables
 connectDB(); // Connect to MongoDB
@@ -38,6 +39,7 @@ app.use(cors());
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/chat", chatRoutes);
+app.use("/api/students", studentRoutes);
 
 // Create HTTP Server
 const server = http.createServer(app);
@@ -77,7 +79,7 @@ app.delete("/api/chat/delete/:messageId", async (req, res) => {
     const { messageId } = req.params;
     const { userId } = req.body; // Assuming sender ID is sent in the request body
 
-    const message = await MessageModel.findById(messageId);
+    const message = await Message.findById(messageId); // ✅ Fixed reference
 
     if (!message) {
       return res.status(404).json({ error: "Message not found" });
@@ -87,7 +89,7 @@ app.delete("/api/chat/delete/:messageId", async (req, res) => {
       return res.status(403).json({ error: "You can only delete your own messages" });
     }
 
-    await MessageModel.findByIdAndDelete(messageId);
+    await Message.findByIdAndDelete(messageId);
     io.emit("messageDeleted", messageId);
     res.status(200).json({ success: true, messageId });
   } catch (error) {
@@ -95,7 +97,6 @@ app.delete("/api/chat/delete/:messageId", async (req, res) => {
     res.status(500).json({ error: "Failed to delete message" });
   }
 });
-
 
 // ✅ Test Endpoint
 app.get("/test", (req, res) => {
