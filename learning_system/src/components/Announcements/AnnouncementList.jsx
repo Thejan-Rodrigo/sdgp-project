@@ -4,19 +4,6 @@ import { useAuth } from '../../context/AuthContext';
 import AnnouncementCard from './AnnouncementCard';
 import EditAnnouncementModal from './EditAnnouncementModal';
 
-// Loading Animation Component
-const LoadingAnimation = () => (
-  <div className="flex-col gap-4 w-full flex items-center justify-center">
-    <div
-      className="w-20 h-20 border-4 border-transparent text-blue-400 text-4xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full"
-    >
-      <div
-        className="w-16 h-16 border-4 border-transparent text-blue-400 text-2xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full"
-      ></div>
-    </div>
-  </div>
-);
-
 const AnnouncementList = ({ refreshTrigger }) => {
   const { user } = useAuth();
   const [announcements, setAnnouncements] = useState([]);
@@ -28,19 +15,19 @@ const AnnouncementList = ({ refreshTrigger }) => {
   useEffect(() => {
     const fetchAnnouncements = async () => {
       if (!user?.token) return;
-      
+  
       setLoading(true);
       try {
+        // Set up parameters based on user role
         const params = {
           page: 1,
           limit: 10,
-          status: 'published'
+          status: 'published',
+          role: user.role, // Pass the user's role to the backend
+          schoolId: user.schoolId, // Pass the user's schoolId to the backend (if applicable)
         };
-
-        if (user.role === 'student' || user.role === 'parent') {
-          params.targetAudience = 'parents';
-        }
-
+  
+        console.log('Fetching announcements with token:', user.token ? 'Has token' : 'No token');
         const response = await axios.get(
           'http://localhost:5000/api/v1/announcements',
           {
@@ -50,7 +37,10 @@ const AnnouncementList = ({ refreshTrigger }) => {
             params
           }
         );
-
+  
+        console.log('API Response:', response.data);
+  
+        // Handle different API response formats
         let fetchedAnnouncements = [];
         if (response.data.data?.announcements) {
           fetchedAnnouncements = response.data.data.announcements;
@@ -61,15 +51,68 @@ const AnnouncementList = ({ refreshTrigger }) => {
         } else if (Array.isArray(response.data)) {
           fetchedAnnouncements = response.data;
         }
-
+  
+        // Ensure each announcement has an _id property
         fetchedAnnouncements = fetchedAnnouncements.map(announcement => {
           if (!announcement._id && announcement.id) {
             return { ...announcement, _id: announcement.id };
           }
           return announcement;
         });
-        
-        setAnnouncements(fetchedAnnouncements);
+  
+        // Apply additional filtering based on user role if needed
+        let filteredAnnouncements = fetchedAnnouncements;
+  
+        // Superadmin can see all announcements, no filtering needed
+        if (user.role !== 'superadmin') {
+          filteredAnnouncements = fetchedAnnouncements.filter(announcement => {
+            // Teachers can see announcements they created, regardless of targetAudience
+            if (user.role === 'teacher' && announcement.authorId?._id === user.id) {
+              return true;
+            }
+  
+            // If no target audience is specified, show to all users
+            if (!announcement.targetAudience || announcement.targetAudience.length === 0) {
+              return true;
+            }
+  
+            // Convert target audience to array for consistent handling
+            const targetAudiences = Array.isArray(announcement.targetAudience)
+              ? announcement.targetAudience
+              : [announcement.targetAudience];
+  
+            // Check if announcement is targeted specifically for superadmin only
+            if (targetAudiences.includes('superadmin') && targetAudiences.length === 1 && user.role !== 'superadmin') {
+              return false; // Don't show superadmin-only announcements to other roles
+            }
+  
+            // Role-specific filtering
+            if (user.role === 'student' && targetAudiences.includes('students') || targetAudiences.includes('all')) {
+              return true;
+            }
+  
+            if (user.role === 'parent' && targetAudiences.includes('parents') || targetAudiences.includes('all')) {
+              return true;
+            }
+  
+            if (user.role === 'teacher' && targetAudiences.includes('teachers') || targetAudiences.includes('all')) {
+              return true;
+            }
+  
+            if (user.role === 'admin' && targetAudiences.includes('admins') || targetAudiences.includes('all')) {
+              return true;
+            }
+  
+            // Admin can see all announcements except superadmin-only ones
+            if (user.role === 'admin') {
+              return !targetAudiences.includes('superadmin') || targetAudiences.length > 1;
+            }
+  
+            return false;
+          });
+        }
+  
+        setAnnouncements(filteredAnnouncements);
         setError('');
       } catch (err) {
         console.error('Error fetching announcements:', err);
@@ -78,9 +121,9 @@ const AnnouncementList = ({ refreshTrigger }) => {
         setLoading(false);
       }
     };
-
+  
     fetchAnnouncements();
-  }, [user, refreshTrigger]);
+  }, [user, refreshTrigger, user?.token]); // Add user.token to dependency array
 
   const handleEdit = (id) => {
     const announcementToEdit = announcements.find(a => a._id === id);
@@ -113,6 +156,9 @@ const AnnouncementList = ({ refreshTrigger }) => {
         }
       );
 
+      console.log('Announcement updated:', response.data);
+      
+      // Update the announcement in the local state
       setAnnouncements(announcements.map(a => 
         a._id === updatedAnnouncement._id ? 
           {...a, ...updatedAnnouncement} : a
@@ -128,16 +174,19 @@ const AnnouncementList = ({ refreshTrigger }) => {
 
   const handleDelete = async (id) => {
     try {
+      // Confirm before deleting
       if (!window.confirm('Are you sure you want to delete this announcement?')) {
         return;
       }
 
+      console.log('Deleting announcement with ID:', id);
       await axios.delete(`http://localhost:5000/api/v1/announcements/${id}`, {
         headers: {
           'Authorization': `Bearer ${user.token}`
         }
       });
       
+      // Remove from state
       setAnnouncements(announcements.filter(a => a._id !== id));
     } catch (err) {
       console.error('Error deleting announcement:', err);
@@ -149,8 +198,35 @@ const AnnouncementList = ({ refreshTrigger }) => {
     }
   };
 
+  // Mark announcement as read when viewed
+  useEffect(() => {
+    const markAnnouncementsAsRead = async () => {
+      if (!user?.token || announcements.length === 0) return;
+      
+      if (user.role === 'student' || user.role === 'parent') {
+        try {
+          for (const announcement of announcements) {
+            await axios.post(
+              `http://localhost:5000/api/v1/announcements/${announcement._id}/read`,
+              {},
+              {
+                headers: {
+                  'Authorization': `Bearer ${user.token}`
+                }
+              }
+            );
+          }
+        } catch (err) {
+          console.error('Error marking announcements as read:', err);
+        }
+      }
+    };
+    
+    markAnnouncementsAsRead();
+  }, [announcements, user]);
+
   if (loading) {
-    return <LoadingAnimation />; // Use the loading animation
+    return <div className="mt-6 text-center">Loading announcements...</div>;
   }
 
   if (error) {
@@ -158,33 +234,32 @@ const AnnouncementList = ({ refreshTrigger }) => {
   }
 
   if (announcements.length === 0) {
-    return <div className="mt-6 text-center text-gray-500">No announcements found.</div>;
+    return <div className="mt-6 text-center">No announcements found.</div>;
   }
 
   return (
     <div className="mt-6">
-      <h2 className="text-xl font-semibold mb-4">Announcements</h2>
-      <div className="space-y-4">
-        {announcements.map((announcement) => (
-          <AnnouncementCard 
-            key={announcement._id}
-            id={announcement._id}
-            title={announcement.title}
-            content={announcement.content}
-            timeAgo={new Date(announcement.createdAt).toLocaleDateString()}
-            views={announcement.readCount || 0}
-            targetAudience={announcement.targetAudience?.join(', ') || 'All'}
-            postedBy={announcement.authorId ? 
-                     `${announcement.authorId.firstName || ''} ${announcement.authorId.lastName || ''}` : 
-                     'System'}
-            userRole={user.role}
-            canEdit={user.role === 'superadmin' || user.role === 'admin' || 
-                    (user.role === 'teacher' && announcement.authorId?._id === user.id)}
-            onEdit={() => handleEdit(announcement._id)}
-            onDelete={() => handleDelete(announcement._id)}
-          />
-        ))}
-      </div>
+      <h2 className="text-lg font-semibold mb-4">Announcements</h2>
+      {announcements.map((announcement) => (
+        <AnnouncementCard 
+          key={announcement._id}
+          id={announcement._id}
+          title={announcement.title}
+          content={announcement.content}
+          timeAgo={new Date(announcement.createdAt).toLocaleDateString()}
+          views={announcement.readCount || 0}
+          targetAudience={announcement.targetAudience?.join(', ') || 'All'}
+          postedBy={announcement.authorId ? 
+                   `${announcement.authorId.firstName || ''} ${announcement.authorId.lastName || ''}` : 
+                   'System'}
+          userRole={user.role}
+          // Only allow editing/deleting if superadmin, admin, or if teacher is the author
+          canEdit={user.role === 'superadmin' || user.role === 'admin' || 
+                  (user.role === 'teacher' && announcement.authorId?._id === user.id)}
+          onEdit={() => handleEdit(announcement._id)}
+          onDelete={() => handleDelete(announcement._id)}
+        />
+      ))}
 
       {/* Edit Announcement Modal */}
       {showEditModal && editingAnnouncement && (
