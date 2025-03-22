@@ -1,7 +1,7 @@
 import multer from "multer";
 import path from "path";
 import fs from "fs";
-import logger from "./logger.js";
+//import logger from "./logger.js";
 // import logger from "./logger.js";
 
 const uploadDir = "uploads/images";

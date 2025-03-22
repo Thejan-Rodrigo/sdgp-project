@@ -3,16 +3,16 @@ import cors from "cors";
 import connectDB from "./config/db.js";
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
-// import errorHandler from "./middleware/errorMiddleware.js";
-import adminRoutes from "./routes/adminRoutes.js";
-import announcementRoute from "./routes/AnnouncementRouter.js"
+ import errorHandler from "./middleware/errorMiddleware.js";
+//import adminRoutes from "./routes/";
+//import announcementRoute from "./routes/AnnouncementRouter.js"
 import learningRoutes from "./routes/learningRoutes.js"
 
-import schoolRoutes from "./routes/schoolRoutes.js";
-import { errorHandler } from "./middleware/errorHandler.js"; // Use curly braces for named export
-import logRequest from './utils/logger.js'; // Adjust the path to where you defined logRequest
+//import schoolRoutes from "./routes/schoolRoutes.js";
+//import { errorHandler } from "./middleware/errorHandler.js"; // Use curly braces for named export
+//import logRequest from './utils/logger.js'; // Adjust the path to where you defined logRequest
 import studentRoutes from "./routes/studentRoutes.js";
-import progressRoutes from "./routes/progressRoutes.js";
+//import progressRoutes from "./routes/progressRoutes.js";
 // import { getStudentProfile, getStudentProgress } from "./controllers/studentController.js";
 // import { getAttendance } from "./controllers/studentAttendace.js"
 // import { getAuthUrl, handleOAuthCallback, generateMeetingLink } from './api/router/meeting.mjs';
@@ -20,11 +20,11 @@ import meetingRoutes from "./api/router/meetingRoutes.mjs";
 
 
 
-import errorHandler from "./middleware/errorMiddleware.js";
+//import errorHandler from "./middleware/errorMiddleware.js";
 import lessonsRoutes from './routes/lessonsRoutes.js';
 import attendanceRoutes from './routes/attendanceRoutes.js';
 import userRoutes from './routes/userRoutes.js';
-import studentRoutes from './routes/studentRoutes.js'
+//import studentRoutes from './routes/studentRoutes.js'
 
 // Load environment variables
 dotenv.config();
@@ -44,15 +44,15 @@ app.use(cors({
 
 
 
-app.use("/api/admin", adminRoutes);
-app.use("/api/schools", schoolRoutes);
+//app.use("/api/admin", adminRoutes);
+//app.use("/api/schools", schoolRoutes);
 
 app.use("/api/learning", learningRoutes)
 
 
 app.use("/api/auth", authRoutes);
 
-app.use('/api/v1/announcements', announcementRoute);
+//app.use('/api/v1/announcements', announcementRoute);
 
 app.get("/test",(req,res)=>{
     console.log(req);

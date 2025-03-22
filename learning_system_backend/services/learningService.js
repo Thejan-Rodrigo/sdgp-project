@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Learning from "../models/Learning.js";
-import logger from "../utils/logger.js";
+//import logger from "../utils/logger.js";
 import ApiError from "../utils/ApiError.js";
 
 const addLearningMaterial = async ({ title, description, duration, audience, image }) => {

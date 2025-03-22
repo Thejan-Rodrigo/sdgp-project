@@ -96,7 +96,7 @@
 import catchAsync from "../utils/catchAsync.js";
 import { successResponse } from "../utils/responseHandler.js";
 import learningService from "../services/learningService.js";
-import logger from "../utils/logger.js";
+//import logger from "../utils/logger.js";
 import path from "path";
 
 const learningController = {

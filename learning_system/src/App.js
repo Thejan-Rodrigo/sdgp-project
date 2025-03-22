@@ -24,7 +24,7 @@ import ParentPage from "./components/learning/parent/ParentPage";
 import AddLearningPage from "./components/addLearning/addLearningpage";
 //import Register from './components/Register';
 import Login from './components/Login';
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+//import { BrowserRouter as Route, Routes } from "react-router-dom";
 //import { useAuth } from './context/AuthContext';
 import Lessons from './components/Lessons';
 import Attendance from './components/Attendance';

@@ -4,15 +4,15 @@ import path from "path";
 import fs from "fs";
 import upload from "../utils/imageUploader.js"; 
 import learningController from "../controllers/learningController.js";
-import authMiddleware from "../middleware/authMiddleware.js";
+//import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/add", authMiddleware, upload.single("image"), learningController.addLearningMaterial);
+router.post("/add", upload.single("image"), learningController.addLearningMaterial);
 
 router.get("/getall", learningController.getAllLearningMaterials);
 
-router.delete("/:id", authMiddleware, learningController.deleteLearningMaterialById);
+router.delete("/:id", learningController.deleteLearningMaterialById);
 
 
 router.get("/image/:filename", (req, res) => {
