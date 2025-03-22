@@ -2,6 +2,7 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 import logger from "./logger.js";
+// import logger from "./logger.js";
 
 const uploadDir = "uploads/images";
 if (!fs.existsSync(uploadDir)) {
@@ -25,6 +26,7 @@ export const uploadImage = async (imagePath) => {
   return new Promise((resolve, reject) => {
     if (!imagePath || typeof imagePath !== "string") {
       logger.error("[imageUploader] Invalid image path received");
+      // logger.error("[imageUploader] Invalid image path received");
       return reject(new Error("Invalid image path"));
     }
 
@@ -32,6 +34,7 @@ export const uploadImage = async (imagePath) => {
     fs.access(imagePath, fs.constants.F_OK, (err) => {
       if (err) {
         logger.error("[imageUploader] File not found: " + imagePath);
+        // logger.error("[imageUploader] File not found: " + imagePath);
         return reject(new Error("Image file not found"));
       }
 
