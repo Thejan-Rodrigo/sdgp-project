@@ -17,7 +17,8 @@ export const AuthProvider = ({ children }) => {
             email: user.email,
             role: user.role,
             token: token,
-        };
+            ...(user.schoolId && { schoolId: user.schoolId }), // Conditionally add schoolId
+          };
 
         setUser(userData);
         localStorage.setItem("user", JSON.stringify(userData));

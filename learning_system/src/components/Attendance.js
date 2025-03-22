@@ -18,9 +18,10 @@ const Attendance = () => {
       try {
         console.log('Fetching students data...');
         // const response = await fetch('http://localhost:5000/api/users/students');
-        const uSchId = localStorage.getItem('schoolId');
+        const user = localStorage.getItem('user'); // Get the school ID from local storage
+        const schId = JSON.parse(user).schoolId;
         // console.log(uSchId)
-        const response = await fetch(`http://localhost:5000/api/students/school/${uSchId}`);
+        const response = await fetch(`http://localhost:5000/api/students/school/${schId}`);
         // const response = await fetch('http://localhost:5000/api/students/school/67cc5370e98552e9b5a6e097');
         
         if (!response.ok) {

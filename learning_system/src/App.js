@@ -22,6 +22,13 @@ import AdminSProfile from "./components/studentProfilePage/adminSProfile";
 import TeacherPage from "./components/learning/teacher/TeacherPage";
 import ParentPage from "./components/learning/parent/ParentPage";
 import AddLearningPage from "./components/addLearning/addLearningpage";
+//import Register from './components/Register';
+import Login from './components/Login';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+//import { useAuth } from './context/AuthContext';
+import Lessons from './components/Lessons';
+import Attendance from './components/Attendance';
+import AddLesson from './components/AddLesson';
 
 // ProtectedRoute component
 const ProtectedRoute = ({ allowedRoles, element }) => {
@@ -160,6 +167,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/lessons" element={<Lessons />} />
         <Route path="/attendance" element={<Attendance />} />
+        <Route path="/addLesson" element={<AddLesson />} />
       </Routes>
       <div className="user-info">
         {user ? (

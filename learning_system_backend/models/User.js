@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema(
     lastName: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true, lowercase: true },
     password: { type: String, required: true },
-    role: { type: String, enum: ["admin", "teacher", "parent", "student"], required: true },
+    role: { type: String, enum: ["superadmin","admin", "teacher", "parent", "student"], required: true },
     isActive: { type: Boolean, default: true },
     lastLogin: { type: Date },
   },

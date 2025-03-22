@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css'; // Importing the new CSS file
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -33,24 +35,41 @@ const Login = () => {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
+      const rData = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Login failed. Please check your credentials.');
+        throw new Error(rData.message || 'Login failed. Please check your credentials.');
       }
 
-      console.log('Login successful:', data);
-      localStorage.setItem('token', data.token); // Store the token
+      if(rData.success){
+        localStorage.setItem('token', rData.data.token); // Store the token
+        
+        login(rData);
+        // Show success message before redirecting
+        const successElement = document.createElement('div');
+        successElement.className = 'login-success-message';
+        successElement.textContent = 'Login successful! Redirecting...';
+        document.querySelector('.login-form').appendChild(successElement);
+        
+        setTimeout(() => {
+          // navigate('/'); // Redirect to home after successful login
+          switch (rData.data.user.role) {
+            case "teacher":
+              navigate("/lessons"); // change this accordingly
+              break;
+            case "superadmin":
+              navigate("/addLesson"); // Redirect to add admin page
+              break;
+            default:
+              navigate("/"); // Default redirect to home page
+          }
+        }, 1000);
       
-      // Show success message before redirecting
-      const successElement = document.createElement('div');
-      successElement.className = 'login-success-message';
-      successElement.textContent = 'Login successful! Redirecting...';
-      document.querySelector('.login-form').appendChild(successElement);
+      }else {
+        console.error("Login failed:", rData.message);
+        setErrorMessage(rData.message || "Login failed");
+      }
       
-      setTimeout(() => {
-        navigate('/'); // Redirect to home after successful login
-      }, 1000);
     } catch (error) {
       console.error('Login error:', error.message);
       setErrorMessage(error.message);
