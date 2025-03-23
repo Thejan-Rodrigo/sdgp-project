@@ -4,6 +4,19 @@ import { useAuth } from '../../context/AuthContext';
 import AnnouncementCard from './AnnouncementCard'; 
 import EditAnnouncementModal from './EditAnnouncementModal'; 
 
+// Loading Animation Component
+const LoadingAnimation = () => (
+  <div className="flex-col gap-4 w-full flex items-center justify-center">
+    <div
+      className="w-20 h-20 border-4 border-transparent text-blue-400 text-4xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full"
+    >
+      <div
+        className="w-16 h-16 border-4 border-transparent text-blue-400 text-2xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full"
+      ></div>
+    </div>
+  </div>
+);
+
 const AnnouncementList = ({ refreshTrigger }) => {
   const { user } = useAuth(); // Access user data (e.g., token, role, schoolId)
   const [announcements, setAnnouncements] = useState([]); 
@@ -172,12 +185,10 @@ const AnnouncementList = ({ refreshTrigger }) => {
 
   const handleDelete = async (id) => {
     try {
-      // Confirm before deleting
       if (!window.confirm('Are you sure you want to delete this announcement?')) {
         return;
       }
 
-      console.log('Deleting announcement with ID:', id);
       await axios.delete(`http://localhost:5000/api/v1/announcements/${id}`, {
         headers: {
           'Authorization': `Bearer ${user.token}` // Attach token for authentication

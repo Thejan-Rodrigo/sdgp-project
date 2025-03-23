@@ -6,3 +6,7 @@ export const successResponse = (res, statusCode, data, message = "Success") => {
     data,
   });
 };
+
+export const errorResponse = (res, message = "Error", statusCode = 500) => {
+  res.status(statusCode).json({ success: false, message });
+};

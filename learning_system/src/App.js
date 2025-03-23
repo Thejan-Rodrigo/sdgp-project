@@ -22,6 +22,14 @@ import AdminSProfile from "./components/studentProfilePage/adminSProfile";
 import TeacherPage from "./components/learning/teacher/TeacherPage";
 import ParentPage from "./components/learning/parent/ParentPage";
 import AddLearningPage from "./components/learning/addLearning/addLearningpage";
+import AddLearningPage from "./components/addLearning/addLearningpage";
+import Lessons from './components/lessons/Lessons';
+import AddLesson from  './components/addLesson/AddLesson';
+import Attendance from './components/attendence/Attendance';
+import ParentChat from './components/q&a/ParentSide/ParentChat';
+import TeacherChat from './components/q&a/TeacherSide/TeacherChat'
+import AdminChat from './components/q&a/AdminSide/AdminChat';
+import SuperAdminChat from './components/q&a/SuperAdminSide/SuperAdminChat';
 
 // ProtectedRoute component
 const ProtectedRoute = ({ allowedRoles, element }) => {
@@ -46,6 +54,19 @@ const App = () => {
         {/* Public routes */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path= "/superadminannouncement" element={<SuperAdminDashboard/>}/>
+        <Route path= "/adminannouncement" element={<AdminDashboard/>}/>
+        <Route path= "/teacherannouncement" element={<TeacherDashboard/>}/>
+        <Route path= "/studentannouncement" element={<StudentDashboard/>}/>
+        <Route path="/progress" element={<Progress/>}/>
+        <Route path="/aboutus" element={<AboutUs/>}/>
+        <Route path="/studentprofile" element={<StudentProfile />}/>
+        <Route path="/teacherSProfile" element={<TeacherSProfile />}/>
+        <Route path="/adminSProfile" element={<AdminSProfile />}/>
+        <Route path="/teachermeeting" element={<TeacherMeeting/>}/>
+        <Route path="/parentmeeting" element={<ParentMeeting/>}/> 
+        <Route path="/lessons" element={<Lessons/>}/>
+        <Route path="/attendance" element={<Attendance/>}/>
 
         {/* Role-protected routes */}
         <Route
@@ -63,6 +84,15 @@ const App = () => {
             <ProtectedRoute
               allowedRoles={['superadmin']}
               element={<AddSchoolPage />}
+            />
+          }
+        />
+        <Route
+          path="/addlesson"
+          element={
+            <ProtectedRoute
+              allowedRoles={['superadmin']}
+              element={<AddLesson />}
             />
           }
         />
@@ -142,6 +172,12 @@ const App = () => {
           }
         />
 
+        <Route path="/addLearningPage" element={<AddLearningPage />} />
+        <Route path="/addadmin" element={<AddAdminPage />}/>
+        <Route path="/parentq&a" element={<ParentChat/>}/>
+        <Route path="/Teacherq&a" element={<TeacherChat/>}/>
+        <Route path="/Adminq&a" element={<AdminChat/>}/>
+        <Route path="/SuperAdminq&a" element={<SuperAdminChat/>}/>
         <Route
           path="/studentprofile"
           element={
