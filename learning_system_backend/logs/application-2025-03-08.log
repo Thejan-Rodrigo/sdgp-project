@@ -1,9 +1,0 @@
-[2025-03-08 14:55:27] [[32minfo[39m] [32m[authService] Passwords match![39m
-[2025-03-08 14:55:27] [[32minfo[39m] [32m[authService] Login successfull![39m
-[2025-03-08 19:54:52] [[32minfo[39m] [32m[authService] Passwords match![39m
-[2025-03-08 19:54:52] [[32minfo[39m] [32m[authService] Login successfull![39m
-[2025-03-08 19:55:52] [[32minfo[39m] [32m[schoolController] Data came[39m
-[2025-03-08 19:55:52] [[32minfo[39m] [32m[schoolService] Not admin found and creating a new school[39m
-[2025-03-08 19:55:52] [[32minfo[39m] [32m[schoolService] New school created and save in databse[39m
-[2025-03-08 19:55:52] [[32minfo[39m] [32m[schoolService] New admin created and save in databse[39m
-[2025-03-08 19:55:52] [[32minfo[39m] [32m[schoolController] School and admin created successfully[39m

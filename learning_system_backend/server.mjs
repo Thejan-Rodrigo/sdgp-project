@@ -23,7 +23,7 @@ import attendanceRoutes from "./routes/attendanceRoutes.js";
 import chatRoutes from "./routes/chatRoutes.js";
 // import studentRoutes from "./routes/chatRoutes.js";
 // import TeacherRoutes from "./routes/chatRoutes.js"; // ✅ Import teacher routes
-import errorHandler from "./middleware/errorMiddleware.js";
+//import errorHandler from "./middleware/errorMiddleware.js";
 import http from "http";
 import { Server } from "socket.io";
 import ChatService from "./services/chatService.js";
