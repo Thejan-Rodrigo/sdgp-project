@@ -23,10 +23,12 @@ const ChatArea = () => {
 
   useEffect(() => {
     //if (!schoolId) return;
+    console.log(schoolId)
+    console.log(senderId)
 
     const fetchStudents = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/chat/students/bySchool/67cc5370e98552e9b5a6e097`);
+        const response = await axios.get(`http://localhost:5000/api/chat/students/bySchool/${schoolId}`);
         console.log("Fetched Students:", response.data)
         console.log(senderId)
         setStudents(response.data);
@@ -39,11 +41,13 @@ const ChatArea = () => {
   },[schoolId] )
 
   useEffect(() => {
+    console.log(senderId)
+    console.log(receiverId)
     if (!receiverId) return;
 
     const fetchMessages = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/chat/${senderId}/${receiverId}`);
+        const response = await axios.get(`http://localhost:5000/api/chat/get/${senderId}/${receiverId}`);
         setMessages(response.data);
       } catch (error) {
         console.error("Error fetching chat history:", error);
@@ -73,10 +77,10 @@ const ChatArea = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:5000/api/chat/send", messageData);
-      const savedMessage = response.data;
-      setMessages((prev) => [...prev, savedMessage]);
-      socket.emit("sendMessage", savedMessage);
+      // const response = await axios.post("http://localhost:5000/api/chat/send", messageData);
+      // const savedMessage = response.data;
+      // setMessages((prev) => [...prev, savedMessage]);
+      socket.emit("sendMessage", messageData);
     } catch (error) {
       console.error("Error sending message:", error);
     }
