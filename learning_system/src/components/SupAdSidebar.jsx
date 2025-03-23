@@ -13,6 +13,7 @@ const Sidebar = () => {
     { icon: <FaBell />, text: 'Announcements', path: '/superadminannouncement' }, // Added path for Announcements
     { icon: <FaSchool />, text: 'Add School', path: '/addSchool' }, // Added path for Add School
     { icon: <FaUserCog />, text: 'Add Admin', path: '/addadmin' }, // Added path for Add Admin
+    { icon: <FaUserCog />, text: 'Add Lesson', path: '/addlesson' }, // Added path for Add Lesson
     { icon: <FaQuestionCircle />, text: 'Q&A Management', path: '/qa-management' } // Added path for Q&A Management
   ];
 
