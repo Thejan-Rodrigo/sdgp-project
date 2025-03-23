@@ -123,8 +123,10 @@ export default function TeacherMeeting() {
     return (
         <div className="test">
             <div className="side" class=" flex bg-white">
-                <Sidebar />
-                <div class=" p-7 bg-gray-50 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full overflow-y-scroll" style={{ height: 700 }}>
+                <div className="w-64 flex-shrink-0">
+                    <Sidebar />
+                </div>
+                <div class=" p-7 bg-gray-50 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full " style={{ height: 700 }}>
                     <h2 className="text-lg font-semibold mb-4 ml-10">Upcoming Meetings</h2>
 
                     {meetings.map((meeting, index) => (

@@ -43,7 +43,7 @@ const ParentChatArea = () => {
   }, [schoolId]);
 
   useEffect(() => {
-    //if (!receiverId) return;
+    if (!receiverId) return;
 
     const fetchMessages = async () => {
       console.log(receiverId);
@@ -87,6 +87,21 @@ const ParentChatArea = () => {
       socket.emit("sendMessage", messageData);
     } catch (error) {
       console.error("Error sending message:", error);
+    }
+  };
+
+  // Function to handle message deletion
+  const handleDeleteMessage = async (messageId) => {
+    try {
+      // Call the delete API
+      await axios.delete(`http://localhost:5000/api/chat/delete/${messageId}`, {
+        data: { userId: senderId }, // Send userId in the request body
+      });
+
+      // Remove the deleted message from the messages state
+      setMessages((prevMessages) => prevMessages.filter((msg) => msg._id !== messageId));
+    } catch (error) {
+      console.error("Error deleting message:", error.response?.data || error.message);
     }
   };
 
@@ -154,7 +169,13 @@ const ParentChatArea = () => {
             <div className="flex-1 overflow-y-auto p-4 bg-white">
               {messages.length > 0 ? (
                 messages.map((msg, index) => (
-                  <Message key={index} {...msg} currentUserId={senderId} />
+                  <Message
+                    key={index}
+                    {...msg}
+                    timestamp={msg.createdAt}
+                    currentUserId={senderId}
+                    onDelete={handleDeleteMessage} // Pass the delete handler
+                  />
                 ))
               ) : (
                 <p className="text-gray-500 text-center">Start a conversation...</p>

@@ -42,6 +42,8 @@ export default function ParentMeeting() {
                 <ParentSideBar />
             </div>
 
+            
+
             {/* Main Content with Left Margin */}
             <div className="flex-1 ml-64">
                 <header className="bg-white border-b px-6 py-4 flex justify-between items-center">

@@ -76,6 +76,21 @@ const SuperAdminChat = () => {
     }
   };
 
+  // Function to handle message deletion
+  const handleDeleteMessage = async (messageId) => {
+    try {
+      // Call the delete API
+      await axios.delete(`http://localhost:5000/api/chat/delete/${messageId}`, {
+        data: { userId: senderId }, // Send userId in the request body
+      });
+
+      // Remove the deleted message from the messages state
+      setMessages((prevMessages) => prevMessages.filter((msg) => msg._id !== messageId));
+    } catch (error) {
+      console.error("Error deleting message:", error.response?.data || error.message);
+    }
+  };
+
   // Safely filter admins based on firstName and lastName
   const filteredAdmins = admins.filter((admin) => {
     const fullName = `${admin?.firstName || ""} ${admin?.lastName || ""}`.toLowerCase();
@@ -139,7 +154,13 @@ const SuperAdminChat = () => {
             <div className="flex-1 overflow-y-auto p-4 bg-white">
               {messages.length > 0 ? (
                 messages.map((msg, index) => (
-                  <Message key={index} {...msg} currentUserId={senderId} />
+                  <Message
+                    key={index}
+                    {...msg}
+                    timestamp={msg.createdAt}
+                    currentUserId={senderId}
+                    onDelete={handleDeleteMessage} // Pass the delete handler
+                  />
                 ))
               ) : (
                 <p className="text-gray-500 text-center">Start a conversation...</p>

@@ -10,6 +10,11 @@ const Message = ({ _id, message, timestamp, senderId, currentUserId, onDelete })
     setShowOptions(true);
   };
 
+  const handleDelete = () => {
+    onDelete(_id); // Call the onDelete function passed from the parent
+    setShowOptions(false); // Hide the context menu
+  };
+
   return (
     <div className={`relative flex ${isSentByUser ? "justify-end" : "justify-start"} my-2`} onContextMenu={handleRightClick}>
       <div className={`max-w-xs p-3 rounded-lg shadow-md ${isSentByUser ? "bg-blue-600 text-white rounded-tr-none" : "bg-gray-200 text-black rounded-tl-none"}`}>
@@ -20,9 +25,9 @@ const Message = ({ _id, message, timestamp, senderId, currentUserId, onDelete })
       </div>
 
       {/* Right Click Context Menu */}
-      {showOptions && (
+      {showOptions && isSentByUser && ( // Only show delete option for messages sent by the current user
         <div className="absolute top-0 right-0 bg-white shadow-md rounded-md p-2">
-          <button className="text-red-600 hover:text-red-800" onClick={() => { onDelete(_id); setShowOptions(false); }}>
+          <button className="text-red-600 hover:text-red-800" onClick={handleDelete}>
             Delete
           </button>
         </div>
