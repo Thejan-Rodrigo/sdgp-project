@@ -17,20 +17,21 @@ const LoadingAnimation = () => (
 );
 
 const AnnouncementDashboard = ({ 
-  SidebarComponent, 
-  HeaderComponent 
+  SidebarComponent, // Sidebar component passed as a prop
+  HeaderComponent // Header component passed as a prop
 }) => {
-  const { user } = useAuth();
-  const [refreshTrigger, setRefreshTrigger] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const { user } = useAuth(); // Access user data from authentication context
+  const [refreshTrigger, setRefreshTrigger] = useState(0); // State to trigger data refresh
+  const [loading, setLoading] = useState(true); // State to manage loading status
 
+  // Effect to log authentication status and simulate loading completion
   useEffect(() => {
     console.log('Announcement Dashboard - Auth Status:', {
-      isLoggedIn: !!user,
-      role: user?.role,
-      token: user?.token ? 'Token exists' : 'No token'
+      isLoggedIn: !!user, // Check if user is logged in
+      role: user?.role, // Log user role
+      token: user?.token ? 'Token exists' : 'No token' // Log token status
     });
-    setLoading(false); // Simulate loading completion
+    setLoading(false); // Simulate loading completion (e.g., after fetching data)
   }, [user]);
 
   // Function to refresh the announcement list after creating a new one
