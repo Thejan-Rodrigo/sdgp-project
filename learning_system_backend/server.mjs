@@ -21,7 +21,8 @@ import meetingRoutes from "./api/router/meetingRoutes.mjs";
 import lessonsRoutes from "./routes/lessonsRoutes.js";
 import attendanceRoutes from "./routes/attendanceRoutes.js";
 import chatRoutes from "./routes/chatRoutes.js";
-import studentRoutes from "./routes/chatRoutes.js";
+// import studentRoutes from "./routes/chatRoutes.js";
+// import TeacherRoutes from "./routes/chatRoutes.js"; // ✅ Import teacher routes
 import errorHandler from "./middleware/errorMiddleware.js";
 import http from "http";
 import { Server } from "socket.io";
@@ -39,7 +40,6 @@ app.use(cors());
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/chat", chatRoutes);
-app.use("/api/students", studentRoutes);
 
 // Create HTTP Server
 const server = http.createServer(app);

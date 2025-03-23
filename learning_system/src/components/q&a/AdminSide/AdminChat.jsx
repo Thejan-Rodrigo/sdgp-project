@@ -7,7 +7,6 @@ const AdminChat = () => {
   return (
     <div className="flex min-h-screen bg-gray-50">
       <Sidebar />
-      <ContactListA/>
       <ChatAreaA />
     </div>
   );

@@ -13,7 +13,7 @@ const ContactListT = ({ onSelectStudent }) => {
 
     const fetchStudents = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/chat/bySchool/${user.schoolId}`);
+        const response = await axios.get(`http://localhost:5000/api/chat/bySchool/67cc5370e98552e9b5a6e097`);
         setStudents(response.data); // Store students properly
       } catch (error) {
         console.error("Error fetching students:", error);

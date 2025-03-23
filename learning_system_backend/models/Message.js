@@ -8,6 +8,14 @@ const studentSchema = new mongoose.Schema({
   grade: { type: String, required: true },
 });
 
+//Teacher Schema
+const teacherSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  schoolId: { type: mongoose.Schema.Types.ObjectId, ref: "School", required: true },
+  subject: { type: String, required: true },
+});
+
 // Message Schema
 const messageSchema = new mongoose.Schema(
   {
@@ -21,3 +29,4 @@ const messageSchema = new mongoose.Schema(
 // ✅ Correct Exports
 export const Message = mongoose.model("Message", messageSchema);
 export const Student = mongoose.model("Student", studentSchema);
+export const Teacher = mongoose.model("Teacher", teacherSchema);

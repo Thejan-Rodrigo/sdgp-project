@@ -1,46 +1,37 @@
-import React, { useState } from 'react';
-import { Search } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Search } from "lucide-react";
+import { useAuth } from "../../../context/AuthContext";
 
-const ContactList = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  
-  const teachers = [
-    {
-      id: 1,
-      name: 'Mrs. Sarah Wilson',
-      subject: 'Mathematics',
-      lastMessage: 'Please ensure your child is prepared fo...',
-      time: '2 hours ago',
-      isOnline: true
-    },
-    {
-      id: 2,
-      name: 'Mr. Robert Brown',
-      subject: 'Science',
-      lastMessage: 'The science project deadline has been...',
-      time: 'Yesterday',
-      isOnline: true
-    },
-    {
-      id: 3,
-      name: 'Ms. Emily Davis',
-      subject: 'English',
-      lastMessage: 'Your child did exceptionally well in the...',
-      time: '2 days ago',
-      isOnline: true
-    }
-  ];
+const ContactListP = ({ onSelectTeacher }) => {
+  const { user } = useAuth();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [teachers, setTeachers] = useState([]);
 
-  const filteredTeachers = teachers.filter(teacher =>
-    teacher.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    teacher.subject.toLowerCase().includes(searchQuery.toLowerCase())
+  useEffect(() => {
+    //if (!user?.schoolId) return;
+
+    const fetchTeachers = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/chat/teachers/bySchool/67cc5370e98552e9b5a6e097`);
+        setTeachers(response.data);
+      } catch (error) {
+        console.error("Error fetching teachers:", error);
+      }
+    };
+
+    fetchTeachers();
+  }, [user?.schoolId]);
+
+  const filteredTeachers = teachers.filter((teacher) =>
+    teacher.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className="w-80 border-r bg-white">
       {/* Header */}
       <div className="p-4 border-b">
-        <h2 className="text-xl font-semibold">Q&A</h2>
+        <h2 className="text-xl font-semibold">Teachers</h2>
       </div>
 
       {/* Search Bar */}
@@ -59,41 +50,26 @@ const ContactList = () => {
 
       {/* Teachers List */}
       <div className="overflow-y-auto">
-        {filteredTeachers.map((teacher) => (
-          <div
-            key={teacher.id}
-            className="p-4 hover:bg-gray-50 cursor-pointer border-b transition-colors"
-          >
-            <div className="flex items-center gap-3">
-              {/* Avatar */}
-              <div className="relative">
-                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
-                  <span className="text-blue-600 font-semibold">
-                    {teacher.name.split(' ').map(n => n[0]).join('')}
-                  </span>
-                </div>
-                {teacher.isOnline && (
-                  <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
-                )}
-              </div>
-
-              {/* Teacher Info */}
-              <div className="flex-1">
-                <div className="flex justify-between items-start">
-                  <h3 className="font-semibold text-gray-900">{teacher.name}</h3>
-                  <span className="text-xs text-gray-500">{teacher.time}</span>
-                </div>
-                <p className="text-sm text-gray-600">{teacher.subject}</p>
-                <p className="text-sm text-gray-500 truncate mt-1">
-                  {teacher.lastMessage}
-                </p>
-              </div>
+        {filteredTeachers.length > 0 ? (
+          filteredTeachers.map((teacher) => (
+            <div
+              key={teacher._id}
+              className="p-4 hover:bg-gray-50 cursor-pointer border-b transition-colors"
+              onClick={() => onSelectTeacher({
+                _id: teacher._id,
+                name: teacher.name,
+              })}
+            >
+              <h3 className="font-semibold text-gray-900">{teacher.name}</h3>
+              <p className="text-sm text-gray-500">{teacher.subject}</p>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p className="text-center text-gray-500 p-4">No teachers found</p>
+        )}
       </div>
     </div>
   );
 };
 
-export default ContactList;
+export default ContactListP;
