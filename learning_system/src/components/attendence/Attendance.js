@@ -17,13 +17,10 @@ const Attendance = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        console.log('Fetching students data...');
-        // const response = await fetch('http://localhost:5000/api/users/students');
-        
+       
         const user = localStorage.getItem('user'); // Get the school ID from local storage
         const schId = JSON.parse(user).schoolId;
         const response = await fetch(`http://localhost:5000/api/attendance/sch/${schId}`);
-        // const response = await fetch('http://localhost:5000/api/students/school/67cc5370e98552e9b5a6e097');
         
         if (!response.ok) {
           throw new Error(`Failed to fetch students: ${response.status} ${response.statusText}`);
@@ -31,7 +28,7 @@ const Attendance = () => {
         
         const data = await response.json();
         console.log('Students data:', data);
-        
+        //checking the response state and if success set Student state else throw an error
         if (data.success && data.data.students) {
           setStudents(data.data.students);
         } else {
@@ -207,30 +204,9 @@ const Attendance = () => {
 
   return (
     <div className="attendance-page">
-      {/* <header className="attendance-header">
-        <div className="logo">
-          <img src="/logo.png" alt="The Learning Tree" />
-          <span>The Learning Tree</span>
-        </div>
-        <nav className="main-nav">
-          <a href="/" className="nav-link">Home</a>
-          <div className="nav-link dropdown">
-            Teacher <span>▼</span>
-          </div>
-        </nav>
-      </header> */}
       
       <div className="content-container">
-        {/* <aside className="sidebar">
-          <ul className="sidebar-menu">
-            <li><a href="/meetings">Meetings</a></li>
-            <li className="active"><a href="/attendance">Attendance</a></li>
-            <li><a href="/lessons">Lessons</a></li>
-            <li><a href="/progress">Progress</a></li>
-            <li><a href="/qa">Q n A</a></li>
-            <li><a href="/announcement">Announcement</a></li>
-          </ul>
-        </aside> */}
+        
         <TeacherSidebar/>
         <main className="main-content">
           {apiStatus.status === 'error' && (
