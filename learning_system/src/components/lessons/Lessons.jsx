@@ -9,7 +9,7 @@ const Lessons = () => {
   useEffect(() => {
     const fetchLessons = async () => {
       try {
-       
+       //fetch api
         const response = await fetch(`http://localhost:5000/api/lessons/getall`);
 
         if (!response.ok) {
@@ -17,9 +17,9 @@ const Lessons = () => {
             `Failed to fetch lessons: ${response.status} ${response.statusText}`
           );
         }
+        
         const resData = await response.json();
-       
-
+       // checks the response status and handle the output
         if (resData.success && resData.data.lessons) {
           setLessons(resData.data.lessons);
         } else {
