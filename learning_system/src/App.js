@@ -22,6 +22,9 @@ import AdminSProfile from "./components/studentProfilePage/adminSProfile";
 import TeacherPage from "./components/learning/teacher/TeacherPage";
 import ParentPage from "./components/learning/parent/ParentPage";
 import AddLearningPage from "./components/addLearning/addLearningpage";
+import Lessons from './components/lessons/Lessons';
+import AddLesson from  './components/addLesson/AddLesson';
+import Attendance from './components/attendence/Attendance';
 
 // ProtectedRoute component
 const ProtectedRoute = ({ allowedRoles, element }) => {
@@ -57,7 +60,8 @@ const App = () => {
         <Route path="/adminSProfile" element={<AdminSProfile />}/>
         <Route path="/teachermeeting" element={<TeacherMeeting/>}/>
         <Route path="/parentmeeting" element={<ParentMeeting/>}/> 
-
+        <Route path="/lessons" element={<Lessons/>}/>
+        <Route path="/attendance" element={<Attendance/>}/>
         {/* Role-protected routes */}
         <Route
           path="/addadmin"
@@ -74,6 +78,15 @@ const App = () => {
             <ProtectedRoute
               allowedRoles={['superadmin']}
               element={<AddSchoolPage />}
+            />
+          }
+        />
+        <Route
+          path="/addlesson"
+          element={
+            <ProtectedRoute
+              allowedRoles={['superadmin']}
+              element={<AddLesson />}
             />
           }
         />
