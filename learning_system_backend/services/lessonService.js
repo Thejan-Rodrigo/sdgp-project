@@ -20,7 +20,7 @@ const addLesson = async ({grade, title, description, image }) =>{
         return newLesson;
     
     } catch (error) {
-        
+        // error handling
         throw new ApiError(500, "Error saving lessons");
     }
 }
