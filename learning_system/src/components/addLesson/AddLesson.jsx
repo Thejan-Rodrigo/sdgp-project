@@ -60,6 +60,7 @@ const AddLesson = () => {
       );
       alert('New lesson added successfully!');
       console.log('Lesson added:', response.data);
+      //reseting the form
       setGrade('Class 1');
       setTitle('');
       setDescription('');
@@ -82,13 +83,7 @@ const AddLesson = () => {
     <div className="lessons-page">
      
       <div className="content-container">
-        {/* <aside className="sidebar">
-          <ul className="sidebar-menu">
-            <li>
-              <a href="/addLesson">Add New Lesson</a>
-            </li>
-          </ul>
-        </aside> */}
+      
         <Sidebar/>
 
         <main className="main-content">
@@ -119,31 +114,7 @@ const AddLesson = () => {
             </select>
           </div>
 
-          {/* <div>
-              <label
-                htmlFor="grade"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Grade
-              </label>
-              
-              <select 
-                  id="grade" 
-                  name="grade" 
-                  value={grade}
-                  onChange={(e) => setGrade(e.target.value)}
-                  required 
-                  className="input-field"
-                >
-                  <option value="Class 1">Class 1</option>
-                  <option value="Class 2">Class 2</option>
-                  <option value="Class 3">Class 3</option>
-                  <option value="Class 4">Class 4</option>
-                  <option value="Class 5">Class 5</option>
-                </select>
-            </div> */}
-
-
+  
             <div>
               <label
                 htmlFor="title"
