@@ -16,7 +16,7 @@ const AddLesson = () => {
   const [fileName, setFileName] = useState('');
   const fileInputRef = useRef(null);
 
-
+//setting image 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -27,19 +27,20 @@ const AddLesson = () => {
       console.error("No file selected");
     }
   };
-
+//add new lessons for submitting
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError('');
   
     try {
+      //validates required fields
       if (!grade ||!title || !description || !image) {
         alert('All fields are required');
         setIsSubmitting(false);
         return;
       }
-  
+  //binding the data
       const formData = new FormData();
       formData.append('grade', grade);
       formData.append('title', title);
