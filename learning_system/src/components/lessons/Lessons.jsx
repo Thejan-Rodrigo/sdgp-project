@@ -53,48 +53,11 @@ const Lessons = () => {
 
   return (
     <div className="lessons-page">
-      {/* <header className="lessons-header">
-        <div className="logo">The Learning Tree</div>
-        <nav className="main-nav">
-          <a href="/" className="nav-link">
-            Home
-          </a>
-          <div className="nav-link dropdown">
-            Teacher <span>▼</span>
-          </div>
-        </nav>
-      </header> */}
+
 
       <div className="content-container">
       <TeacherSidebar/>
-        {/* <aside className="sidebar">
-          <ul className="sidebar-menu">
-            <li>
-              <a href="/meetings">Meetings</a>
-            </li>
-            <li>
-              <a href="/attendance">Attendance</a>
-            </li>
-            <li className="active">
-              <a href="/lessons">Lessons</a>
-            </li>
-            <li>
-              <a href="/progress">Progress</a>
-            </li>
-            <li>
-              <a href="/qa">Q n A</a>
-            </li>
-            <li>
-              <a href="/announcement">Announcement</a>
-            </li>
-          </ul>
-        </aside> */}
-        {/* <div className="flex justify-between items-center p-4 border-b">
-          <h1 className="text-2xl font-semibold">Teacher Lessons</h1>
-          <div className="flex items-center gap-4">
-            
-          </div>
-        </div> */}
+      
         <main className="main-content">
           <h1 className="text-2xl font-semibold">Lessons</h1><br/>
           {lessons.map((lesson) => (
