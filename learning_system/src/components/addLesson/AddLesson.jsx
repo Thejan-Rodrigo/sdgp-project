@@ -5,8 +5,7 @@ import axios from 'axios';
 import Sidebar from '../SupAdSidebar';
 
 const AddLesson = () => {
-  // Hardcoded lessons data
-  // const { user } = useAuth();
+  //manage lesson states and references
   const [grade, setGrade] = useState('Class 1');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -16,6 +15,7 @@ const AddLesson = () => {
   const [error, setError] = useState('');
   const [fileName, setFileName] = useState('');
   const fileInputRef = useRef(null);
+
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -79,17 +79,7 @@ const AddLesson = () => {
 
   return (
     <div className="lessons-page">
-      {/* <header className="lessons-header">
-        <div className="logo">The Learning Tree</div>
-        <nav className="main-nav">
-          <a href="/" className="nav-link">
-            Home
-          </a>
-          <div className="nav-link dropdown">
-            superadmin <span>▼</span>
-          </div>
-        </nav>
-      </header> */}
+     
       <div className="content-container">
         {/* <aside className="sidebar">
           <ul className="sidebar-menu">
