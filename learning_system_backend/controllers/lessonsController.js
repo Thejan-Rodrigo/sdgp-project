@@ -33,7 +33,7 @@ const lessonsController = {
 
   getAllLessons: catchAsync(async (req, res) => {
     const lessons = await Lesson.find(); // Fetch all lessons from the database
-    
+    // return a success response with a lesson data
     successResponse(res, 200, { lessons }, 'Lessons fetched successfully');
   }),
 };
