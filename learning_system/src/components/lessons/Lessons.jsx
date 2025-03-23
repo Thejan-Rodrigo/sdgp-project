@@ -9,7 +9,7 @@ const Lessons = () => {
   useEffect(() => {
     const fetchLessons = async () => {
       try {
-        console.log("Fetching lessons ...");
+       
         const response = await fetch(`http://localhost:5000/api/lessons/getall`);
 
         if (!response.ok) {
@@ -17,9 +17,8 @@ const Lessons = () => {
             `Failed to fetch lessons: ${response.status} ${response.statusText}`
           );
         }
-
         const resData = await response.json();
-        console.log("lessons data:", resData);
+       
 
         if (resData.success && resData.data.lessons) {
           setLessons(resData.data.lessons);
@@ -28,40 +27,12 @@ const Lessons = () => {
         }
       } catch (err) {
         console.error("Error fetching lessons:", err);
-        // setError(`Failed to fetch lessons: ${err.message}`);
+       
       }
     };
 
     fetchLessons();
   }, []);
-  // //Hardcoded lessons data
-  // const [lessons] = useState([
-  //   {
-  //     id: 1,
-  //     title: '1 Class',
-  //     description: 'Introduction to Mathematics - Basic concepts of mathematics including numbers, operations, and problem-solving techniques.'
-  //   },
-  //   {
-  //     id: 2,
-  //     title: '2 Class',
-  //     description: 'Language Arts Fundamentals - Introduction to reading, writing, and basic grammar concepts for young learners.'
-  //   },
-  //   {
-  //     id: 3,
-  //     title: '3 Class',
-  //     description: 'Science Exploration - Exploring the natural world through hands-on experiments and observations.'
-  //   },
-  //   {
-  //     id: 4,
-  //     title: '4 Class',
-  //     description: 'Social Studies Basics - Learning about communities, history, and geography in an engaging way.'
-  //   },
-  //   {
-  //     id: 5,
-  //     title: '5 Class',
-  //     description: 'Art and Creativity - Developing artistic skills and creative expression through various mediums.'
-  //   }
-  // ]);
 
   //State to track expanded lessons
   const [expandedLessons, setExpandedLessons] = useState({
