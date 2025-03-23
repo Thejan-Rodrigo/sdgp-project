@@ -33,7 +33,7 @@ import chatbotRouter from "./routes/chatbotRouter.js";
 dotenv.config(); // Load environment variables
 connectDB(); // Connect to MongoDB
 
-import chatbotRouter from "./routes/chatbotRouter.js";
+
 
 
 const app = express();
