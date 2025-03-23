@@ -16,13 +16,14 @@ const attendanceController = {
     const { date } = req.params;
     const attendance = await Attendance.findOne({ date });
     
+    // check if the attendence record exists
     if (!attendance) {
       return res.status(404).json({
         success: false,
         message: 'Attendance record not found for this date'
       });
     }
-    
+    //handle the success response
     successResponse(res, 200, { attendance }, 'Attendance record fetched successfully');
   }),
 
