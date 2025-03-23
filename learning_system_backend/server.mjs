@@ -18,7 +18,8 @@ import progressRoutes from "./routes/progressRoutes.js";
 // import { getAuthUrl, handleOAuthCallback, generateMeetingLink } from './api/router/meeting.mjs';
 import meetingRoutes from "./api/router/meetingRoutes.mjs";
 
-
+import lessonsRoutes from "./routes/lessonsRoutes.js";
+import attendanceRoutes from "./routes/attendanceRoutes.js";
 
 
 dotenv.config();
@@ -67,6 +68,10 @@ app.get("/", (req, res) => {
 
 app.use("/api", meetingRoutes);
 app.use("/api/auth", authRoutes);
+
+//import lessons and attendence routes here
+app.use('/api/attendance', attendanceRoutes);
+app.use('/api/lessons', lessonsRoutes);
 
 // Route to initiate OAuth2 flow
 // app.get('/auth', (req, res) => {
