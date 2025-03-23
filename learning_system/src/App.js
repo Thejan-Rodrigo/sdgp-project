@@ -25,6 +25,10 @@ import AddLearningPage from "./components/addLearning/addLearningpage";
 import Lessons from './components/lessons/Lessons';
 import AddLesson from  './components/addLesson/AddLesson';
 import Attendance from './components/attendence/Attendance';
+import ParentChat from './components/q&a/ParentSide/ParentChat';
+import TeacherChat from './components/q&a/TeacherSide/TeacherChat'
+import AdminChat from './components/q&a/AdminSide/AdminChat';
+import SuperAdminChat from './components/q&a/SuperAdminSide/SuperAdminChat';
 
 // ProtectedRoute component
 const ProtectedRoute = ({ allowedRoles, element }) => {
@@ -170,6 +174,11 @@ const App = () => {
         <Route path="/" element={<ParentPage />} />
 
         <Route path="/addLearningPage" element={<AddLearningPage />} />
+        <Route path="/addadmin" element={<AddAdminPage />}/>
+        <Route path="/parentq&a" element={<ParentChat/>}/>
+        <Route path="/Teacherq&a" element={<TeacherChat/>}/>
+        <Route path="/Adminq&a" element={<AdminChat/>}/>
+        <Route path="/SuperAdminq&a" element={<SuperAdminChat/>}/>
       </Routes>
     </Router>
   );
