@@ -22,7 +22,7 @@ import AdminSProfile from "./components/studentProfilePage/adminSProfile";
 import TeacherPage from "./components/learning/teacher/TeacherPage";
 import ParentPage from "./components/learning/parent/ParentPage";
 import AddLearningPage from "./components/learning/addLearning/addLearningpage";
-import AddLearningPage from "./components/addLearning/addLearningpage";
+//import AddLearningPage from "./components/addLearning/addLearningpage";
 import Lessons from './components/lessons/Lessons';
 import AddLesson from  './components/addLesson/AddLesson';
 import Attendance from './components/attendence/Attendance';

@@ -13,7 +13,7 @@ const Sidebar = () => {
     { icon: <FaUserCheck />, text: 'Student Profile', path: '/teacherSProfile' }, // Added path for Attendance
     { icon: <FaBook />, text: 'Lessons', path: '/lessons' }, // Added path for Lessons
     { icon: <FaChartBar />, text: 'Progress', path: '/progress' }, // Added path for Progress
-    { icon: <FaQuestionCircle />, text: 'Q&A', path: '/qa' }, // Added path for Q&A
+    { icon: <FaQuestionCircle />, text: 'Q&A', path: '/Teacherq&a' }, // Added path for Q&A
     { icon: <FaHeadphones />, text: 'Learing', path: '/teacher' }, // Added path for Help & Support
   ];
 

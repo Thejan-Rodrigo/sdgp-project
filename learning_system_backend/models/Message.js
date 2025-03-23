@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
-// Student Schema
-const studentSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  schoolId: { type: mongoose.Schema.Types.ObjectId, ref: "School", required: true },
-  email: { type: String, required: true, unique: true },
-  grade: { type: String, required: true },
-});
+// // Student Schema
+// const studentSchema = new mongoose.Schema({
+//   name: { type: String, required: true },
+//   schoolId: { type: mongoose.Schema.Types.ObjectId, ref: "School", required: true },
+//   email: { type: String, required: true, unique: true },
+//   grade: { type: String, required: true },
+// });
 
 //Teacher Schema
 const teacherSchema = new mongoose.Schema({
@@ -28,5 +28,5 @@ const messageSchema = new mongoose.Schema(
 
 // ✅ Correct Exports
 export const Message = mongoose.model("Message", messageSchema);
-export const Student = mongoose.model("Student", studentSchema);
+//export const Student = mongoose.model("Student", studentSchema);
 export const Teacher = mongoose.model("Teacher", teacherSchema);

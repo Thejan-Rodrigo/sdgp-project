@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from "../context/AuthContext";
-import { FaGraduationCap, FaTachometerAlt, FaBell, FaSchool, FaUserCog, FaUserGraduate, FaQuestionCircle, FaHeadphones } from 'react-icons/fa';
+import { FaGraduationCap, FaTachometerAlt, FaBell, FaSchool, FaUserCog, FaUserGraduate, FaQuestionCircle, FaHeadphones, FaBook } from 'react-icons/fa';
 import { useNavigate, useLocation } from 'react-router-dom'; // Import useNavigate and useLocation
 
 const Sidebar = () => {
@@ -13,7 +13,8 @@ const Sidebar = () => {
     { icon: <FaBell />, text: 'Announcements', path: '/superadminannouncement' }, // Added path for Announcements
     { icon: <FaSchool />, text: 'Add School', path: '/addSchool' }, // Added path for Add School
     { icon: <FaUserCog />, text: 'Add Admin', path: '/addadmin' }, // Added path for Add Admin
-    { icon: <FaQuestionCircle />, text: 'Q&A Management', path: '/qa-management' },
+    { icon: <FaBook />, text: 'Add Lessons', path: '/addlesson' },
+    { icon: <FaQuestionCircle />, text: 'Q&A Management', path: '/SuperAdminq&a' },
     { icon: <FaHeadphones />, text: 'Learing', path: '/addLearningPage' } // Added path for Q&A Management
   ];
 

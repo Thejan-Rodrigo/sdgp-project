@@ -94,8 +94,10 @@ const Lessons = () => {
         </nav>
       </header> */}
 
-      <div className="content-container">
-      <TeacherSidebar/>
+      <div className="content-container flex">
+        <div className="w-64 flex-shrink-0">
+          <TeacherSidebar />
+        </div>
         {/* <aside className="sidebar">
           <ul className="sidebar-menu">
             <li>
@@ -124,14 +126,14 @@ const Lessons = () => {
             
           </div>
         </div> */}
-        <main className="main-content">
-          <h1 className="text-2xl font-semibold">Lessons</h1><br/>
+        <main className="main-content flex-1 p-4">
+          <h1 className="text-2xl font-semibold">Lessons</h1><br />
           {lessons.map((lesson) => (
             <div key={lesson._id} className="lesson-card">
               <div className="lesson-header">
                 <h5><i>{lesson.grade}</i></h5>
                 <h2>{lesson.title}</h2>
-                
+
                 <button
                   className="expand-btn"
                   onClick={() => toggleLesson(lesson._id)}
@@ -141,13 +143,13 @@ const Lessons = () => {
               </div>
               {expandedLessons[lesson._id] && (
                 <div className="lesson-content">
-                  <p>{lesson.description}</p><hr style={{marginTop:'1rem', marginBottom:'1rem'}}/>
-                  <h6 style={{fontWeight:600}}>Additional Resources: </h6>
-                  <img 
-                  style={{ width: '80px', height: 'auto', objectFit: 'cover' }}
-                  src={`http://localhost:5000/api/lessons/image${lesson.image}`} alt={lesson.title}
-                   className="w-full h-32 object-cover mb-4" />
-                 
+                  <p>{lesson.description}</p><hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
+                  <h6 style={{ fontWeight: 600 }}>Additional Resources: </h6>
+                  <img
+                    style={{ width: '80px', height: 'auto', objectFit: 'cover' }}
+                    src={`http://localhost:5000/api/lessons/image${lesson.image}`} alt={lesson.title}
+                    className="w-full h-32 object-cover mb-4" />
+
                 </div>
               )}
             </div>

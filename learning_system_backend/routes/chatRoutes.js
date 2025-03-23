@@ -1,5 +1,5 @@
 import express from "express";
-import { Student } from "../models/Message.js"; // ✅ Fixed Import
+import Student  from "../models/Student.js"; // ✅ Fixed Import
 import { Teacher } from "../models/Message.js"; // ✅ Fixed Import
 
 const router = express.Router();
