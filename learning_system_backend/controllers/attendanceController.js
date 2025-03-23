@@ -145,12 +145,14 @@ const attendanceController = {
       });
     }
     
-    // Get all students
+    // Get all students with ony the selected fields
     const students = await User.find({ role: 'student' })
       .select('_id firstName lastName')
       .sort({ lastName: 1, firstName: 1 });
     
+      //checking for the student existence
     if (!students || students.length === 0) {
+      //if no students were found, return annot found response
       return res.status(404).json({
         success: false,
         message: 'No students found'
