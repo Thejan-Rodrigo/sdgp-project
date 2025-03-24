@@ -220,7 +220,7 @@ const Attendance = () => {
         </nav>
       </header> */}
       
-      <div className="content-container">
+      <div className="content-container flex">
         {/* <aside className="sidebar">
           <ul className="sidebar-menu">
             <li><a href="/meetings">Meetings</a></li>
@@ -231,8 +231,11 @@ const Attendance = () => {
             <li><a href="/announcement">Announcement</a></li>
           </ul>
         </aside> */}
+        <div className="w-64 flex-shrink-0">
         <TeacherSidebar/>
-        <main className="main-content">
+        </div>
+        
+        <main className="main-content flex-1 p-4">
           {apiStatus.status === 'error' && (
             <div className="api-error-banner">
               {apiStatus.message}

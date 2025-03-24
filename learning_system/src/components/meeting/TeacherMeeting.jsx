@@ -50,7 +50,7 @@ export default function TeacherMeeting() {
 
         // Construct the meeting object to send to the backend
         const newMeeting = {
-            name: 'Nethmi Himasara',
+            name: `${user.firstName} ${user.lastName}`,
             description: description,
             time: `${date}T${time}:00.000Z`, // Combine date and time into a proper ISO format
             link: link,
@@ -123,8 +123,10 @@ export default function TeacherMeeting() {
     return (
         <div className="test">
             <div className="side" class=" flex bg-white">
-                <Sidebar />
-                <div class=" p-7 bg-gray-50 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full overflow-y-scroll" style={{ height: 700 }}>
+                <div className="w-64 flex-shrink-0">
+                    <Sidebar />
+                </div>
+                <div class=" p-7 bg-gray-50 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full " style={{ height: 700 }}>
                     <h2 className="text-lg font-semibold mb-4 ml-10">Upcoming Meetings</h2>
 
                     {meetings.map((meeting, index) => (

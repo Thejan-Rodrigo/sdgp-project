@@ -17,17 +17,14 @@ const AddAdminPage = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <Sidebar />
-      <main className="flex-1 p-8">
+      <Sidebar className="w-[300px] flex-shrink-0" /> {/* Sidebar with fixed width */}
+      <main className="flex-1 p-8 ml-[300px]"> {/* Add margin-left to offset the sidebar */}
         <Header 
           onSettingsClick={toggleSettings} 
           showSettings={showSettings} // Pass showSettings to Header
         />
-        {/*<SchoolFilter 
-          selectedFilter={selectedFilter} 
-          setSelectedFilter={setSelectedFilter} 
-        />
-        <StatsCards />*/}
+        
+        {/* Render the selected component based on settings visibility */}
         {showSettings ? <AdminSettings /> : <AdminForm />}
       </main>
     </div>

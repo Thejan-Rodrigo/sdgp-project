@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from "../context/AuthContext";
-import { FaGraduationCap, FaTachometerAlt, FaBell, FaSchool, FaUserCog, FaUserGraduate, FaQuestionCircle, FaHeadphones } from 'react-icons/fa';
+import { FaGraduationCap, FaTachometerAlt, FaBell, FaSchool, FaUserCog, FaUserGraduate, FaQuestionCircle, FaHeadphones, FaBook } from 'react-icons/fa';
 import { useNavigate, useLocation } from 'react-router-dom'; // Import useNavigate and useLocation
 
 const Sidebar = () => {
@@ -13,8 +13,9 @@ const Sidebar = () => {
     { icon: <FaBell />, text: 'Announcements', path: '/superadminannouncement' }, // Added path for Announcements
     { icon: <FaSchool />, text: 'Add School', path: '/addSchool' }, // Added path for Add School
     { icon: <FaUserCog />, text: 'Add Admin', path: '/addadmin' }, // Added path for Add Admin
-    { icon: <FaUserCog />, text: 'Add Lesson', path: '/addlesson' }, // Added path for Add Lesson
-    { icon: <FaQuestionCircle />, text: 'Q&A Management', path: '/qa-management' } // Added path for Q&A Management
+    { icon: <FaBook />, text: 'Add Lessons', path: '/addlesson' },
+    { icon: <FaQuestionCircle />, text: 'Q&A Management', path: '/SuperAdminq&a' },
+    { icon: <FaHeadphones />, text: 'Learing', path: '/addLearningPage' } // Added path for Q&A Management
   ];
 
   // Function to handle menu item clicks
@@ -25,16 +26,13 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="w-64 bg-white shadow-lg h-screen">
+    <div className="fixed w-64 h-screen bg-white shadow-lg">
       <div className="p-4">
-      <div
-            className='flex items-center gap-3 p-3 rounded-lg mb-2 cursor-pointer text-blue-600 font-bold text-lg ' // Active styles
-          >
-            <FaGraduationCap />
-            <span>Kinderzone</span>
-          </div>
+        <div className="flex items-center gap-3 p-3 rounded-lg mb-2 cursor-pointer text-blue-600 font-bold text-lg">
+          <FaGraduationCap />
+          <span>Kinderzone</span>
+        </div>
         <div className="flex items-center gap-3 mb-8">
-          
           <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
             <img src="https://via.placeholder.com/40" alt="Profile" className="rounded-full" />
           </div>

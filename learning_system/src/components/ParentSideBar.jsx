@@ -12,7 +12,8 @@ const Sidebar = () => {
         { icon: <FaBullhorn />, text: 'Announcement', path: '/studentannouncement' }, // Added path for Announcement
         { icon: <FaCalendar />, text: 'Meeting', path: '/parentmeeting' }, // Added path for Meeting
         { icon: <FaUserGraduate />, text: 'Student Profile', path: '/studentprofile' }, // Added path for Student Profile
-        { icon: <FaQuestionCircle />, text: 'Q&A', path: '/qa' } // Added path for Q&A
+        { icon: <FaQuestionCircle />, text: 'Q&A', path: '/parentq&a' }, // Added path for Q&A 
+        { icon: <FaHeadphones />, text: 'Learing', path: '/parent' }
     ];
 
     // Function to handle menu item clicks
@@ -23,7 +24,7 @@ const Sidebar = () => {
     };
 
     return (
-        <div className="w-64 bg-white shadow-lg">
+        <div className="fixed w-64 h-screen bg-white shadow-lg overflow-y-auto">
             <div className="p-4">
                 <div className="items-center gap-3 mb-8">
                     <div className="flex items-center gap-3 p-3 rounded-lg mb-2 text-blue-600 font-bold text-lg">

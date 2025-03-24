@@ -25,7 +25,8 @@ const AdminChat = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/chat/users");
+        const response = await axios.get("http://localhost:5000/api/chat/superadmins");
+        console.log(response.data);
         setUsers(response.data);
       } catch (error) {
         console.error("Error fetching users:", error);
@@ -39,7 +40,8 @@ const AdminChat = () => {
 
     const fetchMessages = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/chat/${senderId}/${selectedUser._id}`);
+        const response = await axios.get(`http://localhost:5000/api/chat/get/${senderId}/${selectedUser._id}`);
+        console.log(response.data);
         setMessages(response.data);
       } catch (error) {
         console.error("Error fetching chat history:", error);
@@ -48,12 +50,18 @@ const AdminChat = () => {
 
     fetchMessages();
     socket.emit("join", senderId);
+
+    // Listen for new messages
     socket.on("receiveMessage", (message) => {
-      if (message.senderId !== senderId) {
+      if (
+        (message.senderId === senderId && message.receiverId === selectedUser._id) ||
+        (message.senderId === selectedUser._id && message.receiverId === senderId)
+      ) {
         setMessages((prevMessages) => [...prevMessages, message]);
       }
     });
 
+    // Cleanup listener on unmount
     return () => {
       socket.off("receiveMessage");
     };
@@ -70,11 +78,31 @@ const AdminChat = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:5000/api/chat/send", messageData);
-      setMessages((prev) => [...prev, response.data]);
-      socket.emit("sendMessage", response.data);
+      // // Send the message to the backend
+      // const response = await axios.post("http://localhost:5000/api/chat/send", messageData);
+      // const savedMessage = response.data;
+
+      // // Update the messages state with the new message
+      // setMessages((prev) => [...prev, savedMessage])
+      // Emit the message via socket for real-time updates
+      socket.emit("sendMessage", messageData);
     } catch (error) {
       console.error("Error sending message:", error.response?.data || error.message);
+    }
+  };
+
+  // Function to handle message deletion
+  const handleDeleteMessage = async (messageId) => {
+    try {
+      // Call the delete API
+      await axios.delete(`http://localhost:5000/api/chat/delete/${messageId}`, {
+        data: { userId: senderId }, // Send userId in the request body
+      });
+
+      // Remove the deleted message from the messages state
+      setMessages((prevMessages) => prevMessages.filter((msg) => msg._id !== messageId));
+    } catch (error) {
+      console.error("Error deleting message:", error.response?.data || error.message);
     }
   };
 
@@ -123,11 +151,17 @@ const AdminChat = () => {
       <div className="flex-1 flex flex-col">
         {selectedUser ? (
           <>
-            <ChatHeader admin={{ name: selectedUser.name }} />
+            <ChatHeader admin={{ name: `${selectedUser.firstName} ${selectedUser.lastName}` }} />
             <div className="flex-1 overflow-y-auto p-4 bg-white">
               {messages.length > 0 ? (
                 messages.map((msg, index) => (
-                  <Message key={index} {...msg} currentUserId={senderId} />
+                  <Message
+                    key={index}
+                    {...msg}
+                    timestamp={msg.createdAt}
+                    currentUserId={senderId}
+                    onDelete={handleDeleteMessage} // Pass the delete handler
+                  />
                 ))
               ) : (
                 <p className="text-gray-500 text-center">Start a conversation...</p>

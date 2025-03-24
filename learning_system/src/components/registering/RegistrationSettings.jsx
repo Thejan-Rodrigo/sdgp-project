@@ -2,9 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { FaTrash } from 'react-icons/fa'; // Import bin icon
 import { useAuth } from '../../context/AuthContext'; // Import the useAuth hook
 
+// Loading Animation Component
+const LoadingAnimation = () => (
+  <div className="flex-col gap-4 w-full flex items-center justify-center">
+    <div
+      className="w-20 h-20 border-4 border-transparent text-blue-400 text-4xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full"
+    >
+      <div
+        className="w-16 h-16 border-4 border-transparent text-blue-400 text-2xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full"
+      ></div>
+    </div>
+  </div>
+);
+
 export default function RegistrationSettings() {
   const { user } = useAuth(); // Get the user (which includes the token) from the context
   const [users, setUsers] = useState({ teachers: [], parents: [], students: [] }); // State to store users by school
+  const [loading, setLoading] = useState(true);
 
   // Fetch users by school ID when the component mounts
   useEffect(() => {
@@ -25,6 +39,8 @@ export default function RegistrationSettings() {
           }
         } catch (error) {
           console.error('Error fetching users:', error);
+        } finally {
+          setLoading(false);
         }
       };
 
@@ -91,94 +107,98 @@ export default function RegistrationSettings() {
       <h2 className="text-2xl font-semibold mb-6">Registration Settings</h2>
 
       {/* Display users */}
-      <div>
-        <h3 className="text-xl font-semibold mb-4">Users in Your School</h3>
+      {loading ? (
+        <LoadingAnimation /> // Use the loading animation
+      ) : (
+        <div>
+          <h3 className="text-xl font-semibold mb-4">Users in Your School</h3>
 
-        {/* Teachers Section */}
-        <div className="mb-8">
-          <h4 className="text-lg font-medium mb-4">Teachers</h4>
-          {users.teachers.length > 0 ? (
-            <ul className="divide-y divide-gray-200">
-              {users.teachers.map((teacher) => (
-                <li key={teacher._id} className="py-3 flex items-center justify-between">
-                  <div className="flex flex-col space-y-1">
-                    <span className="text-gray-700 font-medium">{teacher.firstName} {teacher.lastName}</span>
-                    <span className="text-sm text-gray-500">{teacher.email}</span>
-                  </div>
-                  <button
-                    onClick={() => handleDeleteTeacher(teacher._id)}
-                    className="p-2 text-red-600 hover:text-red-800"
-                  >
-                    <FaTrash className="text-lg" /> {/* Bin icon */}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="text-gray-500">No teachers found.</p>
-          )}
-        </div>
-
-        {/* Parents Section */}
-        <div className="mb-8">
-          <h4 className="text-lg font-medium mb-4">Parents</h4>
-          {users.parents.length > 0 ? (
-            <ul className="divide-y divide-gray-200">
-              {users.parents.map((parent) => {
-                const student = users.students.find((student) => student._id === parent.student);
-                return (
-                  <li key={parent._id} className="py-3 flex items-center justify-between">
+          {/* Teachers Section */}
+          <div className="mb-8">
+            <h4 className="text-lg font-medium mb-4">Teachers</h4>
+            {users.teachers.length > 0 ? (
+              <ul className="divide-y divide-gray-200">
+                {users.teachers.map((teacher) => (
+                  <li key={teacher._id} className="py-3 flex items-center justify-between">
                     <div className="flex flex-col space-y-1">
-                      <span className="text-gray-700 font-medium">{parent.firstName} {parent.lastName}</span>
-                      <span className="text-sm text-gray-500">{parent.email}</span>
-                      {student && (
-                        <span className="text-xs text-gray-400 mt-1">
-                          Student - {student.firstName} {student.lastName}
-                        </span>
-                      )}
+                      <span className="text-gray-700 font-medium">{teacher.firstName} {teacher.lastName}</span>
+                      <span className="text-sm text-gray-500">{teacher.email}</span>
                     </div>
                     <button
-                      onClick={() => handleDeleteParent(parent._id)}
+                      onClick={() => handleDeleteTeacher(teacher._id)}
                       className="p-2 text-red-600 hover:text-red-800"
                     >
                       <FaTrash className="text-lg" /> {/* Bin icon */}
                     </button>
                   </li>
-                );
-              })}
-            </ul>
-          ) : (
-            <p className="text-gray-500">No parents found.</p>
-          )}
-        </div>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-gray-500">No teachers found.</p>
+            )}
+          </div>
 
-        {/* Students Section */}
-        <div className="mb-8">
-          <h4 className="text-lg font-medium mb-4">Students</h4>
-          {users.students.length > 0 ? (
-            <ul className="divide-y divide-gray-200">
-              {users.students.map((student) => {
-                const parent = users.parents.find((parent) => parent.student === student._id);
-                return (
-                  <li key={student._id} className="py-3">
-                    <div className="flex flex-col space-y-1">
-                      <span className="text-gray-700 font-medium">{student.firstName} {student.lastName}</span>
-                      <span className="text-sm text-gray-500">{student.email}</span>
-                      {parent && (
-                        <span className="text-xs text-gray-400 mt-1">
-                          Parent - {parent.firstName} {parent.lastName}
-                        </span>
-                      )}
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          ) : (
-            <p className="text-gray-500">No students found.</p>
-          )}
+          {/* Parents Section */}
+          <div className="mb-8">
+            <h4 className="text-lg font-medium mb-4">Parents</h4>
+            {users.parents.length > 0 ? (
+              <ul className="divide-y divide-gray-200">
+                {users.parents.map((parent) => {
+                  const student = users.students.find((student) => student._id === parent.student);
+                  return (
+                    <li key={parent._id} className="py-3 flex items-center justify-between">
+                      <div className="flex flex-col space-y-1">
+                        <span className="text-gray-700 font-medium">{parent.firstName} {parent.lastName}</span>
+                        <span className="text-sm text-gray-500">{parent.email}</span>
+                        {student && (
+                          <span className="text-xs text-gray-400 mt-1">
+                            Student - {student.firstName} {student.lastName}
+                          </span>
+                        )}
+                      </div>
+                      <button
+                        onClick={() => handleDeleteParent(parent._id)}
+                        className="p-2 text-red-600 hover:text-red-800"
+                      >
+                        <FaTrash className="text-lg" /> {/* Bin icon */}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <p className="text-gray-500">No parents found.</p>
+            )}
+          </div>
+
+          {/* Students Section */}
+          <div className="mb-8">
+            <h4 className="text-lg font-medium mb-4">Students</h4>
+            {users.students.length > 0 ? (
+              <ul className="divide-y divide-gray-200">
+                {users.students.map((student) => {
+                  const parent = users.parents.find((parent) => parent.student === student._id);
+                  return (
+                    <li key={student._id} className="py-3">
+                      <div className="flex flex-col space-y-1">
+                        <span className="text-gray-700 font-medium">{student.firstName} {student.lastName}</span>
+                        <span className="text-sm text-gray-500">{student.email}</span>
+                        {parent && (
+                          <span className="text-xs text-gray-400 mt-1">
+                            Parent - {parent.firstName} {parent.lastName}
+                          </span>
+                        )}
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <p className="text-gray-500">No students found.</p>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

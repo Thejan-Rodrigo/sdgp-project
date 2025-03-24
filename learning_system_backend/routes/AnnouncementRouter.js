@@ -24,7 +24,7 @@ router.get(
   announcementController.getAnnouncement
 );
 
-router.use(auth("teacher", "admin"));
+router.use(auth("teacher", "admin", "superadmin"));
 router.post(
   "/",
   announcementController.createAnnouncement

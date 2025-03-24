@@ -22,13 +22,10 @@ const ChatArea = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(true); // For toggling student list
 
   useEffect(() => {
-    //if (!schoolId) return;
-
     const fetchStudents = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/chat/students/bySchool/67cc5370e98552e9b5a6e097`);
-        console.log("Fetched Students:", response.data)
-        console.log(senderId)
+        const response = await axios.get(`http://localhost:5000/api/chat/students/bySchool/${schoolId}`);
+        console.log("Fetched Students:", response.data);
         setStudents(response.data);
       } catch (error) {
         console.error("Error fetching students:", error);
@@ -36,14 +33,14 @@ const ChatArea = () => {
     };
 
     fetchStudents();
-  },[schoolId] )
+  }, [schoolId]);
 
   useEffect(() => {
     if (!receiverId) return;
 
     const fetchMessages = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/chat/${senderId}/${receiverId}`);
+        const response = await axios.get(`http://localhost:5000/api/chat/get/${senderId}/${receiverId}`);
         setMessages(response.data);
       } catch (error) {
         console.error("Error fetching chat history:", error);
@@ -73,12 +70,27 @@ const ChatArea = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:5000/api/chat/send", messageData);
-      const savedMessage = response.data;
-      setMessages((prev) => [...prev, savedMessage]);
-      socket.emit("sendMessage", savedMessage);
+      // const response = await axios.post("http://localhost:5000/api/chat/send", messageData);
+      // const savedMessage = response.data;
+      // setMessages((prev) => [...prev, savedMessage]);
+      socket.emit("sendMessage", messageData);
     } catch (error) {
       console.error("Error sending message:", error);
+    }
+  };
+
+  // Function to handle message deletion
+  const handleDeleteMessage = async (messageId) => {
+    try {
+      // Call the delete API
+      await axios.delete(`http://localhost:5000/api/chat/delete/${messageId}`, {
+        data: { userId: senderId }, // Send userId in the request body
+      });
+
+      // Remove the deleted message from the messages state
+      setMessages((prevMessages) => prevMessages.filter((msg) => msg._id !== messageId));
+    } catch (error) {
+      console.error("Error deleting message:", error.response?.data || error.message);
     }
   };
 
@@ -145,7 +157,13 @@ const ChatArea = () => {
             <div className="flex-1 overflow-y-auto p-4 bg-white">
               {messages.length > 0 ? (
                 messages.map((msg, index) => (
-                  <Message key={index} {...msg} currentUserId={senderId} />
+                  <Message
+                    key={index}
+                    {...msg}
+                    timestamp={msg.createdAt}
+                    currentUserId={senderId}
+                    onDelete={handleDeleteMessage} // Pass the delete handler
+                  />
                 ))
               ) : (
                 <p className="text-gray-500 text-center">Start a conversation...</p>

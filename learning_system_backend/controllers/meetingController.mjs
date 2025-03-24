@@ -13,9 +13,12 @@ export const addMeeting = async (req, res) => {
     await meeting.save();
 
     console.log("Data saved");
-    // Return all meetings
-    const allMeetings = await Meeting.find();
-    res.status(201).json(allMeetings);
+
+    // Fetch all meetings for the specific school
+    const meetingsBySchool = await Meeting.find({ schoolId: schoolId });
+
+    // Return only the meetings for the specific school
+    res.status(201).json(meetingsBySchool);
   } catch (error) {
     res.status(500).json({ error: "Server error" });
   }
@@ -61,9 +64,11 @@ export const deleteMeeting = async (req, res) => {
       return res.status(404).json({ message: "Meeting not found" });
     }
 
-    // Return updated list of meetings
-    const allMeetings = await Meeting.find();
-    res.status(200).json(allMeetings);
+    // Fetch all meetings for the specific school
+    const meetingsBySchool = await Meeting.find({ schoolId: deletedMeeting.schoolId });
+
+    // Return only the meetings for the specific school
+    res.status(200).json(meetingsBySchool);
   } catch (error) {
     res.status(500).json({ error: "Server error" });
   }

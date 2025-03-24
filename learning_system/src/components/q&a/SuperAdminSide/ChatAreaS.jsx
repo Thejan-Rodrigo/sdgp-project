@@ -13,19 +13,31 @@ const SuperAdminChat = () => {
   const [receiverId, setReceiverId] = useState(null);
   const [messages, setMessages] = useState([]);
   const [selectedAdmin, setSelectedAdmin] = useState(null);
-  const [admins, setAdmins] = useState([
-    { id: "67ceb8c8c1c3dfe20547e3d6", name: "Admin 1", lastMessage: "Meeting at 3 PM.", time: "2 hours ago", isOnline: true },
-    { id: "67d3a0c7b8d6b4e23a1f6e02", name: "Admin 2", lastMessage: "Need update on reports.", time: "Yesterday", isOnline: false },
-  ]);
+  const [admins, setAdmins] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(true);
+
+  useEffect(() => {
+    const fetchAdmins = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/chat/admins`);
+        console.log(response.data);
+        setAdmins(response.data || []); // Ensure admins is always an array
+      } catch (error) {
+        console.error("Error fetching admins:", error);
+        setAdmins([]); // Set to empty array on error
+      }
+    };
+
+    fetchAdmins();
+  }, []); // Add empty dependency array to run only once
 
   useEffect(() => {
     if (!receiverId) return;
 
     const fetchMessages = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/chat/${senderId}/${receiverId}`);
+        const response = await axios.get(`http://localhost:5000/api/chat/get/${senderId}/${receiverId}`);
         setMessages(response.data);
       } catch (error) {
         console.error("Error fetching chat history:", error);
@@ -55,18 +67,35 @@ const SuperAdminChat = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:5000/api/chat/send", messageData);
-      const savedMessage = response.data;
-      setMessages((prev) => [...prev, savedMessage]);
-      socket.emit("sendMessage", savedMessage);
+      // const response = await axios.post("http://localhost:5000/api/chat/send", messageData);
+      // const savedMessage = response.data;
+      // setMessages((prev) => [...prev, savedMessage]);
+      socket.emit("sendMessage", messageData);
     } catch (error) {
       console.error("Error sending message:", error);
     }
   };
 
-  const filteredAdmins = admins.filter((admin) =>
-    admin.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Function to handle message deletion
+  const handleDeleteMessage = async (messageId) => {
+    try {
+      // Call the delete API
+      await axios.delete(`http://localhost:5000/api/chat/delete/${messageId}`, {
+        data: { userId: senderId }, // Send userId in the request body
+      });
+
+      // Remove the deleted message from the messages state
+      setMessages((prevMessages) => prevMessages.filter((msg) => msg._id !== messageId));
+    } catch (error) {
+      console.error("Error deleting message:", error.response?.data || error.message);
+    }
+  };
+
+  // Safely filter admins based on firstName and lastName
+  const filteredAdmins = admins.filter((admin) => {
+    const fullName = `${admin?.firstName || ""} ${admin?.lastName || ""}`.toLowerCase();
+    return fullName.includes((searchQuery || "").toLowerCase());
+  });
 
   return (
     <div className="flex h-screen">
@@ -96,15 +125,17 @@ const SuperAdminChat = () => {
               {filteredAdmins.length > 0 ? (
                 filteredAdmins.map((admin) => (
                   <div
-                    key={admin.id}
+                    key={admin._id} // Use _id instead of id
                     className="p-4 hover:bg-gray-50 cursor-pointer border-b transition-colors"
                     onClick={() => {
                       setSelectedAdmin(admin);
-                      setReceiverId(admin.id);
+                      setReceiverId(admin._id); // Use _id instead of id
                     }}
                   >
-                    <h3 className="font-semibold text-gray-900">{admin.name}</h3>
-                    <p className="text-sm text-gray-500 truncate">{admin.lastMessage}</p>
+                    <h3 className="font-semibold text-gray-900">
+                      {admin.firstName} {admin.lastName}
+                    </h3>
+                    <p className="text-sm text-gray-500 truncate">{admin.email}</p>
                   </div>
                 ))
               ) : (
@@ -119,11 +150,17 @@ const SuperAdminChat = () => {
       <div className="flex-1 flex flex-col">
         {selectedAdmin ? (
           <>
-            <ChatHeader admin={{ name: selectedAdmin.name }} />
+            <ChatHeader admin={{ name: `${selectedAdmin.firstName} ${selectedAdmin.lastName}` }} />
             <div className="flex-1 overflow-y-auto p-4 bg-white">
               {messages.length > 0 ? (
                 messages.map((msg, index) => (
-                  <Message key={index} {...msg} currentUserId={senderId} />
+                  <Message
+                    key={index}
+                    {...msg}
+                    timestamp={msg.createdAt}
+                    currentUserId={senderId}
+                    onDelete={handleDeleteMessage} // Pass the delete handler
+                  />
                 ))
               ) : (
                 <p className="text-gray-500 text-center">Start a conversation...</p>

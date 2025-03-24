@@ -1,21 +1,21 @@
 import React from "react";
 import { MoreVertical } from "lucide-react";
 
-const ChatHeader = ({ teacher = {} }) => {
+const ChatHeader = ({ admin = {} }) => {
   return (
     <div className="flex items-center justify-between p-4 border-b bg-white">
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
           <span className="text-blue-600 font-semibold">
-            {teacher?.name
-              ? teacher.name.split(" ").map((n) => n[0]).join("")
+            {admin?.name
+              ? admin.name.split(" ").map((n) => n[0]).join("")
               : "?"}
           </span>
         </div>
         <div>
-          <h3 className="font-semibold">{teacher?.name || "Unknown"}</h3>
+          <h3 className="font-semibold">{admin?.name || "Unknown"}</h3>
           <p className="text-sm text-gray-600">
-            {teacher?.subject || "No Subject"}
+            {admin?.subject || "No Subject"}
           </p>
         </div>
       </div>

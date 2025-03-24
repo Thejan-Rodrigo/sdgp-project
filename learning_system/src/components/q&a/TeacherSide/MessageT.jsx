@@ -20,9 +20,17 @@ const Message = ({ _id, message, timestamp, senderId, currentUserId, onDelete })
       </div>
 
       {/* Right Click Context Menu */}
-      {showOptions && (
+      {showOptions && isSentByUser && ( // Only show delete option for messages sent by the current user
         <div className="absolute top-0 right-0 bg-white shadow-md rounded-md p-2">
-          <button className="text-red-600 hover:text-red-800" onClick={() => { onDelete(_id); setShowOptions(false); }}>Delete</button>
+          <button
+            className="text-red-600 hover:text-red-800"
+            onClick={() => {
+              onDelete(_id);
+              setShowOptions(false);
+            }}
+          >
+            Delete
+          </button>
         </div>
       )}
     </div>

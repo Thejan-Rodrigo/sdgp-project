@@ -14,33 +14,33 @@ const AnnouncementCard = ({
   onEdit, 
   onDelete 
 }) => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef(null);
+  const [menuOpen, setMenuOpen] = useState(false); // State to manage dropdown menu visibility
+  const menuRef = useRef(null); // Ref to track the dropdown menu for click-outside detection
 
-  // Toggle menu
+  // Toggle dropdown menu visibility
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
-  // Close menu when clicking outside
+  // Effect to close the dropdown menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setMenuOpen(false);
+        setMenuOpen(false); // Close menu if click is outside the dropdown
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside); // Attach event listener
+    return () => document.removeEventListener("mousedown", handleClickOutside); // Cleanup listener on unmount
   }, []);
 
-  // Format the audience tag label based on role
+  // Dynamically determine the audience label based on user role and target audience
   const getAudienceLabel = () => {
     if (userRole === 'student' || userRole === 'parent') {
-      return targetAudience.includes('all') ? 'All Classes' : 'Your Class';
+      return targetAudience.includes('all') ? 'All Classes' : 'Your Class'; // For students/parents
     } else if (userRole === 'teacher') {
-      return 'Teacher';
+      return 'Teacher'; // For teachers
     } else if (userRole === 'admin') {
-      return targetAudience.includes('all') ? 'All Branches' : 'This Branch';
+      return targetAudience.includes('all') ? 'All Branches' : 'This Branch'; // For admins
     } else {
-      return 'System Announcement';
+      return 'System Announcement'; // Default label
     }
   };
 
@@ -50,14 +50,14 @@ const AnnouncementCard = ({
         <div className="flex-1">
           <div className="flex justify-between">
             <h2 className="text-xl font-semibold">{title}</h2>
-            {/* Three-dot menu button - only show if user can modify */}
+            {/* Dropdown menu for edit/delete actions - only visible if user has edit permissions */}
             {canEdit && (
               <div className="relative" ref={menuRef}>
                 <button onClick={toggleMenu} className="text-gray-400 hover:text-gray-600 focus:outline-none">
-                  <FaEllipsisV />
+                  <FaEllipsisV /> {/* Three-dot icon */}
                 </button>
 
-                {/* Dropdown menu */}
+                {/* Dropdown menu content */}
                 {menuOpen && (
                   <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg border rounded-md z-10">
                     <button
@@ -77,8 +77,9 @@ const AnnouncementCard = ({
               </div>
             )}
           </div>
+          {/* Audience label with dynamic styling */}
           <span className="text-sm text-blue-600 bg-blue-50 px-3 py-1 rounded-full inline-block mt-2">
-            {getAudienceLabel()}
+            {getAudienceLabel()} {/* Display formatted audience label */}
           </span>
         </div>
       </div>
