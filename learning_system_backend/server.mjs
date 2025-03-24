@@ -19,7 +19,7 @@ import chatbotRouter from "./routes/chatbotRouter.js";
 // import errorHandler from "./middleware/errorMiddleware.js";
 import announcementRoute from "./routes/AnnouncementRouter.js"
 import learningRoutes from "./routes/learningRoutes.js"
-//import schoolRoutes from "./routes/schoolRoutes.js";
+import schoolRoutes from "./routes/schoolRoutes.js";
 //import logRequest from './utils/logger.js'; // Adjust the path to where you defined logRequest
 // import { getStudentProfile, getStudentProgress } from "./controllers/studentController.js";
 // import { getAttendance } from "./controllers/studentAttendace.js"
@@ -51,6 +51,7 @@ app.use("/api/progress", progressRoutes);
 app.use("/api/chatbot", chatbotRouter);
 app.use('/api/v1/announcements', announcementRoute);
 app.use('/api/learning', learningRoutes)
+app.use('/api/schools', schoolRoutes)
 //app.use("/api/students", studentRoutes);
 app.use("/api", meetingRoutes);
 //app.use("/api/auth", authRoutes);

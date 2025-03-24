@@ -50,7 +50,7 @@ export default function TeacherMeeting() {
 
         // Construct the meeting object to send to the backend
         const newMeeting = {
-            name: 'Nethmi Himasara',
+            name: `${user.firstName} ${user.lastName}`,
             description: description,
             time: `${date}T${time}:00.000Z`, // Combine date and time into a proper ISO format
             link: link,
