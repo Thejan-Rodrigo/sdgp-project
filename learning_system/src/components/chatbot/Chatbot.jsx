@@ -94,7 +94,7 @@ export default function Chatbot() {
       {isChatOpen && (
         <div
           style={{ boxShadow: "0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05)" }}
-          className="fixed bottom-[calc(4rem+1.5rem)] right-0 mr-4 bg-white p-6 rounded-lg border border-[#e5e7eb] w-[440px] h-[634px] flex flex-col"
+          className="fixed bottom-[calc(4rem+1.5rem)] right-0 mr-4 bg-white p-6 rounded-lg border border-[#e5e7eb] w-[440px] h-[600px] flex flex-col"
         >
           {/* Heading */}
           <div className="flex flex-col space-y-1.5 pb-6">
