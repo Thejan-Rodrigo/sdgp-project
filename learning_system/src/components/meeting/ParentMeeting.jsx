@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ParentSideBar from '../ParentSideBar';
 import ParentMessage from './ParentMessage';
 import axios from 'axios';
+import Chatbot from '../chatbot/Chatbot';
 
 export default function ParentMeeting() {
     const [meetings, setMeetings] = useState([]);
@@ -36,45 +37,48 @@ export default function ParentMeeting() {
     );
 
     return (
-        <div className="flex bg-white">
-            {/* Fixed Sidebar */}
-            <div className="fixed h-screen w-64">
-                <ParentSideBar />
+        <>
+            <div className="flex bg-white">
+                {/* Fixed Sidebar */}
+                <div className="fixed h-screen w-64">
+                    <ParentSideBar />
+                </div>
+
+
+
+                {/* Main Content with Left Margin */}
+                <div className="flex-1 ml-64">
+                    <header className="bg-white border-b px-6 py-4 flex justify-between items-center">
+                        <h2 className="text-xl font-semibold">Upcoming Meetings</h2>
+                    </header>
+
+                    <main className="p-6">
+                        {loading ? (
+                            <LoadingAnimation /> // Use the loading animation
+                        ) : meetings.length > 0 ? (
+                            <div className="space-y-4">
+                                {meetings.map((meeting) => (
+                                    <div
+                                        key={meeting._id}
+                                        className="bg-blue-50 rounded-lg p-6 shadow-sm"
+                                    >
+                                        <ParentMessage
+                                            id={meeting._id}
+                                            name={meeting.name}
+                                            descrip={meeting.description}
+                                            time={meeting.time}
+                                            link={meeting.link}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <p className="text-gray-500">No meetings found.</p>
+                        )}
+                    </main>
+                </div>
             </div>
-
-            
-
-            {/* Main Content with Left Margin */}
-            <div className="flex-1 ml-64">
-                <header className="bg-white border-b px-6 py-4 flex justify-between items-center">
-                    <h2 className="text-xl font-semibold">Upcoming Meetings</h2>
-                </header>
-
-                <main className="p-6">
-                    {loading ? (
-                        <LoadingAnimation /> // Use the loading animation
-                    ) : meetings.length > 0 ? (
-                        <div className="space-y-4">
-                            {meetings.map((meeting) => (
-                                <div
-                                    key={meeting._id}
-                                    className="bg-blue-50 rounded-lg p-6 shadow-sm"
-                                >
-                                    <ParentMessage
-                                        id={meeting._id}
-                                        name={meeting.name}
-                                        descrip={meeting.description}
-                                        time={meeting.time}
-                                        link={meeting.link}
-                                    />
-                                </div>
-                            ))}
-                        </div>
-                    ) : (
-                        <p className="text-gray-500">No meetings found.</p>
-                    )}
-                </main>
-            </div>
-        </div>
+            <Chatbot />
+        </>
     );
 }

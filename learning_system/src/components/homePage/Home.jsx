@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import HomeNavBar from './HomeNavBar';
@@ -54,14 +54,19 @@ const AnimatedSection = ({ children, variants, className }) => {
 
 export default function Home() {
   const { user } = useAuth();
+  const featuresRef = useRef(null);
+
+  const scrollToFeatures = () => {
+    featuresRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <div className="bg-white">
       <HomeNavBar />
-      <Hero />
+      <Hero scrollToFeatures={scrollToFeatures} />
       <Features />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 content-start">
+      <div ref={featuresRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 content-start">
         <AnimatedSection variants={fadeInLeft} className="mt-10">
           <img
             src={Photo1}
@@ -78,6 +83,7 @@ export default function Home() {
           </TopicAndDescription>
         </AnimatedSection>
 
+        {/* Rest of your content sections... */}
         <AnimatedSection variants={fadeInLeft} className="mt-10">
           <TopicAndDescription topic="Virtual Meetings & Announcements">
             <span>
@@ -113,7 +119,7 @@ export default function Home() {
         <AnimatedSection variants={fadeInLeft} className="mt-10">
           <TopicAndDescription topic="Q&A Chat System">
             <span>
-              The Q&A chat system improves the teacher-parent relationship by allowing real-time communication about the child’s progress, challenges, and activities. Parents can ask questions, share concerns, and receive updates about their child's learning experience directly from the teacher.
+              The Q&A chat system improves the teacher-parent relationship by allowing real-time communication about the child's progress, challenges, and activities. Parents can ask questions, share concerns, and receive updates about their child's learning experience directly from the teacher.
             </span>
           </TopicAndDescription>
         </AnimatedSection>

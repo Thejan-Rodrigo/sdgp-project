@@ -1,30 +1,29 @@
 "use client";
 
 import { useState } from "react";
-import { useAuth } from '../../context/AuthContext'; // Import the useAuth hook
+import { useAuth } from '../../context/AuthContext';
 
 export default function Chatbot() {
-  const [isChatOpen, setIsChatOpen] = useState(false); // State to manage chat visibility
-  const [message, setMessage] = useState(""); // State to manage user input
-  const [messages, setMessages] = useState([]); // State to store chat messages
-  const { user } = useAuth(); // Get the parent ID from the auth context
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false); // New state for loading status
+  const { user } = useAuth();
 
-  // Function to handle sending a message
   const handleSendMessage = async (e) => {
-    e.preventDefault(); // Prevent form submission
+    e.preventDefault();
 
-    if (!message.trim()) return; // Ignore empty messages
+    if (!message.trim() || isLoading) return; // Prevent sending if already loading
 
-    // Add the user's message to the chat
+    // Add user message immediately
     setMessages((prevMessages) => [
       ...prevMessages,
       { text: message, sender: "user" }
     ]);
 
-    console.log(user.id)
-    console.log(message)
-    
-    // Call the chatbot API
+    setMessage(""); // Clear input field
+    setIsLoading(true); // Disable input while loading
+
     try {
       const response = await fetch("http://localhost:5000/api/chatbot", {
         method: "POST",
@@ -32,36 +31,30 @@ export default function Chatbot() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          parentId: user.id, // Send the parent ID from the auth context
-          question: message, // Send the user's question
+          parentId: user.id,
+          question: message,
         }),
       });
 
       const data = await response.json();
-      console.log(data)
-
-      // Parse the AI's response:
-      // 1. Replace **text** with <strong>text</strong> for bold text.
-      // 2. Replace \n with <br/> for line breaks.
+      
       const formattedResponse = data.response
-        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // Bold text
-        .replace(/\n/g, "<br/>"); // Line breaks
+        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+        .replace(/\n/g, "<br/>");
 
-      // Add the AI's response to the chat
       setMessages((prevMessages) => [
         ...prevMessages,
         { text: formattedResponse, sender: "ai" }
       ]);
     } catch (error) {
       console.error("Error sending message:", error);
-      // Add an error message to the chat
       setMessages((prevMessages) => [
         ...prevMessages,
         { text: "An error occurred while processing your request.", sender: "ai" }
       ]);
+    } finally {
+      setIsLoading(false); // Re-enable input after response/error
     }
-
-    setMessage(""); // Clear the input field
   };
 
   return (
@@ -139,7 +132,7 @@ export default function Chatbot() {
                       ? "bg-blue-500 text-white"
                       : "bg-gray-100 text-gray-700"
                   }`}
-                  dangerouslySetInnerHTML={{ __html: msg.text }} // Render HTML for bold text and line breaks
+                  dangerouslySetInnerHTML={{ __html: msg.text }}
                 />
                 {msg.sender === "user" && (
                   <span className="relative flex shrink-0 overflow-hidden rounded-full w-8 h-8">
@@ -162,6 +155,33 @@ export default function Chatbot() {
                 )}
               </div>
             ))}
+            {isLoading && (
+              <div className="flex justify-start gap-3 my-4 text-gray-600 text-sm">
+                <span className="relative flex shrink-0 overflow-hidden rounded-full w-8 h-8">
+                  <div className="rounded-full bg-gray-100 border p-1">
+                    <svg
+                      stroke="none"
+                      fill="black"
+                      strokeWidth="1.5"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                      height="20"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"
+                      />
+                    </svg>
+                  </div>
+                </span>
+                <p className="leading-relaxed p-3 rounded-lg max-w-[80%] bg-gray-100 text-gray-700">
+                  Thinking...
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Input Box */}
@@ -172,12 +192,21 @@ export default function Chatbot() {
                 placeholder="Type your message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
+                disabled={isLoading} // Disable input while loading
               />
               <button
                 type="submit"
                 className="inline-flex items-center justify-center rounded-md text-sm font-medium text-white disabled:pointer-events-none disabled:opacity-50 bg-blue-500 hover:bg-blue-600 h-10 px-4 py-2"
+                disabled={isLoading || !message.trim()} // Disable button while loading or empty
               >
-                Send
+                {isLoading ? (
+                  <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                ) : (
+                  "Send"
+                )}
               </button>
             </form>
           </div>
