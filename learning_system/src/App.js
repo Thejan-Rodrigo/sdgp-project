@@ -225,7 +225,7 @@ const App = () => {
           path="/SuperAdminq&a"
           element={
             <ProtectedRoute
-              allowedRoles={['admin']}
+              allowedRoles={['superadmin']}
               element={<SuperAdminChat />}
             />
           }

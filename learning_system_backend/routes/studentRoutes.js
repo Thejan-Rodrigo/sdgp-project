@@ -8,6 +8,7 @@ import {
   getParentById,
   getProgressByParentId,
   getProgressByStudentId, // Add this
+  getAttendanceBySchoolId
 } from "../controllers/studentController.js";
 
 const router = express.Router();
@@ -34,5 +35,8 @@ router.get("/:studentId/progress", getProgressByStudentId); // Add this route
 
 // Update student by ID
 router.put("/:studentId", updateStudent);
+
+// Get attendance records by school ID
+router.get('/attendance/:schoolId', getAttendanceBySchoolId);
 
 export default router;

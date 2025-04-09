@@ -3,15 +3,18 @@ import ParentSideBar from '../ParentSideBar';
 import ParentMessage from './ParentMessage';
 import axios from 'axios';
 import Chatbot from '../chatbot/Chatbot';
+import { useAuth } from '../../context/AuthContext'; // Import useAuth
 
 export default function ParentMeeting() {
     const [meetings, setMeetings] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { user } = useAuth(); // Access the user object from AuthContext
 
     useEffect(() => {
         const fetchMeetings = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/meetings'); // Adjust backend URL if needed
+                const response = await axios.get(`http://localhost:5000/api/meetings/school/${user.schoolId}`); // Adjust backend URL if needed
+                console.log(response.data)
                 setMeetings(response.data); // Update state with meetings data
             } catch (error) {
                 console.error('Error fetching meetings:', error);

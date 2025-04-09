@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext"; // Import the useAuth hook
 import ParentSideBar from "../ParentSideBar";
 import Chatbot from "../chatbot/Chatbot";
+import StudentAttendanceCalendar from "./StudentAttendanceCalendar";
 
 const StudentProfile = () => {
   const [student, setStudent] = useState(null); // Change initial state to null
@@ -127,10 +128,10 @@ const StudentProfile = () => {
                       className="bg-white p-4 rounded-md shadow-sm"
                     >
                       <div className="flex gap-4">
-                        <div className="w-12 h-12 rounded-full bg-gray-100 flex-shrink-0" />
+                        {/* <div className="w-12 h-12 rounded-full bg-gray-100 flex-shrink-0" /> */}
                         <div>
-                          <h5 className="font-medium">{item.teacher}</h5>
-                          <p className="text-sm text-gray-500">{item.notes}</p>
+                          <h5 className="font-medium">{item.teacherId.firstName} {item.teacherId.lastName}</h5>
+                          <p className="text-sm text-gray-500 pt-3">{item.notes}</p>
                           <p className="text-sm text-gray-500">
                             Created Date: {formatDate(item.createdAt)}
                           </p>
@@ -144,8 +145,22 @@ const StudentProfile = () => {
                 <p className="text-gray-500">No progress records found.</p>
               )}
             </div>
+            
           </main>
         </div>
+      </div>
+      <div className="bg-blue-50 rounded-lg p-6 shadow-sm ml-72 mr-8">
+        {loading ? (
+          <LoadingAnimation /> // Use the loading animation
+        ) : student ? (
+          <StudentAttendanceCalendar
+            schoolId={user.schoolId}
+            studentId={student._id}
+          />
+        ) : (
+          <p className="text-gray-500">No student data found.</p>
+        )}
+
       </div>
       <Chatbot />
     </>

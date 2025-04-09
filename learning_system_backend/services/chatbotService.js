@@ -13,17 +13,44 @@ export async function getStudentProgress(parentId, parentInput) {
         const student = await Student.findById(parent.student).select("firstName lastName");
         if (!student) throw new Error("No student found for this parent.");
 
-        // Check if question is about progress (using simple keyword matching)
+        // Check for navigation-related questions
+        const isNavigationQuestion = /navigation|where can|how.*find|how.*see|how.*check|features?|menu|sidebar|announcements?|meetings?|profile|progress|calendar|attendance|q&a|chat|learning|tips/i.test(parentInput.toLowerCase());
+
+        if (isNavigationQuestion) {
+            const navigationPrompt = `
+                You're a kindergarten system navigation assistant. A parent asks: "${parentInput}"
+
+                Here are the 5 main features in the sidebar:
+                1. Announcements - Shows all announcements you've received
+                2. Meetings - Displays all meetings posted by teachers
+                3. Student Profile - Contains:
+                   - All student details
+                   - Progress reports from teachers
+                   - Attendance calendar (visual representation)
+                4. Q&A - Lets you chat directly with teachers
+                5. Learning - Shows educational tips posted by administrators
+
+                Respond specifically about where to find what they're asking for:
+                - Be extremely concise (1 sentence if possible)
+                - Use simple language
+                - Example: "You can find meetings in the Meetings section of the sidebar"
+                - Never mention progress unless specifically asked
+                - No signatures or greetings
+            `;
+            return await askAI(navigationPrompt);
+        }
+
+        // Check if question is about progress
         const isProgressQuestion = /progress|how.*doing|performance|report|grades?|learning|development|behavior|improve/i.test(parentInput);
 
         if (!isProgressQuestion) {
-            // For general questions, use a simple chatbot response
+            // For general questions
             const generalPrompt = `
-                You are a friendly kindergarten assistant chatbot. A parent is asking: "${parentInput}"
+                You are a friendly kindergarten assistant chatbot. A parent asks: "${parentInput}"
 
-                Respond to this question helpfully and concisely, but do NOT mention student progress or reports.
-                Keep your response brief (1-2 sentences maximum).
-                Do NOT include any signatures like "Warm regards" or team names.
+                Respond helpfully and concisely (1-2 sentences max).
+                If mentioning features, refer to the 5 sidebar options.
+                Never include signatures or team names.
             `;
             return await askAI(generalPrompt);
         }
@@ -42,7 +69,7 @@ export async function getStudentProgress(parentId, parentInput) {
 
         // Generate prompt for progress-related questions
         const prompt = `
-            You are a kindergarten progress assistant. A parent is asking about their child's progress: "${parentInput}"
+            You are a kindergarten progress assistant. A parent asks: "${parentInput}"
 
             Student: ${student.firstName} ${student.lastName}
 
@@ -52,19 +79,18 @@ export async function getStudentProgress(parentId, parentInput) {
                   (From ${progress.teacher} on ${progress.createdAt})
             `).join("\n")}
 
-            Guidelines for your response:
-            1. Directly answer the specific question about progress
-            2. Summarize key points from the progress reports
-            3. If improvement is needed, provide 3-4 specific, actionable suggestions
+            Guidelines:
+            1. Directly answer the progress question
+            2. Summarize key points from reports
+            3. Provide 3-4 actionable suggestions if needed
             4. Keep response professional but friendly (1-2 paragraphs max)
-            5. NEVER include signatures, greetings, or team names
-            6. If no progress data exists, say "No progress reports available yet"
-
-            Response should begin directly with the answer, no introductions.
+            5. No signatures/greetings
+            6. If no data: "No progress reports available yet"
+            
+            Start response directly with the answer.
         `;
 
         const aiResponse = await askAI(prompt);
-        // Remove any residual signatures or greetings
         return aiResponse.replace(/Warm regards,.*$/i, '').trim();
 
     } catch (error) {

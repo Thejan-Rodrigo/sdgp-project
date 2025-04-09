@@ -92,7 +92,7 @@ export default function Chatbot() {
           {/* Heading */}
           <div className="flex flex-col space-y-1.5 pb-6">
             <h2 className="font-semibold text-lg tracking-tight">Chatbot</h2>
-            <p className="text-sm text-[#6b7280] leading-3">Powered by Mendable and Vercel</p>
+            <p className="text-sm text-[#6b7280] leading-3">Powered by DeepSeek</p>
           </div>
 
           {/* Chat Container */}

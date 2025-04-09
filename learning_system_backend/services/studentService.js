@@ -1,6 +1,7 @@
 import Student from "../models/Student.js";
 import User from "../models/User.js"; // Import the User model (assuming Teacher is in the users collection)
 import Progress from "../models/Progress.js"; // Import the Progress model
+import Attendance from '../models/Attendance.js';
 
 export const getAllStudents = async () => {
   return await Student.find();
@@ -98,9 +99,25 @@ export const getParentById = async (parentId) => {
 export const getProgressByParentId = async (studentIds) => {
   try {
     // Fetch progress data for the student(s) associated with the parent
-    const progress = await Progress.find({ studentId: { $in: studentIds } });
-    return progress;
+    const progressRecords = await Progress.find({ studentId: { $in: studentIds } })
+      .populate({
+        path: 'teacherId',
+        select: 'firstName lastName', // Only get these fields from User
+        model: 'User' // The model to populate from
+      })
+      .lean(); // Convert to plain JavaScript objects
+
+    // Format the response to include teacher names
+    const formattedProgress = progressRecords.map(record => ({
+      ...record,
+      teacherName: record.teacherId 
+        ? `${record.teacherId.firstName} ${record.teacherId.lastName}`
+        : 'Unknown Teacher'
+    }));
+
+    return formattedProgress;
   } catch (error) {
+    console.error("Error fetching progress by parent ID:", error);
     throw new Error("Error fetching progress by parent ID");
   }
 };
@@ -131,5 +148,44 @@ export const getProgressByStudentId = async (studentId) => {
     return progressWithTeacher;
   } catch (error) {
     throw new Error("Error fetching progress by student ID");
+  }
+};
+
+export const getAttendanceBySchoolIdService = async (schoolId) => {
+  try {
+    // First get all students in this school
+    const schoolStudents = await Student.find({ schoolId }, '_id');
+    const studentIds = schoolStudents.map(s => s._id.toString());
+    
+    // Then get all attendance records that include these students
+    const attendanceRecords = await Attendance.aggregate([
+      {
+        $match: {
+          'students.id': { $in: studentIds }
+        }
+      },
+      {
+        $addFields: {
+          students: {
+            $filter: {
+              input: '$students',
+              as: 'student',
+              cond: { $in: ['$$student.id', studentIds] }
+            }
+          }
+        }
+      },
+      {
+        $match: {
+          students: { $ne: [] } // Only include records with matching students
+        }
+      },
+      { $sort: { date: -1 } }
+    ]);
+    
+    return attendanceRecords;
+  } catch (error) {
+    console.error('Error in getAttendanceBySchoolIdService:', error);
+    throw error;
   }
 };

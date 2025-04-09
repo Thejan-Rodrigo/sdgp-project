@@ -36,14 +36,14 @@ const Sidebar = () => {
           <span>Kinderzone</span>
         </div>
         <div className="flex items-center gap-3 mb-8">
-          <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+          {/* <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
             {user?.profilePicture ? (
               <img src={user.profilePicture} alt="Profile" className="rounded-full w-full h-full object-cover" />
             ) : (
               <img src="https://via.placeholder.com/40" alt="Profile" className="rounded-full" />
             )}
-          </div>
-          <div>
+          </div> */}
+          <div className='ml-3'>
             {user ? (
               <>
                 <h3 className="font-semibold">{`${user.firstName} ${user.lastName}`}</h3>

@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import AdSidebar from "../AdSidebar";
+import { useAuth } from "../../context/AuthContext";
+import StudentAttendanceCalendar from "./StudentAttendanceCalendar";
 
-function AdminSProfile({ user }) {
+function AdminSProfile({ users }) {
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [loading, setLoading] = useState(null);
@@ -11,6 +13,8 @@ function AdminSProfile({ user }) {
   const [isEditing, setIsEditing] = useState(false); // Editing state
   const [editedStudent, setEditedStudent] = useState({}); // Holds edited student details
   const [progress, setProgress] = useState([]); // State for progress data
+  const { user } = useAuth(); // Added logout function
+
 
   // Fetch students by school ID
   useEffect(() => {
@@ -18,7 +22,11 @@ function AdminSProfile({ user }) {
       try {
         setLoading(true);
         setError("");
-        const response = await fetch(`http://localhost:5000/api/students/school/67cc5370e98552e9b5a6e097`);
+        const response = await fetch(`http://localhost:5000/api/students/school/${user.schoolId}`);
+
+        if (response.status === 404) {
+          throw new Error("Students are not here");
+        }
 
         if (!response.ok) throw new Error("Failed to fetch students");
 
@@ -27,15 +35,16 @@ function AdminSProfile({ user }) {
 
         setStudents(data);
       } catch (error) {
-        console.error("Error fetching students:", error);
+        //console.error("Error fetching students:", error);
         setError(error.message);
+        setStudents([]);
       } finally {
         setLoading(false);
       }
     };
 
     fetchStudentsBySchoolId();
-  }, [user]);
+  }, [users]);
 
   // Fetch progress data when a student is selected
   useEffect(() => {
@@ -53,7 +62,9 @@ function AdminSProfile({ user }) {
 
         const data = await response.json();
 
-        // If the response is an empty array, set progress to an empty array
+        console.log(data)
+
+        //If the response is an empty array, set progress to an empty array
         if (Array.isArray(data)) {
           setProgress(data);
         }
@@ -141,7 +152,16 @@ function AdminSProfile({ user }) {
             {loading ? (
               <LoadingAnimation /> // Use loading animation
             ) : error ? (
-              <p className="text-red-500">{error}</p>
+              <div className="text-center p-4 text-gray-500">
+                {error === "Students are not here" ? (
+                  <div>
+                    <p>Students are not here</p>
+                    <p className="text-sm">No students found for this school</p>
+                  </div>
+                ) : (
+                  <p>Error: {error}</p>
+                )}
+              </div>
             ) : students.length === 0 ? (
               <p className="text-gray-500">No students found.</p>
             ) : (
@@ -149,9 +169,8 @@ function AdminSProfile({ user }) {
                 {students.map((student) => (
                   <div
                     key={student._id}
-                    className={`flex items-center gap-3 p-3 border-b cursor-pointer hover:bg-gray-100 ${
-                      selectedStudent?._id === student._id ? "bg-blue-100" : ""
-                    }`}
+                    className={`flex items-center gap-3 p-3 border-b cursor-pointer hover:bg-gray-100 ${selectedStudent?._id === student._id ? "bg-blue-100" : ""
+                      }`}
                     onClick={() => {
                       setSelectedStudent(student);
                       setEditedStudent(student); // Initialize editedStudent with current data
@@ -289,18 +308,32 @@ function AdminSProfile({ user }) {
                     <div>
                       {progress.map((entry, index) => (
                         <div key={index} className="mb-4 p-4 bg-gray-50 rounded-md shadow-sm">
-                          <h5 className="font-semibold">Teacher: {entry.teacherName}</h5>
-                          <p className="text-gray-700">{entry.comments}</p>
-                          <p className="text-sm text-gray-500">Date: {new Date(entry.date).toLocaleDateString()}</p>
+                          <h5 className="font-semibold">Teacher: {entry.teacherFirstName} {entry.teacherLastName}</h5>
+                          <p className="text-gray-700">{entry.notes}</p>
+                          <p className="text-sm text-gray-500">Date: {new Date(entry.createdAt).toLocaleDateString()}</p>
                         </div>
                       ))}
                     </div>
                   )}
+
                 </div>
               </div>
             ) : (
               <p className="text-gray-500">Select a student to view details.</p>
             )}
+            <div className="bg-gray-100 rounded-lg p-6 shadow-sm">
+          {loading ? (
+            <LoadingAnimation /> // Use the loading animation
+          ) : selectedStudent ? (
+            <StudentAttendanceCalendar
+              schoolId={user.schoolId}
+              studentId={selectedStudent._id}
+            />
+          ) : (
+            <p className="text-gray-500">No student data found.</p>
+          )}
+
+        </div>
           </div>
         </div>
       </div>
