@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext"; // Import the useAuth hook
 import ParentSideBar from "../ParentSideBar";
+import Chatbot from "../chatbot/Chatbot";
+import StudentAttendanceCalendar from "./StudentAttendanceCalendar";
 
 const StudentProfile = () => {
   const [student, setStudent] = useState(null); // Change initial state to null
@@ -80,71 +82,88 @@ const StudentProfile = () => {
   );
 
   return (
-    <div className="flex bg-white">
-      {/* Fixed Sidebar */}
-      <div className="fixed h-screen w-64">
-        <ParentSideBar />
-      </div>
+    <>
+      <div className="flex bg-white">
+        {/* Fixed Sidebar */}
+        <div className="fixed h-screen w-64">
+          <ParentSideBar />
+        </div>
 
-      {/* Main Content with Left Margin */}
-      <div className="flex-1 ml-64">
-        <header className="bg-white border-b px-6 py-4 flex justify-between items-center">
-          <h2 className="text-xl font-semibold">Student Profile</h2>
-        </header>
+        {/* Main Content with Left Margin */}
+        <div className="flex-1 ml-64">
+          <header className="bg-white border-b px-6 py-4 flex justify-between items-center">
+            <h2 className="text-xl font-semibold">Student Profile</h2>
+          </header>
 
-        <main className="p-6">
-          {/* Profile Info */}
-          {loading ? (
-            <LoadingAnimation /> // Use the loading animation
-          ) : student ? (
-            <div className="bg-blue-50 rounded-lg p-6 mb-6 shadow-sm">
-              <h3 className="text-2xl font-semibold mb-4">
-                {`${student.firstName} ${student.lastName}`}
-              </h3>
-              <div className="space-y-3 text-gray-700">
-                <p><strong>Role:</strong> {student.role || "N/A"}</p>
-                <p><strong>Phone:</strong> {student.phone || "N/A"}</p>
-                <p><strong>Address:</strong> {student.address || "N/A"}</p>
-                <p><strong>Date of Birth:</strong> {formatDate(student.dateOfBirth)}</p>
-              </div>
-            </div>
-          ) : (
-            <p className="text-gray-500">No student data found.</p>
-          )}
-
-          {/* Progress Reports */}
-          <div className="bg-blue-50 rounded-lg p-6 shadow-sm">
-            <h4 className="text-lg font-medium mb-4">Progress Messages</h4>
+          <main className="p-6">
+            {/* Profile Info */}
             {loading ? (
               <LoadingAnimation /> // Use the loading animation
-            ) : progress.length > 0 ? (
-              <div className="space-y-4">
-                {progress.map((item, index) => (
-                  <div
-                    key={index}
-                    className="bg-white p-4 rounded-md shadow-sm"
-                  >
-                    <div className="flex gap-4">
-                      <div className="w-12 h-12 rounded-full bg-gray-100 flex-shrink-0" />
-                      <div>
-                        <h5 className="font-medium">{item.teacher}</h5>
-                        <p className="text-sm text-gray-500">{item.notes}</p>
-                        <p className="text-sm text-gray-500">
-                          Created Date: {formatDate(item.createdAt)}
-                        </p>
-                        <p className="mt-2 text-gray-600">{item.remarks}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+            ) : student ? (
+              <div className="bg-blue-50 rounded-lg p-6 mb-6 shadow-sm">
+                <h3 className="text-2xl font-semibold mb-4">
+                  {`${student.firstName} ${student.lastName}`}
+                </h3>
+                <div className="space-y-3 text-gray-700">
+                  <p><strong>Role:</strong> {student.role || "N/A"}</p>
+                  <p><strong>Phone:</strong> {student.phone || "N/A"}</p>
+                  <p><strong>Address:</strong> {student.address || "N/A"}</p>
+                  <p><strong>Date of Birth:</strong> {formatDate(student.dateOfBirth)}</p>
+                </div>
               </div>
             ) : (
-              <p className="text-gray-500">No progress records found.</p>
+              <p className="text-gray-500">No student data found.</p>
             )}
-          </div>
-        </main>
+
+            {/* Progress Reports */}
+            <div className="bg-blue-50 rounded-lg p-6 shadow-sm">
+              <h4 className="text-lg font-medium mb-4">Progress Messages</h4>
+              {loading ? (
+                <LoadingAnimation /> // Use the loading animation
+              ) : progress.length > 0 ? (
+                <div className="space-y-4">
+                  {progress.map((item, index) => (
+                    <div
+                      key={index}
+                      className="bg-white p-4 rounded-md shadow-sm"
+                    >
+                      <div className="flex gap-4">
+                        {/* <div className="w-12 h-12 rounded-full bg-gray-100 flex-shrink-0" /> */}
+                        <div>
+                          <h5 className="font-medium">{item.teacherId.firstName} {item.teacherId.lastName}</h5>
+                          <p className="text-sm text-gray-500 pt-3">{item.notes}</p>
+                          <p className="text-sm text-gray-500">
+                            Created Date: {formatDate(item.createdAt)}
+                          </p>
+                          <p className="mt-2 text-gray-600">{item.remarks}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-gray-500">No progress records found.</p>
+              )}
+            </div>
+            
+          </main>
+        </div>
       </div>
-    </div>
+      <div className="bg-blue-50 rounded-lg p-6 shadow-sm ml-72 mr-8">
+        {loading ? (
+          <LoadingAnimation /> // Use the loading animation
+        ) : student ? (
+          <StudentAttendanceCalendar
+            schoolId={user.schoolId}
+            studentId={student._id}
+          />
+        ) : (
+          <p className="text-gray-500">No student data found.</p>
+        )}
+
+      </div>
+      <Chatbot />
+    </>
   );
 };
 

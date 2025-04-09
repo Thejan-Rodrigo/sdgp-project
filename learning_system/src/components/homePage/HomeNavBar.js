@@ -19,10 +19,10 @@ export default function HomeNavBar() {
             >
               Home
             </button>
-            <button className="text-gray-700 hover:text-primary focus:outline-none">
+            <button className="text-gray-700 hover:text-primary focus:outline-none" onClick={() => navigate("/teacherannouncement")}>
               Teachers
             </button>
-            <button className="text-gray-700 hover:text-primary focus:outline-none">
+            <button className="text-gray-700 hover:text-primary focus:outline-none" onClick={() => navigate("/studentannouncement")}>
               Parent
             </button>
             <button

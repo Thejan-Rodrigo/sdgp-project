@@ -2,15 +2,19 @@ import React, { useState, useEffect } from 'react';
 import ParentSideBar from '../ParentSideBar';
 import ParentMessage from './ParentMessage';
 import axios from 'axios';
+import Chatbot from '../chatbot/Chatbot';
+import { useAuth } from '../../context/AuthContext'; // Import useAuth
 
 export default function ParentMeeting() {
     const [meetings, setMeetings] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { user } = useAuth(); // Access the user object from AuthContext
 
     useEffect(() => {
         const fetchMeetings = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/meetings'); // Adjust backend URL if needed
+                const response = await axios.get(`http://localhost:5000/api/meetings/school/${user.schoolId}`); // Adjust backend URL if needed
+                console.log(response.data)
                 setMeetings(response.data); // Update state with meetings data
             } catch (error) {
                 console.error('Error fetching meetings:', error);
@@ -36,45 +40,48 @@ export default function ParentMeeting() {
     );
 
     return (
-        <div className="flex bg-white">
-            {/* Fixed Sidebar */}
-            <div className="fixed h-screen w-64">
-                <ParentSideBar />
+        <>
+            <div className="flex bg-white">
+                {/* Fixed Sidebar */}
+                <div className="fixed h-screen w-64">
+                    <ParentSideBar />
+                </div>
+
+
+
+                {/* Main Content with Left Margin */}
+                <div className="flex-1 ml-64">
+                    <header className="bg-white border-b px-6 py-4 flex justify-between items-center">
+                        <h2 className="text-xl font-semibold">Upcoming Meetings</h2>
+                    </header>
+
+                    <main className="p-6">
+                        {loading ? (
+                            <LoadingAnimation /> // Use the loading animation
+                        ) : meetings.length > 0 ? (
+                            <div className="space-y-4">
+                                {meetings.map((meeting) => (
+                                    <div
+                                        key={meeting._id}
+                                        className="bg-blue-50 rounded-lg p-6 shadow-sm"
+                                    >
+                                        <ParentMessage
+                                            id={meeting._id}
+                                            name={meeting.name}
+                                            descrip={meeting.description}
+                                            time={meeting.time}
+                                            link={meeting.link}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <p className="text-gray-500">No meetings found.</p>
+                        )}
+                    </main>
+                </div>
             </div>
-
-            
-
-            {/* Main Content with Left Margin */}
-            <div className="flex-1 ml-64">
-                <header className="bg-white border-b px-6 py-4 flex justify-between items-center">
-                    <h2 className="text-xl font-semibold">Upcoming Meetings</h2>
-                </header>
-
-                <main className="p-6">
-                    {loading ? (
-                        <LoadingAnimation /> // Use the loading animation
-                    ) : meetings.length > 0 ? (
-                        <div className="space-y-4">
-                            {meetings.map((meeting) => (
-                                <div
-                                    key={meeting._id}
-                                    className="bg-blue-50 rounded-lg p-6 shadow-sm"
-                                >
-                                    <ParentMessage
-                                        id={meeting._id}
-                                        name={meeting.name}
-                                        descrip={meeting.description}
-                                        time={meeting.time}
-                                        link={meeting.link}
-                                    />
-                                </div>
-                            ))}
-                        </div>
-                    ) : (
-                        <p className="text-gray-500">No meetings found.</p>
-                    )}
-                </main>
-            </div>
-        </div>
+            <Chatbot />
+        </>
     );
 }

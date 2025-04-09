@@ -2,20 +2,36 @@
 
 import { useState, useEffect } from "react";
 import TeaSidebar from "../TeaSidebar";
+import { useAuth } from "../../context/AuthContext";
+import StudentAttendanceCalendar from "./StudentAttendanceCalendar";
 
-function TeacherSProfile({ user }) {
+function TeacherSProfile({ users }) {
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [progress, setProgress] = useState([]);
   const [loading, setLoading] = useState(null);
   const [error, setError] = useState("");
+  const { user } = useAuth();
+
+  // Loading Animation Component
+  const LoadingAnimation = () => (
+    <div className="flex-col gap-4 w-full flex items-center justify-center">
+      <div
+        className="w-20 h-20 border-4 border-transparent text-blue-400 text-4xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full"
+      >
+        <div
+          className="w-16 h-16 border-4 border-transparent text-blue-400 text-2xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full"
+        ></div>
+      </div>
+    </div>
+  );
 
   useEffect(() => {
     const fetchStudentsBySchoolId = async () => {
       try {
         setLoading(true);
         setError("");
-        const response = await fetch(`http://localhost:5000/api/students/school/67cc5370e98552e9b5a6e097`);
+        const response = await fetch(`http://localhost:5000/api/students/school/${user.schoolId}`);
         if (!response.ok) throw new Error("Failed to fetch students");
         const data = await response.json();
         setStudents(data);
@@ -26,7 +42,7 @@ function TeacherSProfile({ user }) {
       }
     };
     fetchStudentsBySchoolId();
-  }, [user]);
+  }, [users]);
 
   useEffect(() => {
     const fetchProgressByStudentId = async () => {
@@ -64,7 +80,7 @@ function TeacherSProfile({ user }) {
       <div className="w-[250px] fixed h-full">
         <TeaSidebar />
       </div>
-      
+
       {/* Main content moves to the right */}
       <div className="flex-1 ml-[250px] flex flex-col">
         <header className="bg-white border-b">
@@ -115,6 +131,20 @@ function TeacherSProfile({ user }) {
                       ))}
                     </div>
                   )}
+
+                  <div className="bg-blue-50 rounded-lg p-6 shadow-sm ">
+                    {loading ? (
+                      <LoadingAnimation /> // Use the loading animation
+                    ) : selectedStudent ? (
+                      <StudentAttendanceCalendar
+                        schoolId={user.schoolId}
+                        studentId={selectedStudent._id}
+                      />
+                    ) : (
+                      <p className="text-gray-500">No student data found.</p>
+                    )}
+
+                  </div>
                 </div>
               </div>
             ) : (

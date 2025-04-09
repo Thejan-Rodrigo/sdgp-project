@@ -186,14 +186,14 @@ export default function TeacherMeeting() {
                                     </button>
                                 </div>
 
-                                <div className="text-center w-40 h-10 bg-gray-400 text-black flex rounded-lg mt-4">
+                                {/* <div className="text-center w-40 h-10 bg-gray-400 text-black flex rounded-lg mt-4">
                                     <button
                                         className="p-2"
                                         onClick={handleGenerateClick}
                                     >
                                         Generate
                                     </button>
-                                </div>
+                                </div> */}
                             </div>
 
                             {/* Conditional Rendering */}

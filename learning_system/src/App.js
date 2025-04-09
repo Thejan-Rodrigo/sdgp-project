@@ -54,19 +54,8 @@ const App = () => {
         {/* Public routes */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path= "/superadminannouncement" element={<SuperAdminDashboard/>}/>
-        <Route path= "/adminannouncement" element={<AdminDashboard/>}/>
-        <Route path= "/teacherannouncement" element={<TeacherDashboard/>}/>
-        <Route path= "/studentannouncement" element={<StudentDashboard/>}/>
         <Route path="/progress" element={<Progress/>}/>
         <Route path="/aboutus" element={<AboutUs/>}/>
-        <Route path="/studentprofile" element={<StudentProfile />}/>
-        <Route path="/teacherSProfile" element={<TeacherSProfile />}/>
-        <Route path="/adminSProfile" element={<AdminSProfile />}/>
-        <Route path="/teachermeeting" element={<TeacherMeeting/>}/>
-        <Route path="/parentmeeting" element={<ParentMeeting/>}/> 
-        <Route path="/lessons" element={<Lessons/>}/>
-        <Route path="/attendance" element={<Attendance/>}/>
 
         {/* Role-protected routes */}
         <Route
@@ -172,12 +161,76 @@ const App = () => {
           }
         />
 
-        <Route path="/addLearningPage" element={<AddLearningPage />} />
-        <Route path="/addadmin" element={<AddAdminPage />}/>
-        <Route path="/parentq&a" element={<ParentChat/>}/>
-        <Route path="/Teacherq&a" element={<TeacherChat/>}/>
-        <Route path="/Adminq&a" element={<AdminChat/>}/>
-        <Route path="/SuperAdminq&a" element={<SuperAdminChat/>}/>
+        <Route
+          path="/lessons"
+          element={
+            <ProtectedRoute
+              allowedRoles={['teacher']}
+              element={<Lessons />}
+            />
+          }
+        />
+
+        <Route
+          path="/attendance"
+          element={
+            <ProtectedRoute
+              allowedRoles={['teacher']}
+              element={<Attendance />}
+            />
+          }
+        />
+
+        <Route
+          path="/addLearningPage"
+          element={
+            <ProtectedRoute
+              allowedRoles={['superadmin']}
+              element={<AddLearningPage />}
+            />
+          }
+        />
+
+        <Route
+          path="/parentq&a"
+          element={
+            <ProtectedRoute
+              allowedRoles={['parent']}
+              element={<ParentChat />}
+            />
+          }
+        />
+
+        <Route
+          path="/Teacherq&a"
+          element={
+            <ProtectedRoute
+              allowedRoles={['teacher']}
+              element={<TeacherChat />}
+            />
+          }
+        />
+
+        <Route
+          path="/Adminq&a"
+          element={
+            <ProtectedRoute
+              allowedRoles={['admin']}
+              element={<AdminChat />}
+            />
+          }
+        />
+
+        <Route
+          path="/SuperAdminq&a"
+          element={
+            <ProtectedRoute
+              allowedRoles={['superadmin']}
+              element={<SuperAdminChat />}
+            />
+          }
+        />
+
         <Route
           path="/studentprofile"
           element={
