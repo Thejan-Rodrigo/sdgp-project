@@ -88,14 +88,21 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log("User connected:", socket.id);
 
+  socket.on("join", (userId) => {
+    socket.join(userId); // Join room with user's ID
+    console.log(`User ${userId} joined their room`);
+  });
+
   socket.on("sendMessage", async (data) => {
     try {
       const savedMessage = await ChatService.saveMessage(data);
       console.log("Message saved:", savedMessage);
 
-      // Emit message to recipient
-      socket.to(data.receiverId).emit("receiveMessage", savedMessage);
-      socket.emit("receiveMessage", savedMessage); // Send back to sender
+      // Emit to receiver's room
+      io.to(data.receiverId).emit("receiveMessage", savedMessage);
+
+      // Optionally echo back to sender (if sender wants real-time feedback)
+      io.to(data.senderId).emit("receiveMessage", savedMessage);
     } catch (error) {
       console.error("Message saving error:", error);
     }
@@ -105,6 +112,7 @@ io.on("connection", (socket) => {
     console.log("User disconnected:", socket.id);
   });
 });
+
 
 // ✅ Fix: Properly Define the Delete Route
 app.delete("/api/chat/delete/:messageId", async (req, res) => {

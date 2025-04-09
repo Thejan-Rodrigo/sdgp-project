@@ -157,6 +157,8 @@ const Attendance = () => {
           id: String(student.id)
         }))
       };
+
+      console.log(dataToSend)
       
       const response = await fetch('http://localhost:5000/api/attendance', {
         method: 'POST',

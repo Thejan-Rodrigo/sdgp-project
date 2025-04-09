@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import axios from 'axios';
-import { useAuth } from '../../context/AuthContext'; 
+import { useAuth } from '../../context/AuthContext';
 
 const AnnouncementForm = ({ onAnnouncementAdded }) => {
   const { user } = useAuth(); // Access user data (e.g., token) from authentication context
   const [title, setTitle] = useState('');
-  const [content, setContent] = useState(''); 
-  const [targetAudience, setTargetAudience] = useState('all'); 
-  const [isSubmitting, setIsSubmitting] = useState(false); 
-  const [error, setError] = useState(''); 
+  const [content, setContent] = useState('');
+  const [targetAudience, setTargetAudience] = useState('all');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
@@ -20,15 +20,15 @@ const AnnouncementForm = ({ onAnnouncementAdded }) => {
       if (!title || !content) {
         setError('Title and content are required');
         setIsSubmitting(false); // Reset submitting state
-        return; 
+        return;
       }
 
       // Send POST request to create a new announcement
       const response = await axios.post(
         'http://localhost:5000/api/v1/announcements', // API endpoint
-        { 
-          title, 
-          content, 
+        {
+          title,
+          content,
           targetAudience: [targetAudience], // Convert targetAudience to an array
           status: 'published' // Default status for the announcement
         },
@@ -87,12 +87,26 @@ const AnnouncementForm = ({ onAnnouncementAdded }) => {
           <select
             className="block w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={targetAudience}
-            onChange={(e) => setTargetAudience(e.target.value)} // Update targetAudience state on selection change
+            onChange={(e) => setTargetAudience(e.target.value)}
           >
-            <option value="all">Everyone</option>
-            <option value="teachers">Teachers Only</option>
-            <option value="parents">Parents Only</option>
-            <option value="admin">Admins Only</option>
+            {user.role === 'teacher' ? (
+              <option value="parents">Parents Only</option>
+            ) : user.role === 'admin' ? (
+              <>
+                <option value="parents">Parents Only</option>
+                <option value="teachers">Teachers Only</option>
+              </>
+            ) : user.role === 'superadmin' ? (
+              <>
+                <option value="all">Everyone</option>
+                <option value="teachers">Teachers Only</option>
+                <option value="parents">Parents Only</option>
+                <option value="admin">Admins Only</option>
+              </>
+            ) : (
+              // Default case if needed
+              <option value="all">Everyone</option>
+            )}
           </select>
         </div>
         <div className="flex justify-between items-center">

@@ -5,12 +5,12 @@ import { useInView } from 'react-intersection-observer';
 // Updated animation variants with slower duration
 const fadeInUp = {
   hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 1.4 } }, // Slower duration (1.2 seconds)
+  visible: { opacity: 1, y: 0, transition: { duration: 1.4 } },
 };
 
 const fadeInLeft = {
   hidden: { opacity: 0, x: -50 },
-  visible: { opacity: 1, x: 0, transition: { duration: 1.4 } }, // Slower duration (1.2 seconds)
+  visible: { opacity: 1, x: 0, transition: { duration: 1.4 } },
 };
 
 // Component to wrap elements for scroll-triggered animations
@@ -37,7 +37,7 @@ const AnimatedSection = ({ children, variants, className }) => {
   );
 };
 
-const Hero = () => {
+const Hero = ({ scrollToFeatures }) => {
   return (
     <div className="relative h-[600px] bg-gradient-to-r from-blue-500 to-green-400">
       <div className="absolute inset-0 bg-black opacity-40"></div>
@@ -52,9 +52,37 @@ const Hero = () => {
           </AnimatedSection>
 
           <AnimatedSection variants={fadeInUp}>
-            <button className="bg-white text-blue-500 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-100 transition-colors">
-              Explore Our Programs
-            </button>
+            <div className="relative group">
+              <button
+                onClick={scrollToFeatures}
+                className="relative inline-block p-px font-semibold leading-6 text-white bg-gray-800 shadow-2xl cursor-pointer rounded-xl shadow-zinc-900 transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95"
+              >
+                <span
+                  className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-400 via-blue-500 to-purple-500 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                ></span>
+
+                <span className="relative z-10 block px-6 py-3 rounded-xl bg-gray-950">
+                  <div className="relative z-10 flex items-center space-x-2">
+                    <span className="transition-all duration-500 group-hover:translate-x-1">
+                      Explore Our Programme
+                    </span>
+                    <svg
+                      className="w-6 h-6 transition-transform duration-500 group-hover:translate-x-1"
+                      aria-hidden="true"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clipRule="evenodd"
+                        d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
+                        fillRule="evenodd"
+                      ></path>
+                    </svg>
+                  </div>
+                </span>
+              </button>
+            </div>
           </AnimatedSection>
         </div>
       </div>

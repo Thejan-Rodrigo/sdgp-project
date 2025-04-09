@@ -13,10 +13,51 @@ export async function getStudentProgress(parentId, parentInput) {
         const student = await Student.findById(parent.student).select("firstName lastName");
         if (!student) throw new Error("No student found for this parent.");
 
-        // Fetch progress records for the student
+        // Check for navigation-related questions
+        const isNavigationQuestion = /navigation|where can|how.*find|how.*see|how.*check|features?|menu|sidebar|announcements?|meetings?|profile|progress|calendar|attendance|q&a|chat|learning|tips/i.test(parentInput.toLowerCase());
+
+        if (isNavigationQuestion) {
+            const navigationPrompt = `
+                You're a kindergarten system navigation assistant. A parent asks: "${parentInput}"
+
+                Here are the 5 main features in the sidebar:
+                1. Announcements - Shows all announcements you've received
+                2. Meetings - Displays all meetings posted by teachers
+                3. Student Profile - Contains:
+                   - All student details
+                   - Progress reports from teachers
+                   - Attendance calendar (visual representation)
+                4. Q&A - Lets you chat directly with teachers
+                5. Learning - Shows educational tips posted by administrators
+
+                Respond specifically about where to find what they're asking for:
+                - Be extremely concise (1 sentence if possible)
+                - Use simple language
+                - Example: "You can find meetings in the Meetings section of the sidebar"
+                - Never mention progress unless specifically asked
+                - No signatures or greetings
+            `;
+            return await askAI(navigationPrompt);
+        }
+
+        // Check if question is about progress
+        const isProgressQuestion = /progress|how.*doing|performance|report|grades?|learning|development|behavior|improve/i.test(parentInput);
+
+        if (!isProgressQuestion) {
+            // For general questions
+            const generalPrompt = `
+                You are a friendly kindergarten assistant chatbot. A parent asks: "${parentInput}"
+
+                Respond helpfully and concisely (1-2 sentences max).
+                If mentioning features, refer to the 5 sidebar options.
+                Never include signatures or team names.
+            `;
+            return await askAI(generalPrompt);
+        }
+
+        // For progress questions, fetch and format data
         const progressRecords = await Progress.find({ studentId: parent.student });
 
-        // Format progress data
         const progressList = await Promise.all(progressRecords.map(async (progress) => {
             const teacher = progress.teacherId ? await User.findById(progress.teacherId).select("firstName lastName") : null;
             return {
@@ -26,39 +67,31 @@ export async function getStudentProgress(parentId, parentInput) {
             };
         }));
 
-        // Generate prompt for the LLM
-        const studentData = {
-            studentName: `${student.firstName} ${student.lastName}`,
-            progress: progressList
-        };
-
+        // Generate prompt for progress-related questions
         const prompt = `
-            You are a chatbot for a kindergarten learning management system. Your role is to respond to parents' questions about their kindergarten children. Here is the student's data:
+            You are a kindergarten progress assistant. A parent asks: "${parentInput}"
 
-            Student Name: ${studentData.studentName}
+            Student: ${student.firstName} ${student.lastName}
 
-            Progress Reports:
-            ${studentData.progress.map(progress => `
+            Recent Progress Reports:
+            ${progressList.map(progress => `
                 - Notes: ${progress.notes}
-                  Teacher: ${progress.teacher}
-                  Posted Date: ${progress.createdAt}
+                  (From ${progress.teacher} on ${progress.createdAt})
             `).join("\n")}
 
-            Parent's Question: ${parentInput}
-
-            Your task is to:
-            1. Answer the parent's question based on the student's progress reports.
-            2. If the question is about the student's progress, provide a summary of how the student is doing so far.
-            3. If there is anything to improve, provide at least 4-5 actionable tips for the parent to help the student improve.
-            Be concise, professional, and empathetic in your response.
+            Guidelines:
+            1. Directly answer the progress question
+            2. Summarize key points from reports
+            3. Provide 3-4 actionable suggestions if needed
+            4. Keep response professional but friendly (1-2 paragraphs max)
+            5. No signatures/greetings
+            6. If no data: "No progress reports available yet"
+            
+            Start response directly with the answer.
         `;
 
-        console.log(prompt)
-
-        // Get AI response
         const aiResponse = await askAI(prompt);
-        console.log(aiResponse)
-        return aiResponse;
+        return aiResponse.replace(/Warm regards,.*$/i, '').trim();
 
     } catch (error) {
         throw new Error(`Error in chatbotService: ${error.message}`);

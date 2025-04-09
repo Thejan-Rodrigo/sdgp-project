@@ -7,6 +7,7 @@ import {
   getParentById as getParentByIdService,
   getProgressByParentId as getProgressByParentIdService,
   getProgressByStudentId as getProgressByStudentIdService, // Add this
+  getAttendanceBySchoolIdService
 } from "../services/studentService.js";
 
 export const getStudents = async (req, res) => {
@@ -143,5 +144,23 @@ export const getProgressByStudentId = async (req, res) => {
   } catch (error) {
     console.error("Error fetching progress by student ID:", error.message);
     res.status(500).json({ message: "Server error." });
+  }
+};
+
+export const getAttendanceBySchoolId = async (req, res, next) => {
+  try {
+    const { schoolId } = req.params;
+    const attendanceRecords = await getAttendanceBySchoolIdService(schoolId);
+    
+    if (!attendanceRecords || attendanceRecords.length === 0) {
+      throw new NotFoundError('No attendance records found for this school');
+    }
+    
+    res.status(200).json({
+      success: true,
+      data: attendanceRecords
+    });
+  } catch (error) {
+    next(error);
   }
 };

@@ -18,9 +18,9 @@ const ChatInputA = ({ onSendMessage }) => {
   return (
     <form onSubmit={handleSubmit} className="border-t p-4 bg-white">
       <div className="flex items-center gap-2">
-        <button type="button" className="p-2 hover:bg-gray-100 rounded-full">
+        {/* <button type="button" className="p-2 hover:bg-gray-100 rounded-full">
           <Paperclip size={20} className="text-gray-600" />
-        </button>
+        </button> */}
         <input
           type="text"
           value={message}
